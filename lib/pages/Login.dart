@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(30.0),
+                padding: EdgeInsets.all(20.0),
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -60,12 +60,12 @@ class _LoginState extends State<Login> {
                                     padding: EdgeInsets.all(3.0),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(5),
                                         boxShadow: [
                                           BoxShadow(
-                                              color: Color.fromRGBO(143, 148, 251, 2),
-                                              blurRadius: 20.0,
-                                              offset: Offset(0, 10)
+                                              color: Colors.black38,
+                                              blurRadius: 10.0,
+                                              offset: Offset(0, 5)
                                           )
                                         ]
                                     ),
@@ -83,12 +83,12 @@ class _LoginState extends State<Login> {
                                     padding: EdgeInsets.all(3.0),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(5),
                                         boxShadow: [
                                           BoxShadow(
-                                              color: Color.fromRGBO(143, 148, 251, 2),
-                                              blurRadius: 20.0,
-                                              offset: Offset(0, 10)
+                                              color: Colors.black38,
+                                              blurRadius: 10.0,
+                                              offset: Offset(0, 5)
                                           )
                                         ]
                                     ),
