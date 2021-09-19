@@ -71,6 +71,10 @@ flutter:
     - assets/images/tomato.png
     - assets/images/plus.png
     - assets/images/minus.png
+    - assets/images/vectorcart.png
+    - assets/images/vectorsearch.png
+    - assets/images/vectoruser.png
+    - assets/images/home.png
     
 
 
