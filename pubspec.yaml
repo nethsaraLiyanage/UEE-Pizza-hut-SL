@@ -61,6 +61,14 @@ flutter:
     - assets/images/onion.png
     - assets/images/wave2.png
     - assets/images/banner01.jpg
+    - assets/images/pan.png
+    - assets/images/stuff.png
+    - assets/images/saus.png
+    - assets/images/onion.png
+    - assets/images/addB.png
+    - assets/images/mozzarella.png
+    - assets/images/tomato.png
+
 
   fonts:
     - family: Radicalis
