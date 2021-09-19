@@ -33,10 +33,15 @@ class _MainScreen extends State<MainScreen> {
                   Expanded(
                     flex: 1,
                     child: FlatButton(
+                      color: Colors.red,
+                      hoverColor: Colors.red,
                       onPressed: null,
                       child: Text('Pizza',
-                          style: TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                          color: Colors.red, 
+                          fontWeight: FontWeight.bold)
+                      ),
+                      focusColor: Colors.red,
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
                               color: Colors.red,
