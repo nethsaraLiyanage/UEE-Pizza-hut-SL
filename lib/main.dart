@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pizzahut/pages/Login.dart';
 import 'package:pizzahut/pages/Register.dart';
-import 'package:pizzahut/pages/product_page.dart';
+import 'package:pizzahut/pages/Product_page.dart';
 import 'package:pizzahut/pages/splash_page.dart';
 import 'package:pizzahut/pages/welcome.dart';
 
