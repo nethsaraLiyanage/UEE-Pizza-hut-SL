@@ -26,6 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 50.0),
+                      ),
                       CircleAvatar(
                         backgroundColor: Colors.red[100],
                         radius: 100.0,  
@@ -38,8 +41,16 @@ class _SplashScreenState extends State<SplashScreen> {
                         "Pizza Hut",
                         style: TextStyle(
                             color: Colors.redAccent,
+                            fontFamily: 'Radicalis',
                             // fontWeight: FontWeight.bold,
                             fontSize: 30.0),
+                      ),
+                      Text(
+                        "SRI LANKA",
+                        style: TextStyle(
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
+                            fontSize: 15.0),
                       )
                     ],),
                 ),

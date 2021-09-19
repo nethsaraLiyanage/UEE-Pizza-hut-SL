@@ -4,6 +4,7 @@ import 'package:pizzahut/pages/Register.dart';
 import 'package:pizzahut/pages/Product_page.dart';
 import 'package:pizzahut/pages/splash_page.dart';
 import 'package:pizzahut/pages/welcome.dart';
+import 'package:pizzahut/pages/Main_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,9 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/register',
+      initialRoute: '/home',
       routes: {
         '/': (context) => SplashScreen(),
+        '/home': (context) => MainScreen(),
         '/login': (context) => Login(),
         '/product': (context) => Home(),
         '/welcome': (context) => Welcome(),
