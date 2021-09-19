@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pizzahut/pages/Cart.dart';
 import 'package:pizzahut/pages/Login.dart';
 import 'package:pizzahut/pages/Register.dart';
 import 'package:pizzahut/pages/Product_page.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/product': (context) => Home(),
         '/welcome': (context) => Welcome(),
         '/register': (context) => Register(),
+        '/cart': (context) => Cart(),
       },
     );
   }

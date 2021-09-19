@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -167,7 +168,13 @@ class _HomeState extends State<Home> {
                 children: [
                   Expanded(
                       flex: 1,
-                      child: Image.asset('assets/images/backButton.png')),
+                      child: GestureDetector(
+                        child: Image.asset('assets/images/backButton.png'),
+                        onTap: ()=>{
+                          Navigator.pushNamed(context, '/')
+                        },
+                      ),
+                      ),
                   Expanded(
                     flex: 4,
                     child: Container(
@@ -366,7 +373,9 @@ class _HomeState extends State<Home> {
                         color: Colors.red,
                         padding: const EdgeInsets.all(15.0),
                         hoverColor: Colors.red,
-                        onPressed: () => {log('message')},
+                        onPressed: () => {
+                          Navigator.pushNamed(context, '/cart')
+                        },
                         child: Text('Add to Cart',
                             style: TextStyle(color: Colors.white)),
                         focusColor: Colors.red,
