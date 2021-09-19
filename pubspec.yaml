@@ -29,6 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_signin_button: ^2.0.0
+  animations: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,9 @@ flutter:
     - assets/images/addB.png
     - assets/images/mozzarella.png
     - assets/images/tomato.png
+    - assets/images/plus.png
+    - assets/images/minus.png
+    
 
 
   fonts:
