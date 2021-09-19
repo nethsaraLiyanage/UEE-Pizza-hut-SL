@@ -35,6 +35,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.9.2"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -54,6 +61,7 @@ flutter:
     - assets/images/logo.png
     - assets/images/onion.png
     - assets/images/wave2.png
+    - assets/images/banner01.jpg
     - assets/images/pan.png
     - assets/images/stuff.png
     - assets/images/saus.png
@@ -65,6 +73,13 @@ flutter:
     - assets/images/minus.png
     
 
+
+  fonts:
+    - family: Radicalis
+      fonts:
+        - asset: assets/fonts/Radicalis.ttf
+        # - asset: fonts/Raleway-Italic.ttf
+          # style: italic
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
