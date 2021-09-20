@@ -17,7 +17,7 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(5.0, 40.0, 10.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,9 +74,7 @@ class _SearchState extends State<Search> {
                 Divider(color: Colors.black38),
 
                 SizedBox(height: 10),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
+                Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
@@ -143,9 +141,9 @@ class _SearchState extends State<Search> {
                           ],
                         ),
                       ),
+                      SizedBox(height: 15.0),
                     ],
                   )
-                ),
               ],
             ),
           ),
