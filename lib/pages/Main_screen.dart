@@ -97,7 +97,7 @@ class _MainScreen extends State<MainScreen> {
               SizedBox(height: 2),
               Divider(color: Colors.black38),
               SizedBox(height: 20.0),
-              SingleChildScrollView(
+                SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +154,8 @@ class _MainScreen extends State<MainScreen> {
                         ),
                       ),
                     ],
-                  )),
+                  )
+                ),
             ],
           ),
         ),
