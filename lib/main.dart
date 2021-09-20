@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/register',
+      initialRoute: '/search',
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => Profile(),
         '/edit_profile': (context) => EditProfile(),
         '/feedback': (context) => CustomerFeedback(),
-
         '/cart': (context) => Cart(),
         '/promotions': (context) => Promotions(),
         '/search': (context) => Search(),

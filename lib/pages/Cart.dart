@@ -9,6 +9,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  int currentIndex = 3;
   bool checkBox = false;
   int pizVal = 1;
 
@@ -391,56 +392,131 @@ class _CartState extends State<Cart> {
             ],
           ),
           SizedBox(height: 25.0),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 7,
-                      offset: Offset(-1, 0))
-                ]),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: FlatButton(
-                    onPressed: null,
-                    child: Image.asset('assets/images/home.png'),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: FlatButton(
-                    onPressed: null,
-                    child: Image.asset('assets/images/vectoruser.png'),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: FlatButton(
-                    onPressed: null,
-                    child: Image.asset('assets/images/vectorsearch.png'),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: FlatButton(
-                    onPressed: null,
-                    child: Image.asset('assets/images/vectorcart.png'),
-                  ),
-                )
-              ],
-            ),
-          )
+          // Container(
+          //   decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.only(
+          //           topLeft: Radius.circular(10),
+          //           topRight: Radius.circular(10),
+          //           bottomLeft: Radius.circular(10),
+          //           bottomRight: Radius.circular(10)),
+          //       boxShadow: [
+          //         BoxShadow(
+          //             color: Colors.grey.withOpacity(0.5),
+          //             spreadRadius: 1,
+          //             blurRadius: 7,
+          //             offset: Offset(-1, 0))
+          //       ]),
+          //   child: Row(
+          //     children: [
+          //       Expanded(
+          //         flex: 1,
+          //         child: FlatButton(
+          //           onPressed: null,
+          //           child: Image.asset('assets/images/home.png'),
+          //         ),
+          //       ),
+          //       Expanded(
+          //         flex: 1,
+          //         child: FlatButton(
+          //           onPressed: null,
+          //           child: Image.asset('assets/images/vectoruser.png'),
+          //         ),
+          //       ),
+          //       Expanded(
+          //         flex: 1,
+          //         child: FlatButton(
+          //           onPressed: null,
+          //           child: Image.asset('assets/images/vectorsearch.png'),
+          //         ),
+          //       ),
+          //       Expanded(
+          //         flex: 1,
+          //         child: FlatButton(
+          //           onPressed: null,
+          //           child: Image.asset('assets/images/vectorcart.png'),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // )
         ]),
       ),
+      bottomNavigationBar: Container(
+          child: Material(
+            elevation: 15,
+            child: BottomNavigationBar(
+              onTap: (currentIndex) => {
+                if(currentIndex==0){
+                  Navigator.pushNamed(context, '/home')
+                }else if(currentIndex==1){
+                  Navigator.pushNamed(context, '/profile')
+                }else if(currentIndex==2){
+                  Navigator.pushNamed(context, '/search')
+                }else if(currentIndex==3){
+                  Navigator.pushNamed(context, '/cart')
+                }
+              },
+              currentIndex: currentIndex,
+              showSelectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: Colors.black38,
+                  ),
+
+                  title: Text(
+                    "Home",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.people,
+                    color: Colors.black38,
+                  ),
+                  title: Text(
+                    "Profile",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.black38,
+                  ),
+                  title: Text(
+                    "Search",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.redAccent,
+                  ),
+                  title: Text(
+                    "Cart",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+              ],
+            ),
+          ),
+        )
     );
   }
 }

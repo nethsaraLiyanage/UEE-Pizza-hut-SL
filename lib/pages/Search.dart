@@ -17,7 +17,7 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 30.0),
+          padding: const EdgeInsets.fromLTRB(5.0, 40.0, 10.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,6 +72,80 @@ class _SearchState extends State<Search> {
                 ),
                 SizedBox(height: 20.0),
                 Divider(color: Colors.black38),
+
+                SizedBox(height: 10),
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        child: Row(
+                          children: [
+                            productCard(
+                                'Olive Mixed 1',
+                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                'assets/images/logo.png',
+                                2500.00),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 25.0),
+                      GestureDetector(
+                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        child: Row(
+                          children: [
+                            productCard(
+                                'Olive Mixed 1',
+                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                'assets/images/logo.png',
+                                2500.00),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 25.0),
+                      GestureDetector(
+                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        child: Row(
+                          children: [
+                            productCard(
+                                'Olive Mixed 1',
+                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                'assets/images/logo.png',
+                                2500.00),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 25.0),
+                      GestureDetector(
+                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        child: Row(
+                          children: [
+                            productCard(
+                                'Olive Mixed 1',
+                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                'assets/images/logo.png',
+                                2500.00),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 25.0),
+                      GestureDetector(
+                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        child: Row(
+                          children: [
+                            productCard(
+                                'Olive Mixed 1',
+                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                'assets/images/logo.png',
+                                2500.00),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ),
               ],
             ),
           ),
@@ -82,7 +156,7 @@ class _SearchState extends State<Search> {
             child: BottomNavigationBar(
               onTap: (currentIndex) => {
                 if(currentIndex==0){
-                  Navigator.pushNamed(context, '')
+                  Navigator.pushNamed(context, '/home')
                 }else if(currentIndex==1){
                   Navigator.pushNamed(context, '/profile')
                 }else if(currentIndex==2){
@@ -150,7 +224,8 @@ class _SearchState extends State<Search> {
               ],
             ),
           ),
-        ));
+        )
+    );
   }
 }
 
