@@ -10,8 +10,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
@@ -111,6 +109,12 @@ class _LoginState extends State<Login> {
                     ),
                     SizedBox(height: 20),
                     FlatButton(
+                      textColor: Colors.red,
+                      onPressed: () {},
+                      child: Text("Forgot Password ?"),
+                      shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+                    ),
+                    FlatButton(
                       padding: EdgeInsets.fromLTRB(90, 15, 90, 15),
                       color: Colors.red,
                       splashColor: Colors.black12,
@@ -130,6 +134,21 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
+                    SignInButton(
+                      Buttons.Google,
+                      text: "Sign up with Google",
+                      onPressed: () {
+                      },
+                    ),
+                    SignInButtonBuilder(
+                      text: 'Become a member',
+                      icon: Icons.account_box,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      backgroundColor: Colors.blueGrey[700]!,
+                    )
                   ],
                 ),
               )
