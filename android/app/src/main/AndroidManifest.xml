@@ -3,6 +3,9 @@
    <application
         android:label="pizzahut"
         android:icon="@mipmap/launcher_icon">
+        <!--Meta data for Google Map API For Android-->
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyBpBwBdqBhxAwHkY3chi8r8V2k50iyrv_8"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
