@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pizzahut/pages/CustomerFeedback.dart';
+import 'package:pizzahut/pages/EditProfile.dart';
 import 'package:pizzahut/pages/Login.dart';
+import 'package:pizzahut/pages/Profile.dart';
 import 'package:pizzahut/pages/Register.dart';
 import 'package:pizzahut/pages/product_page.dart';
 import 'package:pizzahut/pages/splash_page.dart';
@@ -20,6 +23,10 @@ class MyApp extends StatelessWidget {
         '/product': (context) => Home(),
         '/welcome': (context) => Welcome(),
         '/register': (context) => Register(),
+        '/profile': (context) => Profile(),
+        '/edit_profile': (context) => EditProfile(),
+        '/feedback': (context) => CustomerFeedback(),
+
       },
     );
   }
