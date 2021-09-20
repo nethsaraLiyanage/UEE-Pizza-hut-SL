@@ -203,7 +203,7 @@ class _LocationState extends State<Location> {
                             padding: const EdgeInsets.all(15.0),
                             hoverColor: Colors.red,
                             onPressed: () => {
-                              Navigator.pushNamed(context, '/cart')
+                              Navigator.pushNamed(context, '/payment')
                             },
                             child: Text('Confirm Location',
                                 style: TextStyle(
