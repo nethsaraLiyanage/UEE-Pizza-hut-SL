@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pizzahut/pages/CustomerFeedback.dart';
+import 'package:pizzahut/pages/EditProfile.dart';
 import 'package:pizzahut/pages/Cart.dart';
 import 'package:pizzahut/pages/Login.dart';
 import 'package:pizzahut/pages/Promotions.dart';
+import 'package:pizzahut/pages/Profile.dart';
 import 'package:pizzahut/pages/Register.dart';
 import 'package:pizzahut/pages/Search.dart';
 import 'package:pizzahut/pages/product_page.dart';
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/register',
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
@@ -25,6 +28,10 @@ class MyApp extends StatelessWidget {
         '/product': (context) => Home(),
         '/welcome': (context) => Welcome(),
         '/register': (context) => Register(),
+        '/profile': (context) => Profile(),
+        '/edit_profile': (context) => EditProfile(),
+        '/feedback': (context) => CustomerFeedback(),
+
         '/cart': (context) => Cart(),
         '/promotions': (context) => Promotions(),
         '/search': (context) => Search(),
