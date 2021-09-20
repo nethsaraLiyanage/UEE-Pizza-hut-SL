@@ -11,6 +11,7 @@ import 'package:pizzahut/pages/product_page.dart';
 import 'package:pizzahut/pages/splash_page.dart';
 import 'package:pizzahut/pages/welcome.dart';
 import 'package:pizzahut/pages/Main_screen.dart';
+import 'package:pizzahut/pages/Location.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/edit_profile': (context) => EditProfile(),
         '/feedback': (context) => CustomerFeedback(),
         '/cart': (context) => Cart(),
+        '/location':(context) => Location(),
         '/promotions': (context) => Promotions(),
         '/search': (context) => Search(),
       },
