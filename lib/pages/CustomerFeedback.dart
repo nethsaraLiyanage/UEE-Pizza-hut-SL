@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:pizzahut/pages/product_page.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class Login extends StatefulWidget {
+class CustomerFeedback extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _CustomerFeedbackState createState() => _CustomerFeedbackState();
 }
 
-class _LoginState extends State<Login> {
+class _CustomerFeedbackState extends State<CustomerFeedback> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
@@ -18,29 +19,29 @@ class _LoginState extends State<Login> {
             children: <Widget>[
               Container(
                 height: 150,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/wave2.png'),
-                  fit: BoxFit.fill
-                )
-              ),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/wave2.png'),
+                        fit: BoxFit.fill
+                    )
+                ),
                 child: Stack(
                   children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 80.0, left: 200.0),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/logo.png'),
-                            )
-                        ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 80.0, left: 200.0),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/logo.png'),
+                          )
                       ),
+                    ),
                   ],
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 90),
                 child: Center(
-                  child: Text("Login", style: TextStyle(color: Colors.red, fontSize: 40, fontWeight: FontWeight.bold),),
+                  child: Text("Feedback", style: TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold),),
                 ),
               ),
               Padding(
@@ -56,6 +57,37 @@ class _LoginState extends State<Login> {
                               key: _formKey,
                               child: Column(
                                 children: <Widget>[
+                                  SizedBox(height: 20),
+                                  Container(
+                                    child: Text(
+                                      'Rate our foods',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontFamily: 'Nisebuschgardens',
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Container(
+                                    child: RatingBar.builder(
+                                      initialRating: 3,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
                                   Container(
                                     padding: EdgeInsets.all(3.0),
                                     decoration: BoxDecoration(
@@ -72,10 +104,39 @@ class _LoginState extends State<Login> {
                                     child: TextField(
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintText: 'Email',
+                                          hintText: '   Your feedback',
                                           hintStyle: TextStyle(color: Colors.grey[400]),
-                                          prefixIcon: Icon(Icons.email)
                                       ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
+                                  Container(
+                                    child: Text(
+                                      'Rate our delivery',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontFamily: 'Nisebuschgardens',
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Container(
+                                    child: RatingBar.builder(
+                                      initialRating: 3,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
                                     ),
                                   ),
                                   Container(
@@ -95,9 +156,8 @@ class _LoginState extends State<Login> {
                                     child: TextField(
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintText: 'Password',
+                                          hintText: '   Your feedback',
                                           hintStyle: TextStyle(color: Colors.grey[400]),
-                                          prefixIcon: Icon(Icons.lock)
                                       ),
                                     ),
                                   ),
@@ -110,12 +170,6 @@ class _LoginState extends State<Login> {
                     ),
                     SizedBox(height: 20),
                     FlatButton(
-                      textColor: Colors.red,
-                      onPressed: () {},
-                      child: Text("Forgot Password ?"),
-                      shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-                    ),
-                    FlatButton(
                       padding: EdgeInsets.fromLTRB(90, 15, 90, 15),
                       color: Colors.red,
                       splashColor: Colors.black12,
@@ -127,7 +181,7 @@ class _LoginState extends State<Login> {
                         Navigator.pushNamed(context, '/profile');
                       },
                       child: Text(
-                        "Login",
+                        "Submit",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0,
@@ -135,21 +189,6 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    SignInButton(
-                      Buttons.Google,
-                      text: "Sign up with Google",
-                      onPressed: () {
-                      },
-                    ),
-                    SignInButtonBuilder(
-                      text: 'Become a member',
-                      icon: Icons.account_box,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/register');
-                      },
-                      backgroundColor: Colors.blueGrey[700]!,
-                    )
                   ],
                 ),
               )

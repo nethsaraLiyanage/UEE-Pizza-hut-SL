@@ -98,7 +98,7 @@ class _RegisterState extends State<Register> {
                                         hintText: 'Delivery Address',
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400]),
-                                        prefixIcon: Icon(Icons.lock)),
+                                        prefixIcon: Icon(Icons.home)),
                                   ),
                                 ),
                                 Container(
@@ -119,7 +119,7 @@ class _RegisterState extends State<Register> {
                                         hintText: 'Mobile Number',
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400]),
-                                        prefixIcon: Icon(Icons.lock)),
+                                        prefixIcon: Icon(Icons.phone_android)),
                                   ),
                                 ),
                                 Container(
@@ -137,31 +137,10 @@ class _RegisterState extends State<Register> {
                                   child: TextField(
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Mobile Number',
+                                        hintText: 'Full name',
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400]),
-                                        prefixIcon: Icon(Icons.lock)),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10.0),
-                                  padding: EdgeInsets.all(3.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black38,
-                                            blurRadius: 10.0,
-                                            offset: Offset(0, 5))
-                                      ]),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Username',
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400]),
-                                        prefixIcon: Icon(Icons.lock)),
+                                        prefixIcon: Icon(Icons.person)),
                                   ),
                                 ),
                                 Container(
@@ -200,8 +179,7 @@ class _RegisterState extends State<Register> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0)),
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Login()));
+                      Navigator.pushNamed(context, '/login');
                     },
                     child: Text(
                       "Sign Up",
@@ -210,6 +188,15 @@ class _RegisterState extends State<Register> {
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold),
                     ),
+                  ),
+                  SizedBox(height: 20),
+                  FlatButton(
+                    textColor: Colors.red,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: Text("Already registered ?"),
+                    shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
                   ),
                 ],
               ),

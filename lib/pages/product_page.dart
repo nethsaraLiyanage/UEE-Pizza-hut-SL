@@ -161,6 +161,7 @@ class _HomeState extends State<Home> {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0.0),
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -171,7 +172,7 @@ class _HomeState extends State<Home> {
                       child: GestureDetector(
                         child: Image.asset('assets/images/backButton.png'),
                         onTap: ()=>{
-                          Navigator.pushNamed(context, '/')
+                          Navigator.pushNamed(context, '/home')
                         },
                       ),
                       ),
