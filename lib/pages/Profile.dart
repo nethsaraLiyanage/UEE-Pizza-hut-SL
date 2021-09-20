@@ -14,7 +14,9 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Stack(
+    return Scaffold(
+      body: Container(
+    child: Stack(
       fit: StackFit.expand,
       children: [
         Container(
@@ -242,6 +244,8 @@ class _ProfileState extends State<Profile> {
           ),
         )
       ],
+    ),
+    ),
     );
   }
 }
