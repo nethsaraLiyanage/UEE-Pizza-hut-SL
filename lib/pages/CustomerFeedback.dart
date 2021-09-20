@@ -14,6 +14,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Container(
@@ -193,7 +194,8 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
               )
             ],
           ),
-        )
+        ),
+        ),
     );
   }
 }
