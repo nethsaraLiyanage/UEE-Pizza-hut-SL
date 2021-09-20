@@ -14,6 +14,7 @@ import 'package:pizzahut/pages/Main_screen.dart';
 import 'package:pizzahut/pages/Location.dart';
 import 'package:pizzahut/pages/Payment.dart';
 import 'package:pizzahut/pages/OrderSummery.dart';
+import 'package:pizzahut/pages/Tracking.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/summary',
+      initialRoute: '/tracking',
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/promotions': (context) => Promotions(),
         '/search': (context) => Search(),
         '/summary': (context) => Summary(),
+        '/tracking': (context) => Tracking(),
       },
     );
   }
