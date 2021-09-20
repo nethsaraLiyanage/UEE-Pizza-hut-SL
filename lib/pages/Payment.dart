@@ -270,7 +270,7 @@ class _PaymentState extends State<Payment> {
                         ),
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       ),
-                      onPressed: () {},
+                      onPressed: () {Navigator.pushNamed(context, '/promotions');},
                       child: Text(
                           'Select Coupons',
                           style: TextStyle(
@@ -362,7 +362,7 @@ class _PaymentState extends State<Payment> {
                         padding: const EdgeInsets.all(10.0),
                         hoverColor: Colors.red,
                         onPressed: () => {
-                          Navigator.pushNamed(context, '/cart')
+                          Navigator.pushNamed(context, '/summary')
                         },
                         child: Text('Pay Now',
                             style: TextStyle(
