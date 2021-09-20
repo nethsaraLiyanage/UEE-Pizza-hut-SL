@@ -13,6 +13,7 @@ import 'package:pizzahut/pages/welcome.dart';
 import 'package:pizzahut/pages/Main_screen.dart';
 import 'package:pizzahut/pages/Location.dart';
 import 'package:pizzahut/pages/Payment.dart';
+import 'package:pizzahut/pages/OrderSummery.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/payment',
+      initialRoute: '/summary',
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/payment':(context) => Payment(),
         '/promotions': (context) => Promotions(),
         '/search': (context) => Search(),
+        '/summary': (context) => Summary(),
       },
     );
   }
