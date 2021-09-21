@@ -176,6 +176,24 @@ class _MainScreen extends State<MainScreen> {
                               ],
                             ),
                           ),
+                          SizedBox(height: 25.0),
+                          GestureDetector(
+                            onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
+                            child: Row(
+                              children: [
+                                productCard(
+                                    'Olive Mixed 1',
+                                    'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                    'assets/images/logo.png',
+                                    2500.00),
+                              ],
+                            ),
+                          ),
                           SizedBox(height: 15.0),
                         ],
                       )),
