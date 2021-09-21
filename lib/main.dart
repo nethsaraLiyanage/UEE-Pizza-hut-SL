@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/tracking',
+
+      initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
