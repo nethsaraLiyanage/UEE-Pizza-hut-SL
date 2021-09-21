@@ -189,6 +189,15 @@ class _RegisterState extends State<Register> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+                  SizedBox(height: 20),
+                  FlatButton(
+                    textColor: Colors.red,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: Text("Already registered ?"),
+                    shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+                  ),
                 ],
               ),
             )
