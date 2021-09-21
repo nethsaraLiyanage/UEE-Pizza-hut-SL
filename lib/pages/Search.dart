@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pizzahut/animations/PageBouceAnimation.dart';
+import 'package:pizzahut/pages/product_page.dart';
 
 class Search extends StatefulWidget {
   Search({Key? key}) : super(key: key);
@@ -78,7 +80,12 @@ class _SearchState extends State<Search> {
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
                         child: Row(
                           children: [
                             productCard(
@@ -91,7 +98,12 @@ class _SearchState extends State<Search> {
                       ),
                       SizedBox(height: 25.0),
                       GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
                         child: Row(
                           children: [
                             productCard(
@@ -104,7 +116,12 @@ class _SearchState extends State<Search> {
                       ),
                       SizedBox(height: 25.0),
                       GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
                         child: Row(
                           children: [
                             productCard(
@@ -117,7 +134,12 @@ class _SearchState extends State<Search> {
                       ),
                       SizedBox(height: 25.0),
                       GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
                         child: Row(
                           children: [
                             productCard(
@@ -130,7 +152,12 @@ class _SearchState extends State<Search> {
                       ),
                       SizedBox(height: 25.0),
                       GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
+                        onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
                         child: Row(
                           children: [
                             productCard(

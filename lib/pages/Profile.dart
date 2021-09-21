@@ -7,6 +7,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  int currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -288,6 +289,81 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
+      bottomNavigationBar: Container(
+          child: Material(
+            elevation: 5,
+            child: BottomNavigationBar(
+              onTap: (currentIndex) => {
+                if(currentIndex==0){
+                  Navigator.pushNamed(context, '/home')
+                }else if(currentIndex==1){
+                  Navigator.pushNamed(context, '/profile')
+                }else if(currentIndex==2){
+                  Navigator.pushNamed(context, '/search')
+                }else if(currentIndex==3){
+                  Navigator.pushNamed(context, '/cart')
+                }
+              },
+              currentIndex: currentIndex,
+              showSelectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: Colors.black38,
+                  ),
+
+                  title: Text(
+                    "Home",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.people,
+                    color: Colors.redAccent,
+                  ),
+                  title: Text(
+                    "Profile",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.black38,
+                  ),
+                  title: Text(
+                    "Search",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.black38,
+                  ),
+                  title: Text(
+                    "Cart",
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  // backgroundColor: Colors.redAccent
+                ),
+              ],
+            ),
+          ),
+        )
     );
   }
 }

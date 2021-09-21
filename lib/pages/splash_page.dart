@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:pizzahut/pages/Main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -8,6 +11,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 6), (){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MainScreen()));
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
                         radius: 100.0,  
                         child: Image.asset('assets/images/logo.png'),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 250.0),
+                      SizedBox(height: 15.0),
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.redAccent),
                       ),
+                      SizedBox(height: 200.0),
                       Text(
                         "Pizza Hut",
                         style: TextStyle(
