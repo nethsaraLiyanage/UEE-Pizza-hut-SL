@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:pizzahut/animations/PageBouceAnimation.dart';
+import 'package:pizzahut/pages/product_page.dart';
 
 import 'Cart.dart';
 
@@ -20,145 +22,184 @@ class _MainScreen extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: () => {Navigator.pushNamed(context, '/promotions')},
-                child: Container(
-                    alignment: Alignment.topLeft,
-                    child: Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset('assets/images/banner01.jpg'),
-                    )),
-              ),
-              SizedBox(height: 8.0),
-              Container(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        color: Colors.red,
-                        hoverColor: Colors.red,
-                        onPressed: null,
-                        child: Text('Pizza',
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold)),
-                        focusColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.red,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50)),
-                      ),
+            padding: const EdgeInsets.fromLTRB(20.0, 40.0, 25.0, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () => {Navigator.pushNamed(context, '/promotions')},
+                    child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Material(
+                          elevation: 5.0,
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset('assets/images/banner01.jpg'),
+                        )),
+                  ),
+                  SizedBox(height: 8.0),
+                  Container(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: FlatButton(
+                            color: Colors.red,
+                            hoverColor: Colors.red,
+                            onPressed: null,
+                            child: Text('Pizza',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold)),
+                            focusColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.red,
+                                    width: 1,
+                                    style: BorderStyle.solid),
+                                borderRadius: BorderRadius.circular(50)),
+                          ),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          flex: 1,
+                          child: FlatButton(
+                            onPressed: null,
+                            child: Text('Appetizers',
+                                style: TextStyle(color: Colors.black)),
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.black,
+                                    width: 1,
+                                    style: BorderStyle.solid),
+                                borderRadius: BorderRadius.circular(50)),
+                          ),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          flex: 1,
+                          child: FlatButton(
+                            color: Colors.black,
+                            hoverColor: Colors.black,
+                            onPressed: null,
+                            child: Text('Others',
+                                style: TextStyle(color: Colors.black)),
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.black,
+                                    width: 1,
+                                    style: BorderStyle.solid),
+                                borderRadius: BorderRadius.circular(50)),
+                          ),
+                        )
+                      ],
                     ),
-                    SizedBox(width: 10.0),
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        onPressed: null,
-                        child: Text('Appetizers',
-                            style: TextStyle(color: Colors.black)),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50)),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        color: Colors.black,
-                        hoverColor: Colors.black,
-                        onPressed: null,
-                        child: Text('Others',
-                            style: TextStyle(color: Colors.black)),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50)),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 2),
+                  Divider(color: Colors.black38),
+                  SizedBox(height: 20.0),
+                  SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
+                            child: Row(
+                              children: [
+                                productCard(
+                                    'Olive Mixed 1',
+                                    'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                    'assets/images/logo.png',
+                                    2500.00),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 25.0),
+                          GestureDetector(
+                            onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
+                            child: Row(
+                              children: [
+                                productCard(
+                                    'Olive Mixed 1',
+                                    'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                    'assets/images/logo.png',
+                                    2500.00),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 25.0),
+                          GestureDetector(
+                            onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
+                            child: Row(
+                              children: [
+                                productCard(
+                                    'Olive Mixed 1',
+                                    'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                    'assets/images/logo.png',
+                                    2500.00),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 25.0),
+                          GestureDetector(
+                            onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
+                            child: Row(
+                              children: [
+                                productCard(
+                                    'Olive Mixed 1',
+                                    'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                    'assets/images/logo.png',
+                                    2500.00),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 25.0),
+                          GestureDetector(
+                            onTap: () => {
+                              // Navigator.pushNamed(context, '/product')
+                              Navigator.push(
+                                  context, PageBouceAnimation( widget: Home())
+                              )
+                            },
+                            child: Row(
+                              children: [
+                                productCard(
+                                    'Olive Mixed 1',
+                                    'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
+                                    'assets/images/logo.png',
+                                    2500.00),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 15.0),
+                        ],
+                      )),
+                ],
               ),
-              SizedBox(height: 2),
-              Divider(color: Colors.black38),
-              SizedBox(height: 20.0),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 25.0),
-                      GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 25.0),
-                      GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 25.0),
-                      GestureDetector(
-                        onTap: () => {Navigator.pushNamed(context, '/product')},
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                ),
-            ],
-          ),
-        ),
+            )),
         bottomNavigationBar: Container(
           child: Material(
             elevation: 15,
@@ -166,15 +207,14 @@ class _MainScreen extends State<MainScreen> {
               currentIndex: currentIndex,
               showSelectedLabels: false,
               onTap: (currentIndex) => {
-                if(currentIndex==0){
-                  Navigator.pushNamed(context, '')
-                }else if(currentIndex==1){
-                  Navigator.pushNamed(context, '/profile')
-                }else if(currentIndex==2){
-                  Navigator.pushNamed(context, '/search')
-                }else if(currentIndex==3){
-                  Navigator.pushNamed(context, '/cart')
-                }
+                if (currentIndex == 0)
+                  {Navigator.pushNamed(context, '')}
+                else if (currentIndex == 1)
+                  {Navigator.pushNamed(context, '/profile')}
+                else if (currentIndex == 2)
+                  {Navigator.pushNamed(context, '/search')}
+                else if (currentIndex == 3)
+                  {Navigator.pushNamed(context, '/cart')}
               },
               items: [
                 BottomNavigationBarItem(

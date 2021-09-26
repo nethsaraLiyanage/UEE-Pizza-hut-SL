@@ -168,7 +168,7 @@ class _CartState extends State<Cart> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30.0),
+                SizedBox(height: 40.0),
                 Row(
                   children: [
                     Expanded(
@@ -377,7 +377,7 @@ class _CartState extends State<Cart> {
                   color: Colors.red,
                   padding: const EdgeInsets.all(15.0),
                   hoverColor: Colors.red,
-                  onPressed: () => {Navigator.pushNamed(context, '/cart')},
+                  onPressed: () => {Navigator.pushNamed(context, '/location')},
                   child:
                       Text('Checkout', style: TextStyle(color: Colors.white)),
                   focusColor: Colors.red,
