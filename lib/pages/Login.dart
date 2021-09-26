@@ -56,48 +56,39 @@ class _LoginState extends State<Login> {
                               key: _formKey,
                               child: Column(
                                 children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
-                                    child: TextField(
-                                      decoration: InputDecoration(
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Material(
+                                      elevation: 5.0,
+                                      borderRadius: BorderRadius.circular(25),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
                                           border: InputBorder.none,
+                                          prefixIcon: Icon(
+                                            Icons.email,
+                                            color: Colors.redAccent,
+                                          ),
+                                          contentPadding: EdgeInsets.only(top: 15),
                                           hintText: 'Email',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
-                                          prefixIcon: Icon(Icons.email)
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10.0),
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
-                                    child: TextField(
-                                      decoration: InputDecoration(
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Material(
+                                      elevation: 5.0,
+                                      borderRadius: BorderRadius.circular(25),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
                                           border: InputBorder.none,
+                                          prefixIcon: Icon(
+                                            Icons.lock,
+                                            color: Colors.redAccent,
+                                          ),
+                                          contentPadding: EdgeInsets.only(top: 15),
                                           hintText: 'Password',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
-                                          prefixIcon: Icon(Icons.lock)
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -116,24 +107,19 @@ class _LoginState extends State<Login> {
                       shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
                     ),
                     FlatButton(
-                      padding: EdgeInsets.fromLTRB(90, 15, 90, 15),
                       color: Colors.red,
-                      splashColor: Colors.black12,
-
+                      padding: const EdgeInsets.all(15.0),
+                      hoverColor: Colors.red,
+                      onPressed: () => {Navigator.pushNamed(context, '/profile')},
+                      child:
+                      Text('Login', style: TextStyle(color: Colors.white)),
+                      focusColor: Colors.red,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)
-                      ),
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
+                          side: BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
                     SizedBox(height: 20),
                     SignInButton(

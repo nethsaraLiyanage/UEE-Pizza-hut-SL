@@ -88,27 +88,25 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                     ),
                                   ),
                                   SizedBox(height: 20),
-                                  Container(
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
-                                    child: TextField(
+                                  Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
                                       decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '   Your feedback',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.insert_comment,
+                                          color: Colors.redAccent,
+                                        ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Your feedback',
                                       ),
                                     ),
                                   ),
+                                ),
                                   SizedBox(height: 20),
                                   Container(
                                     child: Text(
@@ -139,25 +137,22 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                       },
                                     ),
                                   ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10.0),
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
-                                    child: TextField(
+                                 Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
                                       decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '   Your feedback',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.insert_comment,
+                                          color: Colors.redAccent,
+                                        ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Your feedback',
+                                      ),
                                       ),
                                     ),
                                   ),
@@ -169,25 +164,20 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    FlatButton(
-                      padding: EdgeInsets.fromLTRB(90, 15, 90, 15),
+                     FlatButton(
                       color: Colors.red,
-                      splashColor: Colors.black12,
-
+                      padding: const EdgeInsets.all(20.0),
+                      hoverColor: Colors.red,
+                      onPressed: () => {Navigator.pushNamed(context, '/home')},
+                      child:
+                      Text('Submit', style: TextStyle(color: Colors.white)),
+                      focusColor: Colors.red,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)
-                      ),
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
+                          side: BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
                   ],
                 ),
