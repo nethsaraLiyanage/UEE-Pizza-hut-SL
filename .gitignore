@@ -46,3 +46,6 @@ app.*.map.json
 /android/app/release
 /android/app/src/main/AndroidManifest.xml
 /ios/Runner/AppDelegate.swift
+
+backend/node_modules
+backend/.env
