@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:pizzahut/pages/product_page.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -109,6 +108,7 @@ class _LoginState extends State<Login> {
                     FlatButton(
                       color: Colors.red,
                       padding: const EdgeInsets.all(15.0),
+                      minWidth: 200.0,
                       hoverColor: Colors.red,
                       onPressed: () => {Navigator.pushNamed(context, '/profile')},
                       child:
@@ -121,21 +121,36 @@ class _LoginState extends State<Login> {
                               style: BorderStyle.solid),
                           borderRadius: BorderRadius.circular(50)),
                     ),
-                    SizedBox(height: 20),
+               SizedBox(height: 10),
+                    FlatButton(
+                      color: Colors.red,
+                      padding: const EdgeInsets.all(15.0),
+                      minWidth: 200.0,
+                      hoverColor: Colors.red,
+                      onPressed: () => {Navigator.pushNamed(context, '/register')},
+                      child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                    new Icon(Icons.person, color: Colors.white),
+                   Text('Become a member', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+                      focusColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                      SizedBox(height: 10),
                     SignInButton(
                       Buttons.Google,
                       text: "Sign up with Google",
                       onPressed: () {
                       },
                     ),
-                    SignInButtonBuilder(
-                      text: 'Become a member',
-                      icon: Icons.account_box,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/register');
-                      },
-                      backgroundColor: Colors.blueGrey[700]!,
-                    )
                   ],
                 ),
               )

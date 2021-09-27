@@ -33,6 +33,26 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
+                      Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      child: Image.asset(
+                        'assets/images/backButton.png',
+                        width: 1,
+                      ),
+                      onTap: () => {Navigator.pushNamed(context, '/profile')},
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                      child: Text(''),
+                    ),
+                  ),
+                ],
+              ),
                   SizedBox(
                     height: 20,
                   ),
@@ -205,6 +225,7 @@ class _EditProfileState extends State<EditProfile> {
                   FlatButton(
                       color: Colors.red,
                       padding: const EdgeInsets.all(20.0),
+                      minWidth: 200.0,
                       hoverColor: Colors.red,
                       onPressed: () => {Navigator.pushNamed(context, '/feedback')},
                       child:
