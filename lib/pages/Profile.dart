@@ -32,6 +32,26 @@ class _ProfileState extends State<Profile> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
                   child: Column(
                     children: [
+                          Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      child: Image.asset(
+                        'assets/images/backButton.png',
+                        width: 1,
+                      ),
+                      onTap: () => {Navigator.pushNamed(context, '/home')},
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                      child: Text(''),
+                    ),
+                  ),
+                ],
+              ),
                       SizedBox(
                         height: 20,
                       ),

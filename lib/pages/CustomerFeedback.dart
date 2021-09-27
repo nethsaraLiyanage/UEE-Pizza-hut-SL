@@ -167,6 +167,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                      FlatButton(
                       color: Colors.red,
                       padding: const EdgeInsets.all(20.0),
+                      minWidth: 200.0,
                       hoverColor: Colors.red,
                       onPressed: () => {Navigator.pushNamed(context, '/home')},
                       child:

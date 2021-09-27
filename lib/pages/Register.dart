@@ -166,6 +166,7 @@ class _RegisterState extends State<Register> {
                       FlatButton(
                       color: Colors.red,
                       padding: const EdgeInsets.all(20.0),
+                      minWidth: 200.0,
                       hoverColor: Colors.red,
                       onPressed: () => {Navigator.pushNamed(context, '/login')},
                       child:
