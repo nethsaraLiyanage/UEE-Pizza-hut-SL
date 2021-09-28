@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:pizzahut/pages/product_page.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,28 +16,34 @@ class _LoginState extends State<Login> {
           child: Column(
             children: <Widget>[
               Container(
-                height: 150,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/wave2.png'),
-                  fit: BoxFit.fill
-                )
-              ),
+                height: 180,
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage('assets/images/wave2.png'),
+              //     fit: BoxFit.fill
+              //   )
+              // ),
                 child: Stack(
                   children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 80.0, left: 200.0),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/logo.png'),
-                            )
+                    Positioned(
+                      top: 55,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Container(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            width: 120.0,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 90),
+                margin: EdgeInsets.only(top: 50),
                 child: Center(
                   child: Text("Login", style: TextStyle(color: Colors.red, fontSize: 40, fontWeight: FontWeight.bold),),
                 ),
@@ -56,48 +61,39 @@ class _LoginState extends State<Login> {
                               key: _formKey,
                               child: Column(
                                 children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
-                                    child: TextField(
-                                      decoration: InputDecoration(
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Material(
+                                      elevation: 5.0,
+                                      borderRadius: BorderRadius.circular(25),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
                                           border: InputBorder.none,
+                                          prefixIcon: Icon(
+                                            Icons.email,
+                                            color: Colors.redAccent,
+                                          ),
+                                          contentPadding: EdgeInsets.only(top: 15),
                                           hintText: 'Email',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
-                                          prefixIcon: Icon(Icons.email)
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10.0),
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
-                                    child: TextField(
-                                      decoration: InputDecoration(
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Material(
+                                      elevation: 5.0,
+                                      borderRadius: BorderRadius.circular(25),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
                                           border: InputBorder.none,
+                                          prefixIcon: Icon(
+                                            Icons.lock,
+                                            color: Colors.redAccent,
+                                          ),
+                                          contentPadding: EdgeInsets.only(top: 15),
                                           hintText: 'Password',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
-                                          prefixIcon: Icon(Icons.lock)
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -108,7 +104,7 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     FlatButton(
                       textColor: Colors.red,
                       onPressed: () {},
@@ -116,40 +112,54 @@ class _LoginState extends State<Login> {
                       shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
                     ),
                     FlatButton(
-                      padding: EdgeInsets.fromLTRB(90, 15, 90, 15),
                       color: Colors.red,
-                      splashColor: Colors.black12,
-
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)
-                      ),
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/home');
+                      padding: const EdgeInsets.all(15.0),
+                      minWidth: 200.0,
+                      height: 50.0,
+                      hoverColor: Colors.red,
+                      onPressed: () => {
+                        Navigator.pushNamed(context, '/home')
                       },
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
+                      child:
+                      Text('Login', style: TextStyle(color: Colors.white)),
+                      focusColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
-                    SizedBox(height: 20),
+               SizedBox(height: 10),
+                    FlatButton(
+                      color: Colors.red,
+                      padding: const EdgeInsets.all(15.0),
+                      minWidth: 200.0,
+                      hoverColor: Colors.red,
+                      onPressed: () => {Navigator.pushNamed(context, '/register')},
+                      child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                    new Icon(Icons.person, color: Colors.white),
+                   Text('Become a member', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+                      focusColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                      SizedBox(height: 10),
                     SignInButton(
                       Buttons.Google,
                       text: "Sign up with Google",
                       onPressed: () {
                       },
                     ),
-                    SignInButtonBuilder(
-                      text: 'Become a member',
-                      icon: Icons.account_box,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/register');
-                      },
-                      backgroundColor: Colors.blueGrey[700]!,
-                    )
                   ],
                 ),
               )

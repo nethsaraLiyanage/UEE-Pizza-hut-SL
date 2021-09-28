@@ -32,6 +32,26 @@ class _ProfileState extends State<Profile> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
                   child: Column(
                     children: [
+                          Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      child: Image.asset(
+                        'assets/images/backButton.png',
+                        width: 1,
+                      ),
+                      onTap: () => {Navigator.pushNamed(context, '/home')},
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                      child: Text(''),
+                    ),
+                  ),
+                ],
+              ),
                       SizedBox(
                         height: 20,
                       ),
@@ -146,6 +166,23 @@ class _ProfileState extends State<Profile> {
                                         'assets/images/person.png',
                                         width: innerWidth * 0.45,
                                         fit: BoxFit.fitWidth,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 100,
+                                  left: 260,
+                                  right: 0,
+                                  child: Center(
+                                    child: Container(
+                                      child:     FlatButton(
+                                        textColor: Colors.red,
+                                        onPressed: () {
+                                          Navigator.pushNamed(context, '/login');
+                                        },
+                                        child: Text("Logout"),
+                                        shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
                                       ),
                                     ),
                                   ),
@@ -289,13 +326,15 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
+        bottomNavigationBar: Container(
           child: Material(
-            elevation: 5,
+            elevation: 15,
             child: BottomNavigationBar(
+              currentIndex: currentIndex,
+              showSelectedLabels: false,
               onTap: (currentIndex) => {
                 if(currentIndex==0){
-                  Navigator.pushNamed(context, '/home')
+                  Navigator.pushNamed(context, '')
                 }else if(currentIndex==1){
                   Navigator.pushNamed(context, '/profile')
                 }else if(currentIndex==2){
@@ -304,13 +343,11 @@ class _ProfileState extends State<Profile> {
                   Navigator.pushNamed(context, '/cart')
                 }
               },
-              currentIndex: currentIndex,
-              showSelectedLabels: false,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: Colors.black38,
+                    color: Colors.redAccent,
                   ),
 
                   title: Text(
@@ -324,7 +361,7 @@ class _ProfileState extends State<Profile> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.people,
-                    color: Colors.redAccent,
+                    color: Colors.black38,
                   ),
                   title: Text(
                     "Profile",
@@ -363,7 +400,7 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-        )
+        ),
     );
   }
 }

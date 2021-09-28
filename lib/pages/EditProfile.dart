@@ -9,6 +9,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  int currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,26 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
+                      Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      child: Image.asset(
+                        'assets/images/backButton.png',
+                        width: 1,
+                      ),
+                      onTap: () => {Navigator.pushNamed(context, '/profile')},
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                      child: Text(''),
+                    ),
+                  ),
+                ],
+              ),
                   SizedBox(
                     height: 20,
                   ),
@@ -78,143 +99,120 @@ class _EditProfileState extends State<EditProfile> {
                               child: Container(
                                 child: Column(
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.all(3.0),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black38,
-                                                blurRadius: 10.0,
-                                                offset: Offset(0, 5)
-                                            )
-                                          ]
-                                      ),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'Email',
-                                            hintStyle: TextStyle(color: Colors.grey[400]),
-                                            prefixIcon: Icon(Icons.email)
+                                   Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.email,
+                                          color: Colors.redAccent,
                                         ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Email',
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10.0),
-                                      padding: EdgeInsets.all(3.0),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black38,
-                                                blurRadius: 10.0,
-                                                offset: Offset(0, 5)
-                                            )
-                                          ]
-                                      ),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'Delivery Address',
-                                            hintStyle: TextStyle(color: Colors.grey[400]),
-                                            prefixIcon: Icon(Icons.location_on)
+                                  ),
+                                ),
+                                     Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.home,
+                                          color: Colors.redAccent,
                                         ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Delivey address',
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10.0),
-                                      padding: EdgeInsets.all(3.0),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black38,
-                                                blurRadius: 10.0,
-                                                offset: Offset(0, 5)
-                                            )
-                                          ]
-                                      ),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'Mobile Number',
-                                            hintStyle: TextStyle(color: Colors.grey[400]),
-                                            prefixIcon: Icon(Icons.phone_iphone)
+                                  ),
+                                ),
+                                      Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.phone_android,
+                                          color: Colors.redAccent,
                                         ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Mobile number',
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10.0),
-                                      padding: EdgeInsets.all(3.0),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black38,
-                                                blurRadius: 10.0,
-                                                offset: Offset(0, 5)
-                                            )
-                                          ]
-                                      ),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'Full Name',
-                                            hintStyle: TextStyle(color: Colors.grey[400]),
-                                            prefixIcon: Icon(Icons.person)
+                                  ),
+                                ),
+                                  Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.person,
+                                          color: Colors.redAccent,
                                         ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Full name',
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10.0),
-                                      padding: EdgeInsets.all(3.0),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black38,
-                                                blurRadius: 10.0,
-                                                offset: Offset(0, 5)
-                                            )
-                                          ]
-                                      ),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'Old Password',
-                                            hintStyle: TextStyle(color: Colors.grey[400]),
-                                            prefixIcon: Icon(Icons.lock)
+                                  ),
+                                ),
+                                   Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.lock,
+                                          color: Colors.redAccent,
                                         ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Old password',
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10.0),
-                                      padding: EdgeInsets.all(3.0),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black38,
-                                                blurRadius: 10.0,
-                                                offset: Offset(0, 5)
-                                            )
-                                          ]
-                                      ),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'New Password',
-                                            hintStyle: TextStyle(color: Colors.grey[400]),
-                                            prefixIcon: Icon(Icons.lock)
+                                  ),
+                                ),
+                                    Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.lock,
+                                          color: Colors.redAccent,
                                         ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'New password',
                                       ),
                                     ),
+                                  ),
+                                ),
                                   ],
                                 ),
                               ),
@@ -224,30 +222,101 @@ class _EditProfileState extends State<EditProfile> {
                       },
                     ),
                   ),
-                  SizedBox(height: 20),
                   FlatButton(
-                    padding: EdgeInsets.fromLTRB(90, 15, 90, 15),
-                    color: Colors.red,
-                    splashColor: Colors.black12,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)
+                      color: Colors.red,
+                      padding: const EdgeInsets.all(15.0),
+                      minWidth: 200.0,
+                      hoverColor: Colors.red,
+                      onPressed: () => {Navigator.pushNamed(context, '/feedback')},
+                      child:
+                      Text('Update', style: TextStyle(color: Colors.white)),
+                      focusColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/feedback');
-                    },
-                    child: Text(
-                      "Update",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
+            bottomNavigationBar: Container(
+              child: Material(
+                elevation: 15,
+                child: BottomNavigationBar(
+                  currentIndex: currentIndex,
+                  showSelectedLabels: false,
+                  onTap: (currentIndex) => {
+                    if(currentIndex==0){
+                      Navigator.pushNamed(context, '/home')
+                    }else if(currentIndex==1){
+                      Navigator.pushNamed(context, '/profile')
+                    }else if(currentIndex==2){
+                      Navigator.pushNamed(context, '/search')
+                    }else if(currentIndex==3){
+                      Navigator.pushNamed(context, '/cart')
+                    }
+                  },
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.home,
+                        color: Colors.redAccent,
+                      ),
+
+                      title: Text(
+                        "Home",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                      // backgroundColor: Colors.redAccent
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.people,
+                        color: Colors.black38,
+                      ),
+                      title: Text(
+                        "Profile",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                      // backgroundColor: Colors.redAccent
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.black38,
+                      ),
+                      title: Text(
+                        "Search",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                      // backgroundColor: Colors.redAccent
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black38,
+                      ),
+                      title: Text(
+                        "Cart",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                      // backgroundColor: Colors.redAccent
+                    ),
+                  ],
+                ),
+              ),
+            ),
         )
       ],
     ),

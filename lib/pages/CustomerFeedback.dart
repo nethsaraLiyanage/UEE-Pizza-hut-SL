@@ -18,28 +18,34 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
           child: Column(
             children: <Widget>[
               Container(
-                height: 150,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/wave2.png'),
-                        fit: BoxFit.fill
-                    )
-                ),
+                height: 180,
+                // decoration: BoxDecoration(
+                //     image: DecorationImage(
+                //         image: AssetImage('assets/images/wave2.png'),
+                //         fit: BoxFit.fill
+                //     )
+                // ),
                 child: Stack(
                   children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(top: 80.0, left: 200.0),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/logo.png'),
-                          )
+                    Positioned(
+                      top: 55,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Container(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            width: 120.0,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 90),
+                margin: EdgeInsets.only(top: 50),
                 child: Center(
                   child: Text("Feedback", style: TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold),),
                 ),
@@ -88,27 +94,31 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                     ),
                                   ),
                                   SizedBox(height: 20),
-                                  Container(
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
+                                  Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(10),
                                     child: TextField(
+                                      keyboardType: TextInputType.multiline,
+                                      minLines: 4,
+                                      maxLines: 5,
                                       decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '   Your feedback',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
+                                        border: InputBorder.none,
+                                        prefixIcon: Padding(
+                                          padding: const EdgeInsets.only(bottom: 35),
+                                          child:    Icon(
+                                          Icons.insert_comment,
+                                          color: Colors.redAccent,
+                                        ),
+                                        ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Your feedback',
                                       ),
                                     ),
                                   ),
+                                ),
                                   SizedBox(height: 20),
                                   Container(
                                     child: Text(
@@ -139,25 +149,28 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                       },
                                     ),
                                   ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10.0),
-                                    padding: EdgeInsets.all(3.0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black38,
-                                              blurRadius: 10.0,
-                                              offset: Offset(0, 5)
-                                          )
-                                        ]
-                                    ),
+                                 Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    borderRadius: BorderRadius.circular(10),
                                     child: TextField(
+                                      keyboardType: TextInputType.multiline,
+                                      minLines: 4,
+                                      maxLines: 5,
                                       decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '   Your feedback',
-                                          hintStyle: TextStyle(color: Colors.grey[400]),
+                                        border: InputBorder.none,
+                                        prefixIcon:Padding(
+                                          padding: const EdgeInsets.only(bottom: 35),
+                                          child:    Icon(
+                                          Icons.insert_comment,
+                                          color: Colors.redAccent,
+                                        ),
+                                        ),
+                                        contentPadding:
+                                            EdgeInsets.only(top: 15),
+                                        hintText: 'Your feedback',
+                                      ),
                                       ),
                                     ),
                                   ),
@@ -169,25 +182,21 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    FlatButton(
-                      padding: EdgeInsets.fromLTRB(90, 15, 90, 15),
+                     FlatButton(
                       color: Colors.red,
-                      splashColor: Colors.black12,
-
+                      padding: const EdgeInsets.all(20.0),
+                      minWidth: 200.0,
+                      hoverColor: Colors.red,
+                      onPressed: () => {Navigator.pushNamed(context, '/home')},
+                      child:
+                      Text('Submit', style: TextStyle(color: Colors.white)),
+                      focusColor: Colors.red,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)
-                      ),
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
+                          side: BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
                   ],
                 ),
