@@ -168,14 +168,12 @@ class _HomeState extends State<Home> {
               Row(
                 children: [
                   Expanded(
-                      flex: 1,
-                      child: GestureDetector(
-                        child: Image.asset('assets/images/backButton.png'),
-                        onTap: ()=>{
-                          Navigator.pushNamed(context, '/home')
-                        },
-                      ),
-                      ),
+                    flex: 1,
+                    child: GestureDetector(
+                      child: Image.asset('assets/images/backButton.png'),
+                      onTap: () => {Navigator.pushNamed(context, '/home')},
+                    ),
+                  ),
                   Expanded(
                     flex: 4,
                     child: Container(
@@ -364,7 +362,7 @@ class _HomeState extends State<Home> {
               SizedBox(height: 6.0),
               Padding(padding: const EdgeInsets.all(3.0), child: horList()),
               SizedBox(height: 6.0),
-                            Padding(
+              Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Row(
                   children: [
@@ -374,9 +372,8 @@ class _HomeState extends State<Home> {
                         color: Colors.red,
                         padding: const EdgeInsets.all(15.0),
                         hoverColor: Colors.red,
-                        onPressed: () => {
-                          Navigator.pushNamed(context, '/cart')
-                        },
+                        onPressed: () =>
+                            {Navigator.pushNamed(context, '/cart')},
                         child: Text('Add to Cart',
                             style: TextStyle(color: Colors.white)),
                         focusColor: Colors.red,
