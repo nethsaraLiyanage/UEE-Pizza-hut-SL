@@ -98,13 +98,19 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                   padding: const EdgeInsets.all(5),
                                   child: Material(
                                     elevation: 5.0,
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: TextFormField(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: TextField(
+                                      keyboardType: TextInputType.multiline,
+                                      minLines: 4,
+                                      maxLines: 5,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        prefixIcon: Icon(
+                                        prefixIcon: Padding(
+                                          padding: const EdgeInsets.only(bottom: 35),
+                                          child:    Icon(
                                           Icons.insert_comment,
                                           color: Colors.redAccent,
+                                        ),
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
@@ -147,13 +153,19 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                   padding: const EdgeInsets.all(5),
                                   child: Material(
                                     elevation: 5.0,
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: TextFormField(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: TextField(
+                                      keyboardType: TextInputType.multiline,
+                                      minLines: 4,
+                                      maxLines: 5,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        prefixIcon: Icon(
+                                        prefixIcon:Padding(
+                                          padding: const EdgeInsets.only(bottom: 35),
+                                          child:    Icon(
                                           Icons.insert_comment,
                                           color: Colors.redAccent,
+                                        ),
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
