@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(5.0)
                       ),
                       onPressed: (){
-                        Navigator.pushNamed(context, '/profile');
+                        Navigator.pushNamed(context, '/home');
                       },
                       child: Text(
                         "Login",

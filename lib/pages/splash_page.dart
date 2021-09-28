@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pizzahut/pages/Main_screen.dart';
 
+import 'Login.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 6), (){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MainScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> Login()));
     });
   }
   @override
