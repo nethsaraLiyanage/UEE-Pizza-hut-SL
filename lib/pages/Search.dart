@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pizzahut/animations/PageBouceAnimation.dart';
 import 'package:pizzahut/pages/product_page.dart';
+import 'package:pizzahut/redux/reducers.dart';
+import 'package:redux/redux.dart';
 
 class Search extends StatefulWidget {
   Search({Key? key}) : super(key: key);

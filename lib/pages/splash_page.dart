@@ -11,15 +11,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 6), (){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MainScreen()));
+    Timer(Duration(seconds: 6), () {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => MainScreen()));
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       CircleAvatar(
                         backgroundColor: Colors.red[100],
-                        radius: 100.0,  
+                        radius: 100.0,
                         child: Image.asset('assets/images/logo.png'),
                       ),
                       SizedBox(height: 15.0),
@@ -66,7 +67,8 @@ class _SplashScreenState extends State<SplashScreen> {
                             // fontWeight: FontWeight.bold,
                             fontSize: 15.0),
                       )
-                    ],),
+                    ],
+                  ),
                 ),
               )
             ],
