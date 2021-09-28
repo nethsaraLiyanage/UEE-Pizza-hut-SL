@@ -16,28 +16,34 @@ class _LoginState extends State<Login> {
           child: Column(
             children: <Widget>[
               Container(
-                height: 150,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/wave2.png'),
-                  fit: BoxFit.fill
-                )
-              ),
+                height: 180,
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage('assets/images/wave2.png'),
+              //     fit: BoxFit.fill
+              //   )
+              // ),
                 child: Stack(
                   children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 80.0, left: 200.0),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/logo.png'),
-                            )
+                    Positioned(
+                      top: 55,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Container(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            width: 120.0,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 90),
+                margin: EdgeInsets.only(top: 50),
                 child: Center(
                   child: Text("Login", style: TextStyle(color: Colors.red, fontSize: 40, fontWeight: FontWeight.bold),),
                 ),
@@ -98,7 +104,7 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     FlatButton(
                       textColor: Colors.red,
                       onPressed: () {},
@@ -109,8 +115,11 @@ class _LoginState extends State<Login> {
                       color: Colors.red,
                       padding: const EdgeInsets.all(15.0),
                       minWidth: 200.0,
+                      height: 50.0,
                       hoverColor: Colors.red,
-                      onPressed: () => {Navigator.pushNamed(context, '/profile')},
+                      onPressed: () => {
+                        Navigator.pushNamed(context, '/home')
+                      },
                       child:
                       Text('Login', style: TextStyle(color: Colors.white)),
                       focusColor: Colors.red,

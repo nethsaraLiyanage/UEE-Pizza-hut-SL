@@ -18,28 +18,34 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
           child: Column(
             children: <Widget>[
               Container(
-                height: 150,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/wave2.png'),
-                        fit: BoxFit.fill
-                    )
-                ),
+                height: 180,
+                // decoration: BoxDecoration(
+                //     image: DecorationImage(
+                //         image: AssetImage('assets/images/wave2.png'),
+                //         fit: BoxFit.fill
+                //     )
+                // ),
                 child: Stack(
                   children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(top: 80.0, left: 200.0),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/logo.png'),
-                          )
+                    Positioned(
+                      top: 55,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Container(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            width: 120.0,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 90),
+                margin: EdgeInsets.only(top: 50),
                 child: Center(
                   child: Text("Feedback", style: TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold),),
                 ),

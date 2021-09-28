@@ -171,6 +171,23 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ),
                                 Positioned(
+                                  top: 100,
+                                  left: 260,
+                                  right: 0,
+                                  child: Center(
+                                    child: Container(
+                                      child:     FlatButton(
+                                        textColor: Colors.red,
+                                        onPressed: () {
+                                          Navigator.pushNamed(context, '/login');
+                                        },
+                                        child: Text("Logout"),
+                                        shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
                                   top: 250,
                                   left: 260,
                                   right: 0,
