@@ -117,7 +117,9 @@ class _LoginState extends State<Login> {
                       minWidth: 200.0,
                       height: 50.0,
                       hoverColor: Colors.red,
-                      onPressed: () => {Navigator.pushNamed(context, '/home')},
+                      onPressed: () => {
+                        Navigator.pushNamed(context, '/home')
+                      },
                       child:
                       Text('Login', style: TextStyle(color: Colors.white)),
                       focusColor: Colors.red,
