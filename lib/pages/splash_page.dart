@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 6), (){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MainScreen()));
+       Navigator.pushNamed(context, '/login');
     });
   }
   @override
