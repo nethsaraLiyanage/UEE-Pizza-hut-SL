@@ -224,7 +224,7 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   FlatButton(
                       color: Colors.red,
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(15.0),
                       minWidth: 200.0,
                       hoverColor: Colors.red,
                       onPressed: () => {Navigator.pushNamed(context, '/feedback')},
