@@ -2,15 +2,31 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:pizzahut/model/Product.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  Product product_passed;
+  Home({
+    Key? key,
+    required this.product_passed,
+  }) : super(key: key);
+  //final Product product_passed = product_passed;
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  bool _smallSize = true;
+  bool _mediumSize = false;
+  bool _largeSize = false;
+  String _selSize = '';
+
+  bool _panCrust = true;
+  bool _stuffedCrust = false;
+  bool _saussageCrust = false;
+  String _selCrust = '';
+
   Widget horList() {
     return Container(
       // margin: EdgeInsets.symmetric(vertical: 20.0),
@@ -29,7 +45,7 @@ class _HomeState extends State<Home> {
                 onPressed: null,
                 child: Column(
                   children: [
-                    Image.asset('assets/images/onion.png'),
+                    Image.asset('assets/images/tomato.png'),
                     SizedBox(height: 8.0),
                     Text(
                       'Onion',
@@ -188,13 +204,13 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
                 child: Center(
                   child: Container(
-                    child: Image.asset('assets/images/pizza.png'),
+                    child: Image.network(widget.product_passed.imageUrl),
                   ),
                 ),
               ),
               SizedBox(height: 8.0),
               Container(
-                child: Text('Olive Mixed',
+                child: Text(widget.product_passed.itemTitle,
                     textAlign: TextAlign.left,
                     style:
                         TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold)),
@@ -202,7 +218,7 @@ class _HomeState extends State<Home> {
               SizedBox(height: 6.0),
               Container(
                 child: Text(
-                  'Olive MixedLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a',
+                  widget.product_passed.description,
                   textAlign: TextAlign.justify,
                 ),
               ),
@@ -221,14 +237,23 @@ class _HomeState extends State<Home> {
                     Expanded(
                       flex: 1,
                       child: FlatButton(
-                        onPressed: null,
+                        onPressed: () => {
+                          this.setState(() {
+                            _smallSize = !_smallSize;
+                            _largeSize = false;
+                            _mediumSize = false;
+                            _selSize = 'small';
+                          })
+                        },
+                        focusColor: _smallSize ? Colors.red : Colors.white,
+                        color: _smallSize ? Colors.red : Colors.white,
                         child: Text('SMALL',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: _smallSize ? Colors.white : Colors.black,
                                 fontWeight: FontWeight.bold)),
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Colors.black,
+                                color: _smallSize ? Colors.red : Colors.black,
                                 width: 1,
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(50)),
@@ -238,12 +263,23 @@ class _HomeState extends State<Home> {
                     Expanded(
                       flex: 1,
                       child: FlatButton(
-                        onPressed: null,
+                        onPressed: () => {
+                          this.setState(() {
+                            _mediumSize = !_mediumSize;
+                            _smallSize = false;
+                            _largeSize = false;
+                            _selSize = 'medium';
+                          })
+                        },
+                        color: _mediumSize ? Colors.red : Colors.white,
+                        focusColor: _mediumSize ? Colors.red : Colors.white,
                         child: Text('MEDIUM',
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(
+                                color:
+                                    _mediumSize ? Colors.white : Colors.black)),
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Colors.black,
+                                color: _mediumSize ? Colors.red : Colors.black,
                                 width: 1,
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(50)),
@@ -253,15 +289,24 @@ class _HomeState extends State<Home> {
                     Expanded(
                       flex: 1,
                       child: FlatButton(
-                        color: Colors.red,
-                        hoverColor: Colors.red,
-                        onPressed: () => {log('message')},
+                        color: _largeSize ? Colors.red : Colors.white,
+                        hoverColor: _largeSize ? Colors.red : Colors.white,
+                        onPressed: () => {
+                          this.setState(() {
+                            _largeSize = !_largeSize;
+                            _smallSize = false;
+                            _mediumSize = false;
+                            _selSize = 'large';
+                          })
+                        },
                         child: Text('LARGE',
-                            style: TextStyle(color: Colors.white)),
+                            style: TextStyle(
+                                color:
+                                    _largeSize ? Colors.white : Colors.black)),
                         focusColor: Colors.red,
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Colors.red,
+                                color: _largeSize ? Colors.red : Colors.black,
                                 width: 1,
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(50)),
@@ -284,7 +329,14 @@ class _HomeState extends State<Home> {
                     Expanded(
                       flex: 1,
                       child: FlatButton(
-                        onPressed: null,
+                        onPressed: () => {
+                          this.setState(() {
+                            _panCrust = !_panCrust;
+                            _stuffedCrust = false;
+                            _saussageCrust = false;
+                            _selCrust = 'pan';
+                          })
+                        },
                         child: Column(
                           children: [
                             Image.asset('assets/images/pan.png'),
@@ -296,8 +348,8 @@ class _HomeState extends State<Home> {
                         ),
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
+                                color: _panCrust ? Colors.red : Colors.black,
+                                width: _panCrust ? 3 : 1,
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(20)),
                         padding: const EdgeInsets.all(10),
@@ -307,7 +359,14 @@ class _HomeState extends State<Home> {
                     Expanded(
                       flex: 1,
                       child: FlatButton(
-                        onPressed: null,
+                        onPressed: () =>{
+                          this.setState(() {
+                            _panCrust = false;
+                            _stuffedCrust = !_stuffedCrust;
+                            _saussageCrust = false;
+                            _selCrust = 'stuffed';
+                          })
+                        },
                         child: Column(
                           children: [
                             Image.asset('assets/images/stuff.png'),
@@ -319,8 +378,8 @@ class _HomeState extends State<Home> {
                         ),
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
+                                color: _stuffedCrust ? Colors.red : Colors.black,
+                                width: _stuffedCrust ? 3 : 1,
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(20)),
                         padding: const EdgeInsets.all(10),
@@ -330,7 +389,14 @@ class _HomeState extends State<Home> {
                     Expanded(
                       flex: 1,
                       child: FlatButton(
-                        onPressed: null,
+                        onPressed: ()=>{
+                          this.setState(() {
+                            _panCrust = false;
+                            _stuffedCrust = false;
+                            _saussageCrust = !_saussageCrust;
+                            _selCrust = 'saussage';
+                          })
+                        },
                         child: Column(
                           children: [
                             Image.asset('assets/images/saus.png'),
@@ -342,8 +408,8 @@ class _HomeState extends State<Home> {
                         ),
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
+                                color: _saussageCrust ? Colors.red : Colors.black,
+                                width: _saussageCrust ? 3 : 1,
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(20)),
                         padding: const EdgeInsets.all(10),

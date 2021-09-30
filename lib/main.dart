@@ -20,6 +20,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pizzahut/redux/reducers.dart';
 import 'package:redux/redux.dart';
 
+import 'model/Product.dart';
+
 void main() {
   final store = new Store<List<CartItem>>(cartItemsReducer,
       initialState: new List.empty());
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           '/home': (context) => MainScreen(),
           '/login': (context) => Login(),
-          '/product': (context) => Home(),
+          '/product': (context) => Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: ''),),
           '/welcome': (context) => Welcome(),
           '/register': (context) => Register(),
           '/profile': (context) => Profile(),

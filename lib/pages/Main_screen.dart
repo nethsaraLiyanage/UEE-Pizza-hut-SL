@@ -128,13 +128,13 @@ class _MainScreen extends State<MainScreen> {
                                               Navigator.push(
                                                   context,
                                                   PageBouceAnimation(
-                                                      widget: Home()))
+                                                      widget: Home(product_passed : product)))
                                             },
                                             child: Row(
                                               children: [
                                                 productCard(
                                                     product.itemTitle,
-                                                    product.description,
+                                                    product.mini_desc,
                                                     product.imageUrl,
                                                     product.price.toDouble()),
                                                 

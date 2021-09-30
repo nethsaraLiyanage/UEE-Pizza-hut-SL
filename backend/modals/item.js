@@ -22,6 +22,10 @@ const itemSchema = new Schema({
     additions: {
         type: Array,
         required: true
+    },
+    mini_desc: {
+        type: String,
+        required: true
     }
 })
 
