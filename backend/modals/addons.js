@@ -17,5 +17,5 @@ const addons = new Schema({
     }
 })
 
-const addons = mongoose.model("addons", addons);
-module.exports = addons;
+const addon = mongoose.model("addons", addons);
+module.exports = addon;
