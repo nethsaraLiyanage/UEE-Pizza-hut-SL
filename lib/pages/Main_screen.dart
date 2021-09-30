@@ -118,95 +118,34 @@ class _MainScreen extends State<MainScreen> {
                           SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Column(
-                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () => {
-                                      // Navigator.pushNamed(context, '/product')
-                                      Navigator.push(context,
-                                          PageBouceAnimation(widget: Home()))
-                                    },
-                                    child: Row(
-                                      children: [
-                                        productCard(
-                                            'Olive Mixed 1',
-                                            'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                            'assets/images/logo.png',
-                                            2500.00),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 25.0),
-                                  GestureDetector(
-                                    onTap: () => {
-                                      // Navigator.pushNamed(context, '/product')
-                                      Navigator.push(context,
-                                          PageBouceAnimation(widget: Home()))
-                                    },
-                                    child: Row(
-                                      children: [
-                                        productCard(
-                                            'Olive Mixed 1',
-                                            'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                            'assets/images/logo.png',
-                                            2500.00),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 25.0),
-                                  GestureDetector(
-                                    onTap: () => {
-                                      // Navigator.pushNamed(context, '/product')
-                                      Navigator.push(context,
-                                          PageBouceAnimation(widget: Home()))
-                                    },
-                                    child: Row(
-                                      children: [
-                                        productCard(
-                                            'Olive Mixed 1',
-                                            'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                            'assets/images/logo.png',
-                                            2500.00),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 25.0),
-                                  GestureDetector(
-                                    onTap: () => {
-                                      // Navigator.pushNamed(context, '/product')
-                                      Navigator.push(context,
-                                          PageBouceAnimation(widget: Home()))
-                                    },
-                                    child: Row(
-                                      children: [
-                                        productCard(
-                                            'Olive Mixed 1',
-                                            'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                            'assets/images/logo.png',
-                                            2500.00),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 25.0),
-                                  GestureDetector(
-                                    onTap: () => {
-                                      // Navigator.pushNamed(context, '/product')
-                                      Navigator.push(context,
-                                          PageBouceAnimation(widget: Home()))
-                                    },
-                                    child: Row(
-                                      children: [
-                                        productCard(
-                                            'Olive Mixed 1',
-                                            'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                            'assets/images/logo.png',
-                                            2500.00),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 15.0),
-                                ],
-                              )),
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: products!
+                                      .map(
+                                        (Product product) => Column(
+                                          children: [GestureDetector(
+                                            onTap: () => {
+                                              // Navigator.pushNamed(context, '/product')
+                                              Navigator.push(
+                                                  context,
+                                                  PageBouceAnimation(
+                                                      widget: Home()))
+                                            },
+                                            child: Row(
+                                              children: [
+                                                productCard(
+                                                    product.itemTitle,
+                                                    product.description,
+                                                    product.imageUrl,
+                                                    product.price.toDouble()),
+                                                
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(height: 15.0),
+                                          ]
+                                        ),
+                                      )
+                                      .toList())),
                         ],
                       ),
                     )));
@@ -314,7 +253,7 @@ Widget productCard(
                   maxHeight: 120.0,
                   child: Row(
                     children: [
-                      Image.asset('assets/images/pizza.png'),
+                      Image.network(imagePath, width: 115,),
                     ],
                   ),
                 ),

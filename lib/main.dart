@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
     return new StoreProvider(
       store: store,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),
