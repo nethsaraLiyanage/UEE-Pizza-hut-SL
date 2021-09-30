@@ -19,7 +19,8 @@ router.post('/', async (req, res, _next) => {
         imageUrl : req.body.imageUrl,
         size : req.body.size,
         crust : req.body.crust,
-        additions : req.body.additions
+        additions : req.body.additions,
+        mini_desc : req.body.mini_desc
     })
 
     res.send(data)

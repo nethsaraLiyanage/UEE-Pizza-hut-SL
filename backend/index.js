@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 //route imports
 const product = require('./routes/product')
-
+const addon = require('./routes/addons')
 
 
 //other consts
@@ -21,6 +21,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.use('/product',product)
+app.use('/addon',addon)
 
 
 mongoose.connect(
