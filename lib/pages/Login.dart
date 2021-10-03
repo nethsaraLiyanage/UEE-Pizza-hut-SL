@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:pizzahut/model/User.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Login extends StatefulWidget {
   @override
@@ -9,6 +12,23 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    Future login() async {
+    var res = await http.post(Uri.parse("http://localhost:8000/user/login"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'email': user.email,
+          'password': user.password
+        }));
+    var result = await jsonDecode(res.body);
+    if (result['status'] == 200) {
+      Navigator.pushNamed(context, '/home');
+    } else {
+      throw Exception('Failed');
+    }
+  }
+    User user = User('', '', '', '', '');
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
@@ -67,6 +87,18 @@ class _LoginState extends State<Login> {
                                       elevation: 5.0,
                                       borderRadius: BorderRadius.circular(25),
                                       child: TextFormField(
+                                         controller: TextEditingController(
+                                          text: user.email),
+                                      onChanged: (value) {
+                                        user.email = value;
+                                      },
+                                      validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Email is Required';
+                                        } else if (1 == 1) {
+                                          return null;
+                                        }
+                                      },
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           prefixIcon: Icon(
@@ -85,6 +117,18 @@ class _LoginState extends State<Login> {
                                       elevation: 5.0,
                                       borderRadius: BorderRadius.circular(25),
                                       child: TextFormField(
+                                         controller: TextEditingController(
+                                          text: user.password),
+                                      onChanged: (value) {
+                                        user.password = value;
+                                      },
+                                      validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Password is Required';
+                                        } else if (1 == 1) {
+                                          return null;
+                                        }
+                                      },
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           prefixIcon: Icon(
@@ -117,8 +161,8 @@ class _LoginState extends State<Login> {
                       minWidth: 200.0,
                       height: 50.0,
                       hoverColor: Colors.red,
-                      onPressed: () => {
-                        Navigator.pushNamed(context, '/home')
+                      onPressed: () {
+                       login();
                       },
                       child:
                       Text('Login', style: TextStyle(color: Colors.white)),
