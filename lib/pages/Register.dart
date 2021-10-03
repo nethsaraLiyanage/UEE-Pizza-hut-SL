@@ -25,7 +25,8 @@ class _RegisterState extends State<Register> {
           'password': user.password
         }));
     var result = jsonDecode(res.body);
-    if (result.status == 201) {
+    print(result['status']);
+    if (result['status'] == 201) {
       Navigator.pushNamed(context, '/login');
     } else {
       throw Exception('Failed');
