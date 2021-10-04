@@ -30,7 +30,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final Store<List<CartItem>> store;
-
+  
   const MyApp({Key? key, required this.store}) : super(key: key);
 
   @override
