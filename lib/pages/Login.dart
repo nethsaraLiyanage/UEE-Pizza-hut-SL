@@ -3,6 +3,9 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pizzahut/model/User.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pizzahut/auth/Auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,8 +15,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final storage = new FlutterSecureStorage();
+
     Future login() async {
-    var res = await http.post(Uri.parse("http://localhost:8000/user/login"),
+    var res = await http.post(Uri.parse("http://26a0-2402-4000-2281-13ab-f897-e4d3-a5d5-b0d4.ngrok.io/user/login"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
@@ -22,13 +27,35 @@ class _LoginState extends State<Login> {
           'password': user.password
         }));
     var result = await jsonDecode(res.body);
+    var userID = result['user']['_id'];
     if (result['status'] == 200) {
+     await Auth.rememberUser(userID);
+ Fluttertoast.showToast(
+        msg: "Sucessfully Logged In",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
       Navigator.pushNamed(context, '/home');
     } else {
       throw Exception('Failed');
     }
   }
+
+  Future<void> rememberUser(String id) async {
+    await storage.write(key: "user_id", value: id);
+  }
+
+  Future<String> getUserId() async{
+    var user_id =  await storage.read(key: "user_id").toString();
+    return user_id;
+  }
+  
     User user = User('', '', '', '', '');
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
@@ -117,6 +144,7 @@ class _LoginState extends State<Login> {
                                       elevation: 5.0,
                                       borderRadius: BorderRadius.circular(25),
                                       child: TextFormField(
+                                        obscureText: true,
                                          controller: TextEditingController(
                                           text: user.password),
                                       onChanged: (value) {

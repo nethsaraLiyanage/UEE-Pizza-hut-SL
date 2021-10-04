@@ -4,6 +4,7 @@ import 'package:pizzahut/pages/Login.dart';
 import 'package:pizzahut/model/User.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Future save() async {
-    var res = await http.post(Uri.parse("http://localhost:8000/user/register"),
+    var res = await http.post(Uri.parse("http://26a0-2402-4000-2281-13ab-f897-e4d3-a5d5-b0d4.ngrok.io/user/register"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
@@ -27,6 +28,15 @@ class _RegisterState extends State<Register> {
     var result = jsonDecode(res.body);
     print(result['status']);
     if (result['status'] == 201) {
+       Fluttertoast.showToast(
+        msg: "Sucessfully Registered",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
       Navigator.pushNamed(context, '/login');
     } else {
       throw Exception('Failed');
@@ -221,6 +231,7 @@ class _RegisterState extends State<Register> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      obscureText: true,
                                       controller: TextEditingController(
                                           text: user.password),
                                       onChanged: (value) {
