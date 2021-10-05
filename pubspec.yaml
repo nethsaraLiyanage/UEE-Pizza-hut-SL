@@ -35,6 +35,11 @@ dependencies:
   slidable_button: ^1.0.1+1
   flutter_credit_card: ^2.0.0
   carousel_slider: ^4.0.0
+  redux: ^5.0.0
+  flutter_redux: ^0.8.2
+  http: ^0.13.3
+  flutter_secure_storage: ^4.2.1
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:

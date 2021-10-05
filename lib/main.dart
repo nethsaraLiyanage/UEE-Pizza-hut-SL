@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pizzahut/model/cart_item.dart';
 import 'package:pizzahut/pages/CustomerFeedback.dart';
 import 'package:pizzahut/pages/EditProfile.dart';
 import 'package:pizzahut/pages/Cart.dart';
@@ -16,10 +17,22 @@ import 'package:pizzahut/pages/Payment.dart';
 import 'package:pizzahut/pages/OrderSummery.dart';
 import 'package:pizzahut/pages/Tracking.dart';
 
-void main() => runApp(MyApp());
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pizzahut/redux/reducers.dart';
+import 'package:redux/redux.dart';
+
+import 'model/Product.dart';
+
+void main() {
+  final store = new Store<List<CartItem>>(cartItemsReducer,
+      initialState: new List.empty());
+  runApp(new MyApp(store: store));
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final Store<List<CartItem>> store;
+  
+  const MyApp({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

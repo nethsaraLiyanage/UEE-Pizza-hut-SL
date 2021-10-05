@@ -2,16 +2,40 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:pizzahut/api/http_service_addon.dart';
+import 'package:pizzahut/model/Addons.dart';
+import 'package:pizzahut/model/Product.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  Product product_passed;
+  Home({
+    Key? key,
+    required this.product_passed,
+  }) : super(key: key);
+  //final Product product_passed = product_passed;
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  Widget horList() {
+  //callin the rest api
+
+  final HttpServiceAddon _httpServiceAddon = new HttpServiceAddon();
+
+  //sate variables
+
+  bool _smallSize = true;
+  bool _mediumSize = false;
+  bool _largeSize = false;
+  String _selSize = '';
+
+  bool _panCrust = true;
+  bool _stuffedCrust = false;
+  bool _saussageCrust = false;
+  String _selCrust = '';
+
+  Widget horList(List<Addons>? addonList) {
     return Container(
       // margin: EdgeInsets.symmetric(vertical: 20.0),
       //padding: const EdgeInsets.all(10.0),
@@ -19,115 +43,69 @@ class _HomeState extends State<Home> {
       height: 180,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(10),
-            width: 150,
-            child: Expanded(
-              flex: 1,
-              child: FlatButton(
-                onPressed: null,
-                child: Column(
-                  children: [
-                    Image.asset('assets/images/onion.png'),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Onion',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    SizedBox(height: 5.0),
-                    Text(
-                      'Rs. 100.00',
-                      style: TextStyle(fontSize: 10, color: Colors.black),
-                    ),
-                    Image.asset('assets/images/addB.png'),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                        color: Colors.black,
-                        width: 1,
-                        style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(20)),
+        children: addonList!
+            .map(
+              (Addons e) => Container(
                 padding: const EdgeInsets.all(10),
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            width: 150,
-            child: Expanded(
-              flex: 1,
-              child: FlatButton(
-                onPressed: null,
-                child: Column(
-                  children: [
-                    Image.asset('assets/images/mozzarella.png'),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Onion',
-                      style: TextStyle(fontSize: 15),
+                width: 150,
+                child: Expanded(
+                  flex: 1,
+                  child: FlatButton(
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        content: Text(
+                            "Do you want to add ${e.name} to the pizza? This will add Rs.${e.price} to the final bill. Do you wish to proceed?"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text(
+                              'Cancel',
+                              style: TextStyle(),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => {
+
+                              Navigator.of(context, rootNavigator: true)
+                                  .pop('dialog')
+                            },
+                            child: const Text(
+                              'Yes, add it!',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 5.0),
-                    Text(
-                      'Rs. 100.00',
-                      style: TextStyle(fontSize: 10, color: Colors.black),
+                    child: Column(
+                      children: [
+                        Image.network(e.imageUrl),
+                        SizedBox(height: 8.0),
+                        Text(
+                          e.name,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        SizedBox(height: 5.0),
+                        Text(
+                          "Rs." + e.price.toString(),
+                          style: TextStyle(fontSize: 10, color: Colors.black),
+                        ),
+                        Image.asset('assets/images/addB.png'),
+                      ],
                     ),
-                    Image.asset('assets/images/addB.png'),
-                  ],
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            color: Colors.black,
+                            width: 1,
+                            style: BorderStyle.solid),
+                        borderRadius: BorderRadius.circular(20)),
+                    padding: const EdgeInsets.all(10),
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                        color: Colors.black,
-                        width: 1,
-                        style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(20)),
-                padding: const EdgeInsets.all(10),
               ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            width: 150,
-            child: Expanded(
-              flex: 1,
-              child: FlatButton(
-                onPressed: null,
-                child: Column(
-                  children: [
-                    Image.asset('assets/images/tomato.png'),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Onion',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    SizedBox(height: 5.0),
-                    Text(
-                      'Rs. 100.00',
-                      style: TextStyle(fontSize: 10, color: Colors.black),
-                    ),
-                    Image.asset('assets/images/addB.png'),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                        color: Colors.black,
-                        width: 1,
-                        style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(20)),
-                padding: const EdgeInsets.all(10),
-              ),
-            ),
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.yellow,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.orange,
-          ),
-        ],
+            )
+            .toList(),
       ),
     );
   }
@@ -158,242 +136,322 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: GestureDetector(
-                        child: Image.asset('assets/images/backButton.png'),
-                        onTap: ()=>{
-                          Navigator.pushNamed(context, '/home')
-                        },
-                      ),
-                      ),
-                  Expanded(
-                    flex: 4,
-                    child: Container(
-                      child: Text(''),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1, child: Image.asset('assets/images/cart.png'))
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-                child: Center(
-                  child: Container(
-                    child: Image.asset('assets/images/pizza.png'),
-                  ),
-                ),
-              ),
-              SizedBox(height: 8.0),
-              Container(
-                child: Text('Olive Mixed',
-                    textAlign: TextAlign.left,
-                    style:
-                        TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(height: 6.0),
-              Container(
-                child: Text(
-                  'Olive MixedLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a',
-                  textAlign: TextAlign.justify,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 15),
-                child: Text('Select Size',
-                    textAlign: TextAlign.left,
-                    style:
-                        TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(height: 10.0),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
+      body: FutureBuilder(
+        future: _httpServiceAddon.getAddons(),
+        builder: (BuildContext context, AsyncSnapshot<List<Addons>> snapshot) {
+          if (snapshot.hasData) {
+            List<Addons>? addonList = snapshot.data;
+
+            return (Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        onPressed: null,
-                        child: Text('SMALL',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50)),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            child: Image.asset('assets/images/backButton.png'),
+                            onTap: () =>
+                                {Navigator.pushNamed(context, '/home')},
+                          ),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Container(
+                            child: Text(''),
+                          ),
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: Image.asset('assets/images/cart.png'))
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+                      child: Center(
+                        child: Container(
+                          child: Image.network(widget.product_passed.imageUrl),
+                        ),
                       ),
                     ),
-                    SizedBox(width: 10.0),
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        onPressed: null,
-                        child: Text('MEDIUM',
-                            style: TextStyle(color: Colors.black)),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50)),
+                    SizedBox(height: 8.0),
+                    Container(
+                      child: Text(widget.product_passed.itemTitle,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 40.0, fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(height: 6.0),
+                    Container(
+                      child: Text(
+                        widget.product_passed.description,
+                        textAlign: TextAlign.justify,
                       ),
                     ),
-                    SizedBox(width: 10.0),
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        color: Colors.red,
-                        hoverColor: Colors.red,
-                        onPressed: () => {log('message')},
-                        child: Text('LARGE',
-                            style: TextStyle(color: Colors.white)),
-                        focusColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.red,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50)),
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: Text('Select Size',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 23.0, fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              onPressed: () => {
+                                this.setState(() {
+                                  _smallSize = !_smallSize;
+                                  _largeSize = false;
+                                  _mediumSize = false;
+                                  _selSize = 'small';
+                                })
+                              },
+                              focusColor:
+                                  _smallSize ? Colors.red : Colors.white,
+                              color: _smallSize ? Colors.red : Colors.white,
+                              child: Text('SMALL',
+                                  style: TextStyle(
+                                      color: _smallSize
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: _smallSize
+                                          ? Colors.red
+                                          : Colors.black,
+                                      width: 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(50)),
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              onPressed: () => {
+                                this.setState(() {
+                                  _mediumSize = !_mediumSize;
+                                  _smallSize = false;
+                                  _largeSize = false;
+                                  _selSize = 'medium';
+                                })
+                              },
+                              color: _mediumSize ? Colors.red : Colors.white,
+                              focusColor:
+                                  _mediumSize ? Colors.red : Colors.white,
+                              child: Text('MEDIUM',
+                                  style: TextStyle(
+                                      color: _mediumSize
+                                          ? Colors.white
+                                          : Colors.black)),
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: _mediumSize
+                                          ? Colors.red
+                                          : Colors.black,
+                                      width: 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(50)),
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              color: _largeSize ? Colors.red : Colors.white,
+                              hoverColor:
+                                  _largeSize ? Colors.red : Colors.white,
+                              onPressed: () => {
+                                this.setState(() {
+                                  _largeSize = !_largeSize;
+                                  _smallSize = false;
+                                  _mediumSize = false;
+                                  _selSize = 'large';
+                                })
+                              },
+                              child: Text('LARGE',
+                                  style: TextStyle(
+                                      color: _largeSize
+                                          ? Colors.white
+                                          : Colors.black)),
+                              focusColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: _largeSize
+                                          ? Colors.red
+                                          : Colors.black,
+                                      width: 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(50)),
+                            ),
+                          )
+                        ],
                       ),
-                    )
+                    ),
+                    Container(
+                      child: Text(
+                        'Select Crust',
+                        style: TextStyle(
+                            fontSize: 23.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              onPressed: () => {
+                                this.setState(() {
+                                  _panCrust = !_panCrust;
+                                  _stuffedCrust = false;
+                                  _saussageCrust = false;
+                                  _selCrust = 'pan';
+                                })
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset('assets/images/pan.png'),
+                                  Text(
+                                    'Pan',
+                                    style: TextStyle(fontSize: 10),
+                                  )
+                                ],
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color:
+                                          _panCrust ? Colors.red : Colors.black,
+                                      width: _panCrust ? 3 : 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(20)),
+                              padding: const EdgeInsets.all(10),
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              onPressed: () => {
+                                this.setState(() {
+                                  _panCrust = false;
+                                  _stuffedCrust = !_stuffedCrust;
+                                  _saussageCrust = false;
+                                  _selCrust = 'stuffed';
+                                })
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset('assets/images/stuff.png'),
+                                  Text(
+                                    'Stuffed',
+                                    style: TextStyle(fontSize: 10),
+                                  )
+                                ],
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: _stuffedCrust
+                                          ? Colors.red
+                                          : Colors.black,
+                                      width: _stuffedCrust ? 3 : 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(20)),
+                              padding: const EdgeInsets.all(10),
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              onPressed: () => {
+                                this.setState(() {
+                                  _panCrust = false;
+                                  _stuffedCrust = false;
+                                  _saussageCrust = !_saussageCrust;
+                                  _selCrust = 'saussage';
+                                })
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset('assets/images/saus.png'),
+                                  Text(
+                                    'Saussage',
+                                    style: TextStyle(fontSize: 10),
+                                  )
+                                ],
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: _saussageCrust
+                                          ? Colors.red
+                                          : Colors.black,
+                                      width: _saussageCrust ? 3 : 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(20)),
+                              padding: const EdgeInsets.all(10),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 6.0),
+                    Container(
+                      child: Text('Add to Pizza',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 23.0, fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(height: 6.0),
+                    Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: horList(addonList)),
+                    SizedBox(height: 6.0),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              color: Colors.red,
+                              padding: const EdgeInsets.all(15.0),
+                              hoverColor: Colors.red,
+                              onPressed: () =>
+                                  {Navigator.pushNamed(context, '/cart')},
+                              child: Text('Add to Cart',
+                                  style: TextStyle(color: Colors.white)),
+                              focusColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Colors.red,
+                                      width: 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(50)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Container(
-                child: Text(
-                  'Select Crust',
-                  style: TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        onPressed: null,
-                        child: Column(
-                          children: [
-                            Image.asset('assets/images/pan.png'),
-                            Text(
-                              'Pan',
-                              style: TextStyle(fontSize: 10),
-                            )
-                          ],
-                        ),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.all(10),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        onPressed: null,
-                        child: Column(
-                          children: [
-                            Image.asset('assets/images/stuff.png'),
-                            Text(
-                              'Stuffed',
-                              style: TextStyle(fontSize: 10),
-                            )
-                          ],
-                        ),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.all(10),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        onPressed: null,
-                        child: Column(
-                          children: [
-                            Image.asset('assets/images/saus.png'),
-                            Text(
-                              'Saussage',
-                              style: TextStyle(fontSize: 10),
-                            )
-                          ],
-                        ),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.all(10),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 6.0),
-              Container(
-                child: Text('Add to Pizza',
-                    textAlign: TextAlign.left,
-                    style:
-                        TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(height: 6.0),
-              Padding(padding: const EdgeInsets.all(3.0), child: horList()),
-              SizedBox(height: 6.0),
-                            Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: FlatButton(
-                        color: Colors.red,
-                        padding: const EdgeInsets.all(15.0),
-                        hoverColor: Colors.red,
-                        onPressed: () => {
-                          Navigator.pushNamed(context, '/cart')
-                        },
-                        child: Text('Add to Cart',
-                            style: TextStyle(color: Colors.white)),
-                        focusColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.red,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50)),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+            ));
+          }
+          return Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

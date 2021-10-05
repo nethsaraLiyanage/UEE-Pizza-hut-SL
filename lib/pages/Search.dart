@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pizzahut/animations/PageBouceAnimation.dart';
+import 'package:pizzahut/model/Product.dart';
 import 'package:pizzahut/pages/product_page.dart';
+import 'package:pizzahut/redux/reducers.dart';
+import 'package:redux/redux.dart';
 
 class Search extends StatefulWidget {
   Search({Key? key}) : super(key: key);
@@ -79,83 +82,12 @@ class _SearchState extends State<Search> {
                 Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () => {
-                              // Navigator.pushNamed(context, '/product')
-                              Navigator.push(
-                                  context, PageBouceAnimation( widget: Home())
-                              )
-                            },
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
                       SizedBox(height: 25.0),
                       GestureDetector(
                         onTap: () => {
                               // Navigator.pushNamed(context, '/product')
                               Navigator.push(
-                                  context, PageBouceAnimation( widget: Home())
-                              )
-                            },
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 25.0),
-                      GestureDetector(
-                        onTap: () => {
-                              // Navigator.pushNamed(context, '/product')
-                              Navigator.push(
-                                  context, PageBouceAnimation( widget: Home())
-                              )
-                            },
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 25.0),
-                      GestureDetector(
-                        onTap: () => {
-                              // Navigator.pushNamed(context, '/product')
-                              Navigator.push(
-                                  context, PageBouceAnimation( widget: Home())
-                              )
-                            },
-                        child: Row(
-                          children: [
-                            productCard(
-                                'Olive Mixed 1',
-                                'Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789 Check 123456789',
-                                'assets/images/logo.png',
-                                2500.00),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 25.0),
-                      GestureDetector(
-                        onTap: () => {
-                              // Navigator.pushNamed(context, '/product')
-                              Navigator.push(
-                                  context, PageBouceAnimation( widget: Home())
+                                  context, PageBouceAnimation( widget: Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: ''),))
                               )
                             },
                         child: Row(

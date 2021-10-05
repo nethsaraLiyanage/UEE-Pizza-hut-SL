@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pizzahut/pages/Login.dart';
+import 'package:pizzahut/model/User.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:pizzahut/utils/connection.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -9,7 +14,37 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Future save() async {
+    var res = await http.post(Uri.parse(Connection.baseUrl+"/user/register"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'email': user.email,
+          'full_name': user.full_name,
+          'mobile_number': user.mobile_number,
+          'delivery_address': user.delivery_address,
+          'password': user.password
+        }));
+    var result = jsonDecode(res.body);
+    print(result['status']);
+    if (result['status'] == 201) {
+       Fluttertoast.showToast(
+        msg: "Sucessfully Registered",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+      Navigator.pushNamed(context, '/login');
+    } else {
+      throw Exception('Failed');
+    }
+  }
 
+  User user = User('', '', '', '', '');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +108,18 @@ class _RegisterState extends State<Register> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      controller: TextEditingController(
+                                          text: user.email),
+                                      onChanged: (value) {
+                                        user.email = value;
+                                      },
+                                      validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Name is Required';
+                                        } else if (1 == 1) {
+                                          return null;
+                                        }
+                                      },
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -92,6 +139,18 @@ class _RegisterState extends State<Register> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      controller: TextEditingController(
+                                          text: user.delivery_address),
+                                      onChanged: (value) {
+                                        user.delivery_address = value;
+                                      },
+                                      validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Name is Required';
+                                        } else if (1 == 1) {
+                                          return null;
+                                        }
+                                      },
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -111,6 +170,18 @@ class _RegisterState extends State<Register> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      controller: TextEditingController(
+                                          text: user.mobile_number),
+                                      onChanged: (value) {
+                                        user.mobile_number = value;
+                                      },
+                                      validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Name is Required';
+                                        } else if (1 == 1) {
+                                          return null;
+                                        }
+                                      },
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -130,6 +201,18 @@ class _RegisterState extends State<Register> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      controller: TextEditingController(
+                                          text: user.full_name),
+                                      onChanged: (value) {
+                                        user.full_name = value;
+                                      },
+                                      validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Name is Required';
+                                        } else if (1 == 1) {
+                                          return null;
+                                        }
+                                      },
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -149,6 +232,19 @@ class _RegisterState extends State<Register> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      obscureText: true,
+                                      controller: TextEditingController(
+                                          text: user.password),
+                                      onChanged: (value) {
+                                        user.password = value;
+                                      },
+                                      validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Name is Required';
+                                        } else if (1 == 1) {
+                                          return null;
+                                        }
+                                      },
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -170,22 +266,24 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   SizedBox(height: 20),
-                      FlatButton(
-                      color: Colors.red,
-                      padding: const EdgeInsets.all(20.0),
-                      minWidth: 200.0,
-                      hoverColor: Colors.red,
-                      onPressed: () => {Navigator.pushNamed(context, '/login')},
-                      child:
-                      Text('Sign Up', style: TextStyle(color: Colors.white)),
-                      focusColor: Colors.red,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Colors.red,
-                              width: 1,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(50)),
-                    ),
+                  FlatButton(
+                    color: Colors.red,
+                    padding: const EdgeInsets.all(20.0),
+                    minWidth: 200.0,
+                    hoverColor: Colors.red,
+                    onPressed: () {
+                      save();
+                    },
+                    child:
+                        Text('Sign Up', style: TextStyle(color: Colors.white)),
+                    focusColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            color: Colors.red,
+                            width: 1,
+                            style: BorderStyle.solid),
+                        borderRadius: BorderRadius.circular(50)),
+                  ),
                   SizedBox(height: 20),
                   FlatButton(
                     textColor: Colors.red,
