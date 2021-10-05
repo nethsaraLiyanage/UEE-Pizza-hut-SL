@@ -2,9 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:pizzahut/api/http_service_addon.dart';
 import 'package:pizzahut/model/Addons.dart';
+import 'package:pizzahut/model/Cart_Addon.dart';
 import 'package:pizzahut/model/Product.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 
 class Home extends StatefulWidget {
   Product product_passed;
@@ -35,6 +39,8 @@ class _HomeState extends State<Home> {
   bool _saussageCrust = false;
   String _selCrust = '';
 
+  List _additions = [];
+
   Widget horList(List<Addons>? addonList) {
     return Container(
       // margin: EdgeInsets.symmetric(vertical: 20.0),
@@ -51,33 +57,34 @@ class _HomeState extends State<Home> {
                 child: Expanded(
                   flex: 1,
                   child: FlatButton(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: Text(
-                            "Do you want to add ${e.name} to the pizza? This will add Rs.${e.price} to the final bill. Do you wish to proceed?"),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(),
-                            ),
+                    onPressed: () => Dialogs.materialDialog(
+                        context: context,
+                        msg:
+                            'Do you want to add ${e.name} to the pizza? This will add Rs.${e.price.toDouble()} 4to the final bill.',
+                        title: 'Addition!',
+                        lottieBuilder: Lottie.network(
+                            'https://assets3.lottiefiles.com/packages/lf20_1ybf5iqh.json',
+                            fit: BoxFit.contain),
+                        actions: [
+                          IconsOutlineButton(
+                            onPressed: () {},
+                            text: 'Cancel',
+                            iconData: Icons.cancel_outlined,
+                            textStyle: TextStyle(color: Colors.grey),
+                            iconColor: Colors.grey,
                           ),
-                          TextButton(
+                          IconsButton(
                             onPressed: () => {
-
-                              Navigator.of(context, rootNavigator: true)
-                                  .pop('dialog')
+                              _additions.add(new Cart_Addon(
+                                  name: e.name, price: e.price.toDouble()))
                             },
-                            child: const Text(
-                              'Yes, add it!',
-                              style: TextStyle(color: Colors.red),
-                            ),
+                            text: 'Yes, add it!',
+                            iconData: Icons.add_sharp,
+                            color: Colors.red,
+                            textStyle: TextStyle(color: Colors.white),
+                            iconColor: Colors.white,
                           ),
-                        ],
-                      ),
-                    ),
+                        ]),
                     child: Column(
                       children: [
                         Image.network(e.imageUrl),
