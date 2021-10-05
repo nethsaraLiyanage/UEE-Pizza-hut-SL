@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pizzahut/auth/Auth.dart';
+import 'package:pizzahut/utils/connection.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
@@ -18,7 +19,7 @@ class _LoginState extends State<Login> {
   final storage = new FlutterSecureStorage();
 
     Future login() async {
-    var res = await http.post(Uri.parse("http://26a0-2402-4000-2281-13ab-f897-e4d3-a5d5-b0d4.ngrok.io/user/login"),
+    var res = await http.post(Uri.parse(Connection.baseUrl+"/user/login"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },

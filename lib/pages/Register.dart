@@ -4,6 +4,7 @@ import 'package:pizzahut/pages/Login.dart';
 import 'package:pizzahut/model/User.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:pizzahut/utils/connection.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget {
@@ -14,7 +15,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Future save() async {
-    var res = await http.post(Uri.parse("http://26a0-2402-4000-2281-13ab-f897-e4d3-a5d5-b0d4.ngrok.io/user/register"),
+    var res = await http.post(Uri.parse(Connection.baseUrl+"/user/register"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
