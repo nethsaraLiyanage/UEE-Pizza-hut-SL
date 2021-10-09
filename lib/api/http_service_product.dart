@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:pizzahut/model/Product.dart';
 import 'package:http/http.dart';
 import 'dart:developer';
+import 'package:flutter_config/flutter_config.dart';
 
 class HttpServiceProduct {
-  final String getUrl = "http://192.168.1.4:8000/product";
+  final String getUrl = "http://"+FlutterConfig.get('IP')+":8000/product";
 
   Future<List<Product>> getProduct() async {
     Response res = await get(Uri.parse(getUrl));
-
     if (res.statusCode == 200) {
       log(res.body);
       List<dynamic> body = jsonDecode(res.body);
