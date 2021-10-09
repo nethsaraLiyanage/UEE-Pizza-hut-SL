@@ -3,13 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:pizzahut/model/Addons.dart';
 import 'package:http/http.dart';
 import 'dart:developer';
+import 'package:flutter_config/flutter_config.dart';
 
 class HttpServiceAddon {
-  final String getUrl = "http://b638-2402-4000-2380-b48e-c0da-447a-e0c3-1608.ngrok.io/addon";
+
+  final String getUrl = "http://"+FlutterConfig.get('IP')+":8000/addon";
 
   Future<List<Addons>> getAddons() async {
     Response res = await get(Uri.parse(getUrl));
-
     if (res.statusCode == 200) {
       log(res.body);
       List<dynamic> body = jsonDecode(res.body);

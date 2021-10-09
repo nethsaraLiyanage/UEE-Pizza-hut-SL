@@ -419,7 +419,7 @@ class _SummaryState extends State<Summary> {
                         padding: const EdgeInsets.all(10.0),
                         hoverColor: Colors.red,
                         onPressed: () => {
-                          Navigator.pushNamed(context, '/cart')
+                          Navigator.pushNamed(context, '/tracking')
                         },
                         child: Text('Track Order',
                             style: TextStyle(
