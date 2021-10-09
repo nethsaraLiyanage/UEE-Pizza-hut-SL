@@ -4,6 +4,7 @@ import 'package:pizzahut/animations/PageBouceAnimation.dart';
 import 'package:pizzahut/api/http_service_product.dart';
 import 'package:pizzahut/model/Product.dart';
 import 'package:pizzahut/pages/product_page.dart';
+import 'package:pizzahut/auth/Auth.dart';
 
 import 'Cart.dart';
 
@@ -23,6 +24,7 @@ class _MainScreen extends State<MainScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+     print(Auth.isLoggedIn());
     return Scaffold(
         body: FutureBuilder(
             future: _httpServiceProduct.getProduct(),

@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'dart:developer';
 
 class HttpServiceProduct {
-  final String getUrl = "http://192.168.1.4:8000/product";
+  final String getUrl = "http://b638-2402-4000-2380-b48e-c0da-447a-e0c3-1608.ngrok.io/product";
 
   Future<List<Product>> getProduct() async {
     Response res = await get(Uri.parse(getUrl));

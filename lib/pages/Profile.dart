@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:pizzahut/utils/connection.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   @override
@@ -8,6 +11,17 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int currentIndex = 1;
+
+  Future view() async {
+    var res = await http.get(
+        Uri.parse(
+            Connection.baseUrl + "/user/" + "6159cb78942f8a110a888b50"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        });
+      var result = await jsonDecode(res.body);
+      print(result);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,26 +46,27 @@ class _ProfileState extends State<Profile> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
                   child: Column(
                     children: [
-                          Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      child: Image.asset(
-                        'assets/images/backButton.png',
-                        width: 1,
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              child: Image.asset(
+                                'assets/images/backButton.png',
+                                width: 1,
+                              ),
+                              onTap: () =>
+                                  {Navigator.pushNamed(context, '/home')},
+                            ),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: Container(
+                              child: Text(''),
+                            ),
+                          ),
+                        ],
                       ),
-                      onTap: () => {Navigator.pushNamed(context, '/home')},
-                    ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      child: Text(''),
-                    ),
-                  ),
-                ],
-              ),
                       SizedBox(
                         height: 20,
                       ),
@@ -176,13 +191,15 @@ class _ProfileState extends State<Profile> {
                                   right: 0,
                                   child: Center(
                                     child: Container(
-                                      child:     FlatButton(
+                                      child: FlatButton(
                                         textColor: Colors.red,
                                         onPressed: () {
-                                          Navigator.pushNamed(context, '/login');
+                                          view();
                                         },
                                         child: Text("Logout"),
-                                        shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+                                        shape: CircleBorder(
+                                            side: BorderSide(
+                                                color: Colors.transparent)),
                                       ),
                                     ),
                                   ),
@@ -195,7 +212,8 @@ class _ProfileState extends State<Profile> {
                                     child: Container(
                                       child: FloatingActionButton(
                                         onPressed: () => {
-                                        Navigator.pushNamed(context, '/edit_profile')
+                                          Navigator.pushNamed(
+                                              context, '/edit_profile')
                                         },
                                         backgroundColor: Colors.red,
                                         tooltip: 'Increment',
@@ -326,81 +344,80 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
-        bottomNavigationBar: Container(
-          child: Material(
-            elevation: 15,
-            child: BottomNavigationBar(
-              currentIndex: currentIndex,
-              showSelectedLabels: false,
-              onTap: (currentIndex) => {
-                if(currentIndex==0){
-                  Navigator.pushNamed(context, '')
-                }else if(currentIndex==1){
-                  Navigator.pushNamed(context, '/profile')
-                }else if(currentIndex==2){
-                  Navigator.pushNamed(context, '/search')
-                }else if(currentIndex==3){
-                  Navigator.pushNamed(context, '/cart')
-                }
-              },
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
+      bottomNavigationBar: Container(
+        child: Material(
+          elevation: 15,
+          child: BottomNavigationBar(
+            currentIndex: currentIndex,
+            showSelectedLabels: false,
+            onTap: (currentIndex) => {
+              if (currentIndex == 0)
+                {Navigator.pushNamed(context, '')}
+              else if (currentIndex == 1)
+                {Navigator.pushNamed(context, '/profile')}
+              else if (currentIndex == 2)
+                {Navigator.pushNamed(context, '/search')}
+              else if (currentIndex == 3)
+                {Navigator.pushNamed(context, '/cart')}
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.redAccent,
+                ),
+
+                title: Text(
+                  "Home",
+                  style: TextStyle(
                     color: Colors.redAccent,
                   ),
-
-                  title: Text(
-                    "Home",
-                    style: TextStyle(
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                  // backgroundColor: Colors.redAccent
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.people,
-                    color: Colors.black38,
-                  ),
-                  title: Text(
-                    "Profile",
-                    style: TextStyle(
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                  // backgroundColor: Colors.redAccent
+                // backgroundColor: Colors.redAccent
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.people,
+                  color: Colors.black38,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.black38,
+                title: Text(
+                  "Profile",
+                  style: TextStyle(
+                    color: Colors.redAccent,
                   ),
-                  title: Text(
-                    "Search",
-                    style: TextStyle(
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                  // backgroundColor: Colors.redAccent
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.black38,
-                  ),
-                  title: Text(
-                    "Cart",
-                    style: TextStyle(
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                  // backgroundColor: Colors.redAccent
+                // backgroundColor: Colors.redAccent
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.black38,
                 ),
-              ],
-            ),
+                title: Text(
+                  "Search",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                ),
+                // backgroundColor: Colors.redAccent
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.black38,
+                ),
+                title: Text(
+                  "Cart",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                ),
+                // backgroundColor: Colors.redAccent
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
