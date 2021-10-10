@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pizzahut/api/http_service_location.dart';
 import 'package:slidable_button/slidable_button.dart';
 
 class Location extends StatefulWidget {
@@ -13,9 +16,36 @@ class Location extends StatefulWidget {
 }
 
 class _LocationState extends State<Location> {
+  final homeScaffoldKey = GlobalKey<ScaffoldState>();
+  Completer<GoogleMapController> _controller = Completer();
   bool checkBox = false;
   int pizVal = 1;
   var result = "As Soon As Possible";
+  TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
+
+  final HttpServiceLocation _httpServiceLocation = new HttpServiceLocation();
+
+  void _selectTime() async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: _time,
+    );
+    if (newTime != null) {
+      setState(() {
+        _time = newTime;
+      });
+    }
+  }
+
+  void _mapTapped(LatLng location) {
+    var timer = Timer(Duration(seconds: 2), () => print('done'));
+
+    timer.cancel();
+    print(location);
+    print(location.latitude);
+    print(location.longitude);
+    _httpServiceLocation.getAddress(location);
+  }
 
   static final LatLng _kMapCenter =
   LatLng(6.9271, 79.8612);
@@ -96,6 +126,7 @@ class _LocationState extends State<Location> {
                         child: Container(
                           height: 350,
                           child: GoogleMap(
+                            onTap: _mapTapped,
                             initialCameraPosition: _kInitialPosition,
                             gestureRecognizers: Set()..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
                           ),
@@ -162,7 +193,7 @@ class _LocationState extends State<Location> {
                                         ),
                                       ),
                                     ),
-                                    Center(
+                                      Center(
                                       child:Container(
                                         padding: EdgeInsets.fromLTRB(2, 2, 25, 2),
                                         child:Text(
@@ -178,6 +209,9 @@ class _LocationState extends State<Location> {
                                 ),
                               ),
                               onChanged: (position) {
+                                if (position == SlidableButtonPosition.right) {
+                                  _selectTime();
+                                }
                                 setState(() {
                                   if (position == SlidableButtonPosition.left) {
                                     result = 'As Soon As Possible';
