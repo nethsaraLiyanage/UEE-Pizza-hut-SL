@@ -24,7 +24,7 @@ class _MainScreen extends State<MainScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-     print(Auth.isLoggedIn());
+    //  print(Auth.isLoggedIn());
     return Scaffold(
         body: FutureBuilder(
             future: _httpServiceProduct.getProduct(),
