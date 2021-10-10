@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const User = require("../modals/user");
+const Cart = require("../modals/cart");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -14,6 +15,26 @@ router.post("/register", async (req, res) => {
   if (isExisting) {
     res.json({ status: 401, message: "user already exist" });
   } else {
+
+    //cart creation -----------------------------------------------------------------
+        //creating a new cart for the user
+        var cartId;
+
+        const cartItem = await new Cart({
+          user_id : null,
+          items : []
+        }).save()
+    
+        cartItem.save().then(data =>{
+          cartId = data._id;
+          console.log(cartId);
+        }).catch(err =>{
+          console.log(err);
+        })
+
+    
+
+
     let full_name = req.body.full_name;
     let email = req.body.email;
     let mobile_number = req.body.mobile_number;
@@ -29,20 +50,23 @@ router.post("/register", async (req, res) => {
       mobileNumber: mobile_number,
       deliveryAddress: delivery_address,
       password: hash,
+      cart : cartId
     });
 
-    //creating a new cart for the user
+    user.save().then(data => {
 
-
-
-    user.save().then(() => {
-
-      
+      updateCart(data, cartId)
 
       res.json({ status: 201, message: "user registered" });
     });
   }
 });
+
+async function  updateCart (data, cartId){
+  console.log(data, cartId);
+  //adding the user to cart
+  await Cart.findByIdAndUpdate({_id : cartId} , {user_id : data._id});
+}
 
 
 //User Login

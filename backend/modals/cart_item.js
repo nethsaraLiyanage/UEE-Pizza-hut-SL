@@ -23,7 +23,7 @@ const cart_item = new Schema({
         type : Number,
         required : true
     },
-    Selected : {
+    isSelcted : {
         type : Boolean,
         required : false
     },

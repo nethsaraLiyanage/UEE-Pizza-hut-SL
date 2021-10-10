@@ -24,37 +24,44 @@ import 'package:redux/redux.dart';
 
 import 'model/Product.dart';
 
-void main() async{
+void main() async {
   final store = new Store<List<CartItem>>(cartItemsReducer,
       initialState: new List.empty());
-      WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
-      await FlutterConfig.loadEnvVariables();
-      runApp(new MyApp(store: store));
+  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+  await FlutterConfig.loadEnvVariables();
+  runApp(new MyApp(store: store));
 }
 
 class MyApp extends StatelessWidget {
   final Store<List<CartItem>> store;
-  
+
   const MyApp({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-      initialRoute: '/location',
+      initialRoute: '/register',
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
         '/login': (context) => Login(),
-        '/product': (context) => Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: ''),),
+        '/product': (context) => Home(
+              product_passed: new Product(
+                  itemTitle: '',
+                  description: '',
+                  price: 0,
+                  imageUrl: '',
+                  additions: [],
+                  mini_desc: ''),
+            ),
         '/welcome': (context) => Welcome(),
         '/register': (context) => Register(),
         '/profile': (context) => Profile(),
         '/edit_profile': (context) => EditProfile(),
         '/feedback': (context) => CustomerFeedback(),
         '/cart': (context) => Cart(),
-        '/location':(context) => Location(),
-        '/payment':(context) => Payment(),
+        '/location': (context) => Location(),
+        '/payment': (context) => Payment(),
         '/promotions': (context) => Promotions(),
         '/search': (context) => Search(),
         '/summary': (context) => Summary(),
