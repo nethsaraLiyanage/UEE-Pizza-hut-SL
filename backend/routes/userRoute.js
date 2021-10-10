@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
 const User = require("../modals/user");
+const Feedback = require("../modals/feedback");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
+//User Registration
 router.post("/register", async (req, res) => {
 
   const isExisting = await User.findOne({ email: req.body.email });
@@ -35,6 +38,8 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
+//User Login
 router.post("/login", async (req, res) => {
   try {
     let email = req.body.email;
@@ -65,6 +70,7 @@ router.post("/login", async (req, res) => {
 });
 
 
+//View User Profile
 router.get("/:id", async (req, res) => {
   try {
     
@@ -82,39 +88,13 @@ router.get("/:id", async (req, res) => {
 });
 
 
+//Update User Profile
 router.put("/update/:id", async (req, res) => {
 
+  try{
   const userID = req.params.id;
   let updateUser;
 
-  if (req.body.old_password !== null && req.body.new_password !== null ) {
-
-    let user = await User.findOne({_id: userID});
-    const auth = await bcrypt.compare(req.body.old_password, user.password);
-
-    if(auth){
-      let full_name = req.body.full_name;
-      let email = req.body.email;
-      let mobile_number = req.body.mobile_number;
-      let delivery_address = req.body.delivery_address;
-      let password = req.body.new_password;
-  
-      const salt = await bcrypt.genSalt();
-      const hash = await bcrypt.hash(password, salt);
-
-      updateUser = {
-        fullName: full_name,
-        email: email,
-        mobileNumber: mobile_number,
-        deliveryAddress: delivery_address,
-        password: hash,
-      };
-    }
-    else{
-      res.json({ status: 401, error: "Password does not match" });
-    }
-
-  } else {
     let full_name = req.body.full_name;
     let email = req.body.email;
     let mobile_number = req.body.mobile_number;
@@ -126,12 +106,71 @@ router.put("/update/:id", async (req, res) => {
       mobileNumber: mobile_number,
       deliveryAddress: delivery_address,
     };
-  }
-
+  
   await User.findByIdAndUpdate(userID, updateUser).then((user) => {
     res.json({ status: 200, message: "user updated", user: user });
   });
 
+  }
+
+catch(e){
+  res.json({ status: 200, error: e });
+}
+
 });
+
+//update password
+router.put("/update_password/:id", async (req, res) => {
+
+  try{
+
+  const userID = req.params.id;
+  let updateUser;
+
+    let user = await User.findOne({_id: userID});
+    const auth = await bcrypt.compare(req.body.old_password, user.password);
+
+    if(auth){
+      let password = req.body.new_password;
+  
+      const salt = await bcrypt.genSalt();
+      const hash = await bcrypt.hash(password, salt);
+
+      updateUser = {
+        password: hash,
+      };
+    }
+    else{
+      res.json({ status: 401, error: "Password does not match" });
+    }
+
+  await User.findByIdAndUpdate(userID, updateUser).then((user) => {
+    res.json({ status: 200, message: "password updated", user: user });
+  });
+}
+catch(e){
+  res.json({ status: 200, error: e });
+}
+
+});
+
+router.post("/feedback/:id", async (req, res) => {
+
+  
+    const feedback = await new Feedback({
+
+      orderId : req.params.id,
+      foodRating : req.body.food_rating,
+      deliveryRating : req.body.delivery_rating,
+      foodFeedback : req.body.food_feedback,
+      deliveryFeedback : req.body.delivery_feedback
+    });
+
+    feedback.save().then(() => {
+      res.json({ status: 201, message: "Feedback saved" });
+    });
+  
+});
+
 
 module.exports = router;
