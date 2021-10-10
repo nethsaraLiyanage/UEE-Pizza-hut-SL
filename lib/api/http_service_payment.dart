@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_config/flutter_config.dart';
+import 'package:http/http.dart';
+import 'package:pizzahut/model/PaymentDetails.dart';
 
 class HttpServicePayment {
   final String addCardUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/addCard";
+  final String getPaymentDetailsUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/addCard";
 
   Future addCard(String cardNumber , String expiryDate ,String cardHolderName ,String cvvCode ,String cardHolder) async {
     var res = await http.post(Uri.parse(addCardUrl),
@@ -36,4 +40,23 @@ class HttpServicePayment {
       throw Exception('Failed');
     }
   }
+
+  //Gets payment details
+  Future<PaymentDetails> getPaymentDetails(String userId) async {
+    Response res = await get(Uri.parse("http://"+FlutterConfig.get('IP')+":8000/payment/getPaymentDetailsByUserId/"+userId));
+    if (res.statusCode == 200) {
+      log(res.body);
+      Map<String , dynamic> body = jsonDecode(res.body);
+
+      //PaymentDetails PaymentData = PaymentDetails.paymentDetailsFromJson(res.body);
+      PaymentDetails PaymentData = PaymentDetails.fromJson(body);
+
+      return PaymentData;
+    } else {
+      debugPrint('error');
+      log('cant fecth data');
+      throw "cant get products";
+    }
+  }
+
 }
