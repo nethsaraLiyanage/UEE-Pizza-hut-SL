@@ -50,7 +50,7 @@ class _SummaryState extends State<Summary> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 30.0, 0.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
