@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pizzahut/api/http_service_location.dart';
 import 'package:slidable_button/slidable_button.dart';
 
 class Location extends StatefulWidget {
@@ -13,9 +16,39 @@ class Location extends StatefulWidget {
 }
 
 class _LocationState extends State<Location> {
+  final homeScaffoldKey = GlobalKey<ScaffoldState>();
+  Completer<GoogleMapController> _controller = Completer();
   bool checkBox = false;
   int pizVal = 1;
   var result = "As Soon As Possible";
+  TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
+  TimeOfDay? _selectedTime = null;
+  String? _address = null;
+
+  final HttpServiceLocation _httpServiceLocation = new HttpServiceLocation();
+
+  void _selectTime() async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: _time,
+    );
+    if (newTime != null) {
+      setState(() {
+        _time = newTime;
+        _selectedTime = newTime;
+      });
+    }
+  }
+
+  void _mapTapped(LatLng location) {
+    var timer = Timer(Duration(seconds: 2), () => print('done'));
+    timer.cancel();
+    _httpServiceLocation.getAddress(location).then((value) {
+      setState(() {
+        _address = value;
+      });
+    });
+  }
 
   static final LatLng _kMapCenter =
   LatLng(6.9271, 79.8612);
@@ -96,9 +129,45 @@ class _LocationState extends State<Location> {
                         child: Container(
                           height: 350,
                           child: GoogleMap(
+                            onTap: _mapTapped,
                             initialCameraPosition: _kInitialPosition,
                             gestureRecognizers: Set()..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
                           ),
+                        )
+                    )
+                  ],
+                ),
+                if(_address != null)SizedBox(height: 20.0),
+                if(_address != null)Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          child: Text(
+                              'Delivery Address',
+                              style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              )
+                          ),
+                        )
+                    )
+                  ],
+                ),
+                if(_address != null)SizedBox(height: 10.0),
+                if(_address != null)Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                                _address.toString(),
+                                style: TextStyle(
+                                  fontSize: 16.0, fontWeight: FontWeight.bold,
+                                  color: Colors.blueGrey,
+                                )
+                            ),
+                          )
                         )
                     )
                   ],
@@ -162,7 +231,7 @@ class _LocationState extends State<Location> {
                                         ),
                                       ),
                                     ),
-                                    Center(
+                                      Center(
                                       child:Container(
                                         padding: EdgeInsets.fromLTRB(2, 2, 25, 2),
                                         child:Text(
@@ -178,6 +247,9 @@ class _LocationState extends State<Location> {
                                 ),
                               ),
                               onChanged: (position) {
+                                if (position == SlidableButtonPosition.right) {
+                                  _selectTime();
+                                }
                                 setState(() {
                                   if (position == SlidableButtonPosition.left) {
                                     result = 'As Soon As Possible';
@@ -191,7 +263,36 @@ class _LocationState extends State<Location> {
                         )
                     )
                   ],
-                ),
+                ),//Slider Button
+                SizedBox(height: 20.0),
+                if(_selectedTime != null)Row(
+                  children: [
+                    Expanded(
+                        flex: 3,
+                        child: Container(
+                          child: Text(
+                              'Chosen Delivery Time :',
+                              style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              )
+                          ),
+                        )
+                    ),
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Text(
+                              _selectedTime!.hourOfPeriod.toString() + " : " + _selectedTime!.minute.toString()  +" pm",
+                              style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold,
+                                color: Colors.blueGrey,
+                              )
+                          ),
+                        )
+                    )
+                  ],
+                ), //Chosen Delivery time
                 SizedBox(height: 20.0),
                 Row(
                     children: [

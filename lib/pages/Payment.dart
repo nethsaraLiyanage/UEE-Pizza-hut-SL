@@ -6,6 +6,9 @@ import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pizzahut/api/http_service_payment.dart';
+import 'package:pizzahut/api/user_services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -18,7 +21,7 @@ final List<Widget> imageSliders = imgList
   child: Container(
     child: Center(
       child: CreditCardWidget(
-          cardNumber: '4111 4582 4582 4511',
+          cardNumber: '5105 1051 0510 5100',
           expiryDate: '03/21',
           cardHolderName: 'Mahendra Thammita',
           cvvCode: '154',
@@ -43,13 +46,41 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
+  final storage = new FlutterSecureStorage();
   final CarouselController _controller = CarouselController();
+  final TextEditingController _cardNumberController = TextEditingController();
+  final TextEditingController _expiryDateController  = TextEditingController();
+  final TextEditingController _cardHolderNameController  = TextEditingController();
+  final TextEditingController _cvcCodeController  = TextEditingController();
+
+  UserService userServices = UserService();
+  HttpServicePayment servicePayment = HttpServicePayment();
+
+
   String cardNumber = '4111 4582 4582 4511';
   String expiryDate = '';
   String cardHolderName = 'Mahendra Thammita';
-  String cvvCode = '';
+  String cvcCode = '';
   bool isCvvFocused = false;
   int _current = 0;
+
+  String? _userId;
+
+  getUserId() async{
+    await storage.read(key: "user_id").then((value) {
+      setState(() {
+        _userId = value.toString();
+        debugPrint("User Id Is : "+ _userId!);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +196,318 @@ class _PaymentState extends State<Payment> {
                           ),
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return StatefulBuilder(
+                                  builder: (context , setState){
+                                    //List<ItemsModel> currentItem;
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                      elevation: 16,
+                                      child: Padding(
+                                        padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 30.0),
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.vertical,
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Add New Card',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 30,
+                                                                color: Colors.blueGrey
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(height: 10,),
+                                              Divider(color: Colors.blue[900] ,),
+                                              SizedBox(height: 10,),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                          child: Padding(
+                                                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                                                            child: Text(
+                                                              'Card Number',
+                                                              style: TextStyle(
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 18,
+                                                                  color: Colors.black),
+                                                            ),
+                                                          )
+                                                      )
+                                                  )
+                                                ],
+                                              ),//Card Number Label
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                                                      child: TextFormField(
+                                                        controller : _cardNumberController,
+                                                        // The validator receives the text that the user has entered.
+                                                        validator: (value) {
+                                                          if (value == null || value.isEmpty) {
+                                                            return 'Please enter the card holder name';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        decoration: new InputDecoration(
+                                                          contentPadding: EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 10.0),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),//Card Number Input
+                                              SizedBox(height: 10.0),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                          child: Padding(
+                                                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                                                            child: Text(
+                                                              'Card Holder Name',
+                                                              style: TextStyle(
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 18,
+                                                                  color: Colors.black),
+                                                            ),
+                                                          )
+                                                      )
+                                                  )
+                                                ],
+                                              ),//Card Holder Name Label
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                                                      child: TextFormField(
+                                                        controller : _cardHolderNameController,
+                                                        // The validator receives the text that the user has entered.
+                                                        validator: (value) {
+                                                          if (value == null || value.isEmpty) {
+                                                            return 'Please enter the card holder name';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        decoration: new InputDecoration(
+                                                          contentPadding: EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 10.0),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 10.0),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                          child: Padding(
+                                                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                                                            child: Text(
+                                                              'Exp Date',
+                                                              style: TextStyle(
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 18,
+                                                                  color: Colors.black),
+                                                            ),
+                                                          )
+                                                      )
+                                                  )
+                                                ],
+                                              ),//Exp Date Label
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                                                      child: TextFormField(
+                                                        controller : _expiryDateController,
+                                                        // The validator receives the text that the user has entered.
+                                                        validator: (value) {
+                                                          if (value == null || value.isEmpty) {
+                                                            return 'Please enter expiry date';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        decoration: new InputDecoration(
+                                                          contentPadding: EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 10.0),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 10.0),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                          child: Padding(
+                                                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                                                            child: Text(
+                                                              'CVC',
+                                                              style: TextStyle(
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 18,
+                                                                  color: Colors.black),
+                                                            ),
+                                                          )
+                                                      )
+                                                  )
+                                                ],
+                                              ),//CVC Label
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                                                      child: TextFormField(
+                                                        controller : _cvcCodeController,
+                                                        // The validator receives the text that the user has entered.
+                                                        validator: (value) {
+                                                          if (value == null || value.isEmpty) {
+                                                            return 'Please enter the CVC code';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        decoration: new InputDecoration(
+                                                          contentPadding: EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 10.0),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                                                              borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 20,),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        child: Padding(
+                                                          padding: EdgeInsets.fromLTRB(40, 0.0, 40, 0.0),
+                                                          child: TextButton(
+                                                            child: Text(
+                                                              'Add',
+                                                              style: TextStyle(
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 18
+                                                              ),
+                                                            ),
+                                                            style: ButtonStyle(
+                                                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                    EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0)),
+                                                                foregroundColor:
+                                                                MaterialStateProperty.all<Color>(Colors.white),
+                                                                backgroundColor:
+                                                                MaterialStateProperty.all(Colors.red),
+                                                                shape:
+                                                                MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius: BorderRadius.circular(30.0),
+                                                                        side: BorderSide(color: Colors.red)))),
+                                                            onPressed: () => {
+                                                              servicePayment.addCard(_cardNumberController.text, _expiryDateController.text , _cardHolderNameController.text, _cvcCodeController.text, _userId!)
+                                                            },
+                                                          ),
+                                                        ),
+                                                      )
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(height: 10,),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                          child: Padding(
+                                                            padding:EdgeInsets.fromLTRB(40, 0.0, 40, 0.0),
+                                                            child: TextButton(
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style: TextStyle(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    fontSize: 18
+                                                                ),
+                                                              ),
+                                                              style: ButtonStyle(
+                                                                  padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                      EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0)),
+                                                                  foregroundColor:
+                                                                  MaterialStateProperty.all<Color>(Colors.white),
+                                                                  backgroundColor:
+                                                                  MaterialStateProperty.all(Colors.grey),
+                                                                  shape:
+                                                                  MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                      RoundedRectangleBorder(
+                                                                          borderRadius: BorderRadius.circular(30.0),
+                                                                          side: BorderSide(color: Colors.green)))),
+                                                              onPressed: () => {Navigator.of(context, rootNavigator: true).pop()},
+                                                            ),
+                                                          )
+                                                      )
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(height: 10.0),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  });
+                            },
+                          );
+                        },
                         child: Text(
                             'Add a New Card',
                             style: TextStyle(
@@ -178,7 +520,7 @@ class _PaymentState extends State<Payment> {
                     ),
                 )
               ],
-            ),
+            ),//Add new Card Button
             SizedBox(height: 5.0),
             Divider(
               color: Colors.grey[300],
