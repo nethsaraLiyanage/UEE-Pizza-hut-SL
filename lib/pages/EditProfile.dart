@@ -16,39 +16,27 @@ class _EditProfileState extends State<EditProfile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int currentIndex = 1;
   final storage = new FlutterSecureStorage();
-  User user = User('', '', '', '', '');
+  // User user = User('', '', '', '', '');
+  String full_name = Auth.user.full_name;
+  String email = Auth.user.email;
+  String mobile_number = Auth.user.mobile_number;
+  String delivery_address = Auth.user.delivery_address;
   String old_password = "";
   String new_password = "";
 
-  Future<User> view() async {
-    var id = await Auth.getUserId();
-    print("User ID:" + id);
-    var res = await http.get(Uri.parse(Connection.baseUrl + "/user/" + id),
-        headers: <String, String>{
-          'Content-Type': 'application/json;charSet=UTF-8'
-        });
-    var result = await jsonDecode(res.body);
-    user.full_name = await result['user']['fullName'];
-    user.email = await result['user']['email'];
-    user.mobile_number = await result['user']['mobileNumber'];
-    user.delivery_address = await result['user']['deliveryAddress'];
-
-    return user;
-  }
-
   Future update() async {
     var id = await Auth.getUserId();
-    print(user.full_name);
+    
     var res = await http.put(
         Uri.parse(Connection.baseUrl + "/user/update/" + id),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
         body: jsonEncode(<String, String>{
-          'email': user.email,
-          'full_name': user.full_name,
-          'mobile_number': user.mobile_number,
-          'delivery_address': user.delivery_address,
+          'email': email,
+          'full_name': full_name,
+          'mobile_number': mobile_number,
+          'delivery_address': delivery_address,
         }));
     var result = jsonDecode(res.body);
     if (result['status'] == 200) {
@@ -111,7 +99,7 @@ class _EditProfileState extends State<EditProfile> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: FutureBuilder(
-            future: view(),
+            future: Auth.view(),
             builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
               if (snapshot.hasData) {
                 return Container(
@@ -125,8 +113,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       Scaffold(
                         backgroundColor: Colors.transparent,
-                        body: SingleChildScrollView(
-                          physics: BouncingScrollPhysics(),
+                        body: SingleChildScrollView(                          physics: BouncingScrollPhysics(),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 73),
@@ -214,9 +201,9 @@ class _EditProfileState extends State<EditProfile> {
                                                         controller:
                                                             TextEditingController(
                                                                 text:
-                                                                    user.email),
+                                                                    email),
                                                         onChanged: (value) {
-                                                          user.email = value;
+                                                         email = value;
                                                         },
                                                         validator:
                                                             (String? value) {
@@ -241,8 +228,7 @@ class _EditProfileState extends State<EditProfile> {
                                                                     EdgeInsets.only(
                                                                         top:
                                                                             15),
-                                                                hintText:
-                                                                    user.email),
+                                                               ),
                                                       ),
                                                     ),
                                                   ),
@@ -257,10 +243,9 @@ class _EditProfileState extends State<EditProfile> {
                                                       child: TextFormField(
                                                         controller:
                                                             TextEditingController(
-                                                                text: user
-                                                                    .delivery_address),
+                                                                text: delivery_address),
                                                         onChanged: (value) {
-                                                          user.delivery_address =
+                                                          delivery_address =
                                                               value;
                                                         },
                                                         validator:
@@ -283,8 +268,7 @@ class _EditProfileState extends State<EditProfile> {
                                                           contentPadding:
                                                               EdgeInsets.only(
                                                                   top: 15),
-                                                          hintText: user
-                                                              .delivery_address,
+                                                          
                                                         ),
                                                       ),
                                                     ),
@@ -300,10 +284,9 @@ class _EditProfileState extends State<EditProfile> {
                                                       child: TextFormField(
                                                         controller:
                                                             TextEditingController(
-                                                                text: user
-                                                                    .mobile_number),
+                                                                text: mobile_number),
                                                         onChanged: (value) {
-                                                          user.mobile_number =
+                                                          mobile_number =
                                                               value;
                                                         },
                                                         validator:
@@ -326,8 +309,7 @@ class _EditProfileState extends State<EditProfile> {
                                                           contentPadding:
                                                               EdgeInsets.only(
                                                                   top: 15),
-                                                          hintText: user
-                                                              .mobile_number,
+                                                          
                                                         ),
                                                       ),
                                                     ),
@@ -343,10 +325,9 @@ class _EditProfileState extends State<EditProfile> {
                                                       child: TextFormField(
                                                         controller:
                                                             TextEditingController(
-                                                                text: user
-                                                                    .full_name),
+                                                                text: full_name),
                                                         onChanged: (value) {
-                                                          user.full_name =
+                                                          full_name =
                                                               value;
                                                         },
                                                         validator:
@@ -426,6 +407,7 @@ class _EditProfileState extends State<EditProfile> {
                                                           BorderRadius.circular(
                                                               25),
                                                       child: TextFormField(
+                                                        obscureText: true,
                                                         controller:
                                                             TextEditingController(),
                                                         onChanged: (value) {
@@ -466,6 +448,7 @@ class _EditProfileState extends State<EditProfile> {
                                                           BorderRadius.circular(
                                                               25),
                                                       child: TextFormField(
+                                                        obscureText: true,
                                                         controller:
                                                             TextEditingController(),
                                                         onChanged: (value) {
