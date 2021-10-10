@@ -23,7 +23,7 @@ router.post("/addCard", async (req, res) => {
             cvvCode: cvvCode,
             cardHolder: cardHolder,
         }).then(async (card) => {
-            await User.updateOne({_id : cardHolder},{$push : {reports : card._id}})
+            await User.updateOne({_id : cardHolder},{$push : {PaymentCards : card._id}})
             .then((result) => {
                 res.json({ status: 201, message: "ok" })
             })
