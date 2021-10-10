@@ -244,7 +244,7 @@ class _ProfileState extends State<Profile> {
                                               child: FloatingActionButton(
                                                 onPressed: () => {
                                                   Navigator.pushNamed(
-                                                      context, '/feedback')
+                                                      context, '/edit_profile')
                                                 },
                                                 backgroundColor: Colors.red,
                                                 tooltip: 'Increment',

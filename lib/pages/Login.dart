@@ -17,6 +17,7 @@ class _LoginState extends State<Login> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final storage = new FlutterSecureStorage();
+   int currentIndex = 1;
 
     Future login() async {
 
@@ -132,8 +133,11 @@ class _LoginState extends State<Login> {
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
                                           return 'Email is Required';
-                                        } else if (1 == 1) {
+                                        } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
                                           return null;
+                                        }
+                                        else{
+                                          return 'Enter a valid email';
                                         }
                                       },
                                         decoration: InputDecoration(
@@ -200,7 +204,10 @@ class _LoginState extends State<Login> {
                       height: 50.0,
                       hoverColor: Colors.red,
                       onPressed: () {
-                       login();
+                        if(_formKey.currentState!.validate()){
+                            login();
+                        }
+                       
                       },
                       child:
                       Text('Login', style: TextStyle(color: Colors.white)),

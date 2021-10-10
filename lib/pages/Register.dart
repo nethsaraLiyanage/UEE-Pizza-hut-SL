@@ -121,11 +121,14 @@ class _RegisterState extends State<Register> {
                                       onChanged: (value) {
                                         user.email = value;
                                       },
-                                      validator: (String? value) {
-                                        if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                     validator: (String? value) {
+                                        if (value!.isEmpty && value == null) {
+                                          return 'Email is Required';
+                                        } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
                                           return null;
+                                        }
+                                        else{
+                                          return 'Enter a valid email';
                                         }
                                       },
                                       decoration: InputDecoration(
@@ -154,8 +157,8 @@ class _RegisterState extends State<Register> {
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                          return 'Address is Required';
+                                        } else {
                                           return null;
                                         }
                                       },
@@ -185,8 +188,8 @@ class _RegisterState extends State<Register> {
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                          return 'Mobile Number is Required';
+                                        } else{
                                           return null;
                                         }
                                       },
@@ -217,7 +220,7 @@ class _RegisterState extends State<Register> {
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
                                           return 'Name is Required';
-                                        } else if (1 == 1) {
+                                        } else {
                                           return null;
                                         }
                                       },
@@ -248,8 +251,8 @@ class _RegisterState extends State<Register> {
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                          return 'Password is Required';
+                                        } else {
                                           return null;
                                         }
                                       },
@@ -280,7 +283,9 @@ class _RegisterState extends State<Register> {
                     minWidth: 200.0,
                     hoverColor: Colors.red,
                     onPressed: () {
+                       if(_formKey.currentState!.validate()){
                       save();
+                       }
                     },
                     child:
                         Text('Sign Up', style: TextStyle(color: Colors.white)),
