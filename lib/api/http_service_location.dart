@@ -11,7 +11,7 @@ class HttpServiceLocation {
 
   //final String getlocationUrl = "http://"+FlutterConfig.get('IP')+":8000/addon";
 
-  void getAddress(LatLng location) async {
+  Future<String?> getAddress(LatLng location) async {
     Response res = await get(Uri.parse("https://maps.googleapis.com/maps/api/geocode/json?latlng="+location.latitude.toString()+","+location.longitude.toString()+"&key="+FlutterConfig.get('GOOGLE_MAP_API_KEY')));
     if (res.statusCode == 200) {
       print(res.body);
@@ -21,6 +21,7 @@ class HttpServiceLocation {
       LocationAddress addressObj = locationAddressFromJson(res.body);
       String? FormattedAddress = addressObj.results[0].formattedAddress;
       debugPrint(FormattedAddress);
+      return FormattedAddress;
     } else {
       debugPrint('error');
       log('cant fecth data');

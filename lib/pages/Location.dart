@@ -22,6 +22,8 @@ class _LocationState extends State<Location> {
   int pizVal = 1;
   var result = "As Soon As Possible";
   TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
+  TimeOfDay? _selectedTime = null;
+  String? _address = null;
 
   final HttpServiceLocation _httpServiceLocation = new HttpServiceLocation();
 
@@ -33,18 +35,19 @@ class _LocationState extends State<Location> {
     if (newTime != null) {
       setState(() {
         _time = newTime;
+        _selectedTime = newTime;
       });
     }
   }
 
   void _mapTapped(LatLng location) {
     var timer = Timer(Duration(seconds: 2), () => print('done'));
-
     timer.cancel();
-    print(location);
-    print(location.latitude);
-    print(location.longitude);
-    _httpServiceLocation.getAddress(location);
+    _httpServiceLocation.getAddress(location).then((value) {
+      setState(() {
+        _address = value;
+      });
+    });
   }
 
   static final LatLng _kMapCenter =
@@ -130,6 +133,41 @@ class _LocationState extends State<Location> {
                             initialCameraPosition: _kInitialPosition,
                             gestureRecognizers: Set()..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
                           ),
+                        )
+                    )
+                  ],
+                ),
+                if(_address != null)SizedBox(height: 20.0),
+                if(_address != null)Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          child: Text(
+                              'Delivery Address',
+                              style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              )
+                          ),
+                        )
+                    )
+                  ],
+                ),
+                if(_address != null)SizedBox(height: 10.0),
+                if(_address != null)Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                                _address.toString(),
+                                style: TextStyle(
+                                  fontSize: 16.0, fontWeight: FontWeight.bold,
+                                  color: Colors.blueGrey,
+                                )
+                            ),
+                          )
                         )
                     )
                   ],
@@ -225,7 +263,36 @@ class _LocationState extends State<Location> {
                         )
                     )
                   ],
-                ),
+                ),//Slider Button
+                SizedBox(height: 20.0),
+                if(_selectedTime != null)Row(
+                  children: [
+                    Expanded(
+                        flex: 3,
+                        child: Container(
+                          child: Text(
+                              'Chosen Delivery Time :',
+                              style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              )
+                          ),
+                        )
+                    ),
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Text(
+                              _selectedTime!.hourOfPeriod.toString() + " : " + _selectedTime!.minute.toString()  +" pm",
+                              style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold,
+                                color: Colors.blueGrey,
+                              )
+                          ),
+                        )
+                    )
+                  ],
+                ), //Chosen Delivery time
                 SizedBox(height: 20.0),
                 Row(
                     children: [
