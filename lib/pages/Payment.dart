@@ -18,7 +18,7 @@ final List<Widget> imageSliders = imgList
   child: Container(
     child: Center(
       child: CreditCardWidget(
-          cardNumber: '4111 4582 4582 4511',
+          cardNumber: '5105 1051 0510 5100',
           expiryDate: '03/21',
           cardHolderName: 'Mahendra Thammita',
           cvvCode: '154',
@@ -47,7 +47,7 @@ class _PaymentState extends State<Payment> {
   String cardNumber = '4111 4582 4582 4511';
   String expiryDate = '';
   String cardHolderName = 'Mahendra Thammita';
-  String cvvCode = '';
+  String cvcCode = '';
   bool isCvvFocused = false;
   int _current = 0;
 
