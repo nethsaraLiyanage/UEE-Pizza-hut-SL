@@ -14,8 +14,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int currentIndex = 1;
-   final storage = new FlutterSecureStorage();
-
+  final storage = new FlutterSecureStorage();
   User user = User('', '', '', '', '');
 
   Future<User> view() async {
@@ -457,6 +456,7 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-        ));
+        )
+        );
   }
 }
