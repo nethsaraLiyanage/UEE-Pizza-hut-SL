@@ -4,7 +4,7 @@ const Payment = require('../modals/Payment');
 const User = require('../modals/user');
 const Cart = require('../modals/cart');
 const cartItem = require('../modals/cart_item');
-const Item = require('../modals/item');
+const Order = require('../modals/Order');
 const app = express()
 
 const router = express.Router({});
@@ -94,6 +94,38 @@ router.post("/addCard", async (req, res) => {
         console.log(error)
         res.json({error: error})
      }
+
+  });
+
+  router.post("/makePayment", async (req, res) => {
+
+    const {
+        totalAmmount,
+        deliveryCost,
+        discount,
+        PaymentCard,
+        user,
+    } = req.body
+    try {
+        const data = await Order.create({
+            totalAmmount: totalAmmount,
+            deliveryCost: deliveryCost,
+            discount: discount,
+            PaymentCard: PaymentCard,
+            user: user,
+            status: 1,
+            paymentDateTime: new Date(),
+        }).then(async (order) => {
+            res.json({ status: 201, message: "ok" })
+        }).catch((err) => {
+            console.log("Error in creating card")
+            res.json({ status: 400, message: err })
+        })
+
+    } catch (err) {
+        console.log("Error : " , err)
+        res.json({ error: err , status: 400 })
+    }
 
   });
 

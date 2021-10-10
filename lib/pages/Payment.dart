@@ -147,7 +147,6 @@ class _PaymentState extends State<Payment> {
                           setState(() {
                             _current = index;
                             _selectedCardId = snapshot.data!.paymentCards[index].id;
-                            print(index);
                           });
                         }),
 
@@ -697,6 +696,7 @@ class _PaymentState extends State<Payment> {
                               padding: const EdgeInsets.all(10.0),
                               hoverColor: Colors.red,
                               onPressed: () => {
+                                servicePayment.makePayment(_selectedCardId.toString(), "150.00", "0.00", (snapshot.data!.totalPrice + 150).toString(), _userId.toString()),
                                 Navigator.pushNamed(context, '/summary')
                               },
                               child: Text('Pay Now',

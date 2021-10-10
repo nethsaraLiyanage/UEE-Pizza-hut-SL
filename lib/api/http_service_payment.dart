@@ -9,7 +9,7 @@ import 'package:pizzahut/model/PaymentDetails.dart';
 
 class HttpServicePayment {
   final String addCardUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/addCard";
-  final String getPaymentDetailsUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/addCard";
+  final String makePaymentUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/makePayment";
 
   Future addCard(String cardNumber , String expiryDate ,String cardHolderName ,String cvvCode ,String cardHolder) async {
     var res = await http.post(Uri.parse(addCardUrl),
@@ -56,6 +56,36 @@ class HttpServicePayment {
       debugPrint('error');
       log('cant fecth data');
       throw "cant get products";
+    }
+  }
+
+  Future makePayment(String cardNumber , String deliveryCost ,String discount ,String totalCost ,String userId) async {
+    var res = await http.post(Uri.parse(makePaymentUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'PaymentCard': cardNumber,
+          'deliveryCost': deliveryCost,
+          'discount': discount,
+          'totalAmmount': totalCost,
+          'user': userId
+        }));
+    var result = jsonDecode(res.body);
+    print(result['status']);
+    if (result['status'] == 201) {
+      Fluttertoast.showToast(
+          msg: "Successfully Made the payment",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP_RIGHT,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      //Navigator.pushNamed(context, '/login');
+    } else {
+      throw Exception('Failed');
     }
   }
 
