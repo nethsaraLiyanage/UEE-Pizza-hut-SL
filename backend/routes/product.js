@@ -39,6 +39,7 @@ router.post('/cart-item', async (req, res, _next) => {
     totPrice = totPrice + JSON.parse(req.body.pizzaPrice)
 
     console.log(totPrice);
+    console.log(req.body.userId);
 
 
     const data = await Cart_Item.create({
