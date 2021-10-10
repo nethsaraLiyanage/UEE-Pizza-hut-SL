@@ -28,6 +28,7 @@ class _LoginState extends State<Login> {
           'password': user.password
         }));
     var result = await jsonDecode(res.body);
+    print(result);
     var userID = result['user']['_id'];
     if (result['status'] == 200) {
      await Auth.rememberUser(userID);

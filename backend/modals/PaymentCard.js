@@ -3,11 +3,27 @@ const  Schema = mongoose.Schema;
 
 const PaymentCard = new Schema({
 
-    user_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+    cardNumber: {
+        type: String,
+        required: true
     },
-    items:[{type : Schema.Types.ObjectId , ref : 'cart_item'}]
+    expiryDate:{
+        type:String,
+        required: true
+    },
+    cardHolderName:{
+        type: String, 
+        required: true, 
+    },
+    cvvCode:{
+        type: String, 
+        required: true, 
+    },
+    cardHolder: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true, 
+    },
     
 })
 

@@ -6,6 +6,9 @@ import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pizzahut/api/http_service_payment.dart';
+import 'package:pizzahut/api/user_services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -43,17 +46,41 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
+  final storage = new FlutterSecureStorage();
   final CarouselController _controller = CarouselController();
   final TextEditingController _cardNumberController = TextEditingController();
   final TextEditingController _expiryDateController  = TextEditingController();
   final TextEditingController _cardHolderNameController  = TextEditingController();
   final TextEditingController _cvcCodeController  = TextEditingController();
+
+  UserService userServices = UserService();
+  HttpServicePayment servicePayment = HttpServicePayment();
+
+
   String cardNumber = '4111 4582 4582 4511';
   String expiryDate = '';
   String cardHolderName = 'Mahendra Thammita';
   String cvcCode = '';
   bool isCvvFocused = false;
   int _current = 0;
+
+  String? _userId;
+
+  getUserId() async{
+    await storage.read(key: "user_id").then((value) {
+      setState(() {
+        _userId = value.toString();
+        debugPrint("User Id Is : "+ _userId!);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +306,7 @@ class _PaymentState extends State<Payment> {
                                                     child: Padding(
                                                       padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
                                                       child: TextFormField(
-                                                        controller : _cardNumberController,
+                                                        controller : _cardHolderNameController,
                                                         // The validator receives the text that the user has entered.
                                                         validator: (value) {
                                                           if (value == null || value.isEmpty) {
@@ -428,7 +455,9 @@ class _PaymentState extends State<Payment> {
                                                                     RoundedRectangleBorder(
                                                                         borderRadius: BorderRadius.circular(30.0),
                                                                         side: BorderSide(color: Colors.red)))),
-                                                            onPressed: () => {},
+                                                            onPressed: () => {
+                                                              servicePayment.addCard(_cardNumberController.text, _expiryDateController.text , _cardHolderNameController.text, _cvcCodeController.text, _userId!)
+                                                            },
                                                           ),
                                                         ),
                                                       )
