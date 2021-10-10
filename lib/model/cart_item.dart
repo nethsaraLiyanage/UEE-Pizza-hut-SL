@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 class CartItem {
-  int productId;
+  String productName;
   bool checked;
   String imageUri;
   String size = '';
@@ -10,7 +10,7 @@ class CartItem {
   List additions = [];
 
   CartItem(
-      {required this.productId,
+      {required this.productName,
       required this.imageUri,
       required this.checked,
       required this.crust,
@@ -20,6 +20,6 @@ class CartItem {
   @override
   String toString() {
     // TODO: implement toString
-    return "$productId : $checked";
+    return "$productName : $checked";
   }
 }

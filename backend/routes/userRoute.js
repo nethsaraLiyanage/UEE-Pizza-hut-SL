@@ -29,7 +29,14 @@ router.post("/register", async (req, res) => {
       password: hash,
     });
 
+    //creating a new cart for the user
+
+
+
     user.save().then(() => {
+
+      
+
       res.json({ status: 201, message: "user registered" });
     });
   }
@@ -40,7 +47,7 @@ router.post("/login", async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email: email }).populate('cart');
 
     if (user) {
       const auth = await bcrypt.compare(password, user.password);

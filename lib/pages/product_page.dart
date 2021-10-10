@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
@@ -9,6 +10,7 @@ import 'package:pizzahut/model/Addons.dart';
 import 'package:pizzahut/model/Cart_Addon.dart';
 import 'package:pizzahut/model/Product.dart';
 import 'package:material_dialogs/material_dialogs.dart';
+import 'package:pizzahut/model/cart_item.dart';
 
 class Home extends StatefulWidget {
   Product product_passed;
@@ -40,6 +42,7 @@ class _HomeState extends State<Home> {
   String _selCrust = '';
 
   List _additions = [];
+  late CartItem item;
 
   Widget horList(List<Addons>? addonList) {
     return Container(
@@ -67,7 +70,9 @@ class _HomeState extends State<Home> {
                             fit: BoxFit.contain),
                         actions: [
                           IconsOutlineButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             text: 'Cancel',
                             iconData: Icons.cancel_outlined,
                             textStyle: TextStyle(color: Colors.grey),
@@ -76,7 +81,9 @@ class _HomeState extends State<Home> {
                           IconsButton(
                             onPressed: () => {
                               _additions.add(new Cart_Addon(
-                                  name: e.name, price: e.price.toDouble()))
+                                  name: e.name, price: e.price.toDouble())),
+
+                                  Navigator.pop(context)
                             },
                             text: 'Yes, add it!',
                             iconData: Icons.add_sharp,
@@ -436,8 +443,17 @@ class _HomeState extends State<Home> {
                               color: Colors.red,
                               padding: const EdgeInsets.all(15.0),
                               hoverColor: Colors.red,
-                              onPressed: () =>
-                                  {Navigator.pushNamed(context, '/cart')},
+                              onPressed: () => {
+                                item = new CartItem(
+                                    productName:
+                                        widget.product_passed.itemTitle,
+                                    imageUri: widget.product_passed.imageUrl,
+                                    checked: false,
+                                    crust: this._selCrust,
+                                    size: this._selSize,
+                                    additions: this._additions)
+                                //Navigator.pushNamed(context, '/cart')
+                              },
                               child: Text('Add to Cart',
                                   style: TextStyle(color: Colors.white)),
                               focusColor: Colors.red,
