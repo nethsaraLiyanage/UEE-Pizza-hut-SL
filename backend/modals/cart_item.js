@@ -8,7 +8,7 @@ const cart_item = new Schema({
         required: true
     },
     crust:{
-        type: Number, 
+        type: String, 
         required: true, 
     },
     additions: {
@@ -23,12 +23,24 @@ const cart_item = new Schema({
         type : Number,
         required : true
     },
-    isSelcted : {
+    isSelected : {
         type : Boolean,
         required : false
+    },
+    pizzaPrice : {
+        type : Number,
+        required : true
+    },
+    image:{
+        type:String,
+        required: true
+    },
+    productName:{
+        type:String,
+        required: true
     },
 
 })
 
-const cart_item = mongoose.model("cart_item", cart_item);
-module.exports = cart_item;
+const Cart_item = mongoose.model("cart_item", cart_item);
+module.exports = Cart_item;

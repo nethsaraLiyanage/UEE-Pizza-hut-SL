@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
 
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:pizzahut/api/http_cart_item.dart';
 import 'package:pizzahut/api/http_service_addon.dart';
 import 'package:pizzahut/model/Addons.dart';
 import 'package:pizzahut/model/Cart_Addon.dart';
@@ -28,6 +30,7 @@ class _HomeState extends State<Home> {
   //callin the rest api
 
   final HttpServiceAddon _httpServiceAddon = new HttpServiceAddon();
+  final HttpServiceCartItem _httpServiceCartItem = new HttpServiceCartItem();
 
   //sate variables
 
@@ -80,10 +83,11 @@ class _HomeState extends State<Home> {
                           ),
                           IconsButton(
                             onPressed: () => {
-                              _additions.add(new Cart_Addon(
-                                  name: e.name, price: e.price.toDouble())),
-
-                                  Navigator.pop(context)
+                              _additions.add(jsonEncode({
+                                "name" : e.name,
+                                "price" : e.price
+                              })),
+                              Navigator.pop(context)
                             },
                             text: 'Yes, add it!',
                             iconData: Icons.add_sharp,
@@ -443,7 +447,7 @@ class _HomeState extends State<Home> {
                               color: Colors.red,
                               padding: const EdgeInsets.all(15.0),
                               hoverColor: Colors.red,
-                              onPressed: () => {
+                              onPressed: () {
                                 item = new CartItem(
                                     productName:
                                         widget.product_passed.itemTitle,
@@ -451,7 +455,14 @@ class _HomeState extends State<Home> {
                                     checked: false,
                                     crust: this._selCrust,
                                     size: this._selSize,
-                                    additions: this._additions)
+                                    additions: this._additions,
+                                    pizzaPrize:
+                                        widget.product_passed.price.toDouble());
+
+                                _httpServiceCartItem
+                                    .createCartItem(item);
+
+
                                 //Navigator.pushNamed(context, '/cart')
                               },
                               child: Text('Add to Cart',

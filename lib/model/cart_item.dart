@@ -7,12 +7,14 @@ class CartItem {
   String imageUri;
   String size = '';
   String crust = '';
+  double pizzaPrize;
   List additions = [];
 
   CartItem(
       {required this.productName,
       required this.imageUri,
       required this.checked,
+      required this.pizzaPrize,
       required this.crust,
       required this.size,
       required this.additions});

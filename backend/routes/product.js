@@ -1,5 +1,6 @@
 const express = require('express');
 const Item = require('../modals/item');
+const Cart_Item = require('../modals/cart_item')
 const app = express()
 
 const router = express.Router({});
@@ -27,16 +28,32 @@ router.post('/', async (req, res, _next) => {
 });
 
 router.post('/cart-item', async (req, res, _next) => {
-    const data = await Item.create({
+    //console.log(req.body.additions);
+
+    var totPrice = 0;
+    for(i = 0; i < req.body.additions.length; i++){
+        console.log(JSON.parse(req.body.additions[i]).price);
+        totPrice = totPrice + JSON.parse(req.body.additions[i]).price
+    }
+
+    totPrice = totPrice + JSON.parse(req.body.pizzaPrice)
+
+    console.log(totPrice);
+
+
+    const data = await Cart_Item.create({
         size : req.body.size,
         crust : req.body.crust,
         additions : req.body.additions,
         count : req.body.count,
-        totPrice : req.body.totPrice,
-        isSelected : rec.body.isSelected
+        totPrice : totPrice,
+        isSelected : false,
+        pizzaPrice : req.body.pizzaPrice,
+        image : req.body.image,
+        productName : req.body.productName
     })
 
-    res.send(data)
+    res.status(200).send(data)
 });
 
 // export router with all routes included
