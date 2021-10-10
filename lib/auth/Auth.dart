@@ -22,19 +22,19 @@ class Auth {
 
 //Check if user is previously logged in
   static Future<bool> isLoggedIn() async {
-    String user_id = await getUserId();
-    if (user_id != null) {
+    String? user_id =  await storage.read(key: "user_id");
+    print(user_id);
+    if (user_id == null) {
       return false;
     } else {
       return true;
     }
+    
   }
 
 //Get the user profile details
   static Future<User> view() async {
-    // User user = User('', '', '', '', '');
     var id = await getUserId();
-    print("User ID:" + id);
     var res = await http.get(
         Uri.parse(Connection.baseUrl + "/user/" + id),
         headers: <String, String>{
