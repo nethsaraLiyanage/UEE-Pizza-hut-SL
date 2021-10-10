@@ -39,8 +39,16 @@ class _RegisterState extends State<Register> {
         fontSize: 16.0
     );
       Navigator.pushNamed(context, '/login');
-    } else {
-      throw Exception('Failed');
+    } else if(result['status'] == 401) {
+         Fluttertoast.showToast(
+        msg: "User already exist",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
     }
   }
 

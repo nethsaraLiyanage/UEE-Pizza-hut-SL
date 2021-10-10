@@ -5,6 +5,8 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
+//User Registration
 router.post("/register", async (req, res) => {
 
   const isExisting = await User.findOne({ email: req.body.email });
@@ -42,6 +44,8 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
+//User Login
 router.post("/login", async (req, res) => {
   try {
     let email = req.body.email;
@@ -72,6 +76,7 @@ router.post("/login", async (req, res) => {
 });
 
 
+//View User Profile
 router.get("/:id", async (req, res) => {
   try {
     
@@ -89,6 +94,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
+//Update User Profile
 router.put("/update/:id", async (req, res) => {
 
   const userID = req.params.id;
