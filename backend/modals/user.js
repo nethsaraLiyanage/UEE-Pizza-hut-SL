@@ -26,7 +26,10 @@ const userSchema = new Schema({
     cart : {
         type : Schema.Types.ObjectId,
         ref : 'cart'
-    }
+    },
+    PaymentCards:[{
+        type : Schema.Types.ObjectId , ref : 'PaymentCard'
+    }]
 })
 
 const User = mongoose.model("user", userSchema);

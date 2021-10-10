@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:pizzahut/utils/connection.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomerFeedback extends StatefulWidget {
   @override
@@ -9,6 +13,51 @@ class CustomerFeedback extends StatefulWidget {
 class _CustomerFeedbackState extends State<CustomerFeedback> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+   int currentIndex = 1;
+
+   String order_id = "1";
+   String food_feedback = '';
+   String delivery_feedback = '';
+   double food_rating = 1;
+   double delivery_rating = 1;
+
+     Future sendFeedback() async {
+    var res = await http.post(Uri.parse(Connection.baseUrl+"/user/feedback/1"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'food_rating': food_rating.toString(),
+          'delivery_rating': delivery_rating.toString(),
+          'food_feedback': food_feedback,
+          'delivery_feedback': delivery_feedback
+         
+        }));
+    var result = jsonDecode(res.body);
+    print(result['status']);
+    if (result['status'] == 201) {
+       Fluttertoast.showToast(
+        msg: "Thanks for your feedback",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+      Navigator.pushNamed(context, '/home');
+    } else {
+         Fluttertoast.showToast(
+        msg: "Something went wrong",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +138,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                         color: Colors.amber,
                                       ),
                                       onRatingUpdate: (rating) {
-                                        print(rating);
+                                        food_rating = rating;
                                       },
                                     ),
                                   ),
@@ -100,6 +149,11 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(10),
                                     child: TextField(
+                                          controller: TextEditingController(),
+                                      onChanged: (value) {
+                                        delivery_feedback = value;
+                                      },
+                                  
                                       keyboardType: TextInputType.multiline,
                                       minLines: 4,
                                       maxLines: 5,
@@ -145,7 +199,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                         color: Colors.amber,
                                       ),
                                       onRatingUpdate: (rating) {
-                                        print(rating);
+                                        delivery_rating = rating;
                                       },
                                     ),
                                   ),
@@ -155,6 +209,10 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(10),
                                     child: TextField(
+                                       controller: TextEditingController(),
+                                      onChanged: (value) {
+                                        food_feedback = value;
+                                      },
                                       keyboardType: TextInputType.multiline,
                                       minLines: 4,
                                       maxLines: 5,
@@ -187,7 +245,9 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                       padding: const EdgeInsets.all(20.0),
                       minWidth: 200.0,
                       hoverColor: Colors.red,
-                      onPressed: () => {Navigator.pushNamed(context, '/home')},
+                      onPressed: () {
+                        sendFeedback();
+                        },
                       child:
                       Text('Submit', style: TextStyle(color: Colors.white)),
                       focusColor: Colors.red,
@@ -205,6 +265,80 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
           ),
         ),
         ),
+           bottomNavigationBar: Container(
+                          child: Material(
+                            elevation: 15,
+                            child: BottomNavigationBar(
+                              currentIndex: currentIndex,
+                              showSelectedLabels: false,
+                              onTap: (currentIndex) => {
+                                if (currentIndex == 0)
+                                  {Navigator.pushNamed(context, '/home')}
+                                else if (currentIndex == 1)
+                                  {Navigator.pushNamed(context, '/profile')}
+                                else if (currentIndex == 2)
+                                  {Navigator.pushNamed(context, '/search')}
+                                else if (currentIndex == 3)
+                                  {Navigator.pushNamed(context, '/cart')}
+                              },
+                              items: [
+                                BottomNavigationBarItem(
+                                  icon: Icon(
+                                    Icons.home,
+                                    color: Colors.redAccent,
+                                  ),
+
+                                  title: Text(
+                                    "Home",
+                                    style: TextStyle(
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  // backgroundColor: Colors.redAccent
+                                ),
+                                BottomNavigationBarItem(
+                                  icon: Icon(
+                                    Icons.people,
+                                    color: Colors.black38,
+                                  ),
+                                  title: Text(
+                                    "Profile",
+                                    style: TextStyle(
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  // backgroundColor: Colors.redAccent
+                                ),
+                                BottomNavigationBarItem(
+                                  icon: Icon(
+                                    Icons.search,
+                                    color: Colors.black38,
+                                  ),
+                                  title: Text(
+                                    "Search",
+                                    style: TextStyle(
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  // backgroundColor: Colors.redAccent
+                                ),
+                                BottomNavigationBarItem(
+                                  icon: Icon(
+                                    Icons.shopping_cart,
+                                    color: Colors.black38,
+                                  ),
+                                  title: Text(
+                                    "Cart",
+                                    style: TextStyle(
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  // backgroundColor: Colors.redAccent
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
     );
   }
 }
