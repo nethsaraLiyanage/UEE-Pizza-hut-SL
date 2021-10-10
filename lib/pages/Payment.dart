@@ -456,7 +456,8 @@ class _PaymentState extends State<Payment> {
                                                                         borderRadius: BorderRadius.circular(30.0),
                                                                         side: BorderSide(color: Colors.red)))),
                                                             onPressed: () => {
-                                                              servicePayment.addCard(_cardNumberController.text, _expiryDateController.text , _cardHolderNameController.text, _cvcCodeController.text, _userId!)
+                                                              servicePayment.addCard(_cardNumberController.text, _expiryDateController.text , _cardHolderNameController.text, _cvcCodeController.text, _userId!),
+                                                              Navigator.of(context, rootNavigator: true).pop()
                                                             },
                                                           ),
                                                         ),
