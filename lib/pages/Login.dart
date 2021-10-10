@@ -19,6 +19,7 @@ class _LoginState extends State<Login> {
   final storage = new FlutterSecureStorage();
 
     Future login() async {
+
     var res = await http.post(Uri.parse(Connection.baseUrl+"/user/login"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
@@ -28,8 +29,8 @@ class _LoginState extends State<Login> {
           'password': user.password
         }));
     var result = await jsonDecode(res.body);
-    var userID = result['user']['_id'];
     if (result['status'] == 200) {
+       var userID = result['user']['_id'];
      await Auth.rememberUser(userID);
  Fluttertoast.showToast(
         msg: "Sucessfully Logged In",
@@ -42,7 +43,15 @@ class _LoginState extends State<Login> {
     );
       Navigator.pushNamed(context, '/home');
     } else {
-      throw Exception('Failed');
+      Fluttertoast.showToast(
+        msg: "Login failed",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
     }
   }
 
