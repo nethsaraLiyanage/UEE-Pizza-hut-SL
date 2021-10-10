@@ -15,17 +15,21 @@ import 'package:pizzahut/pages/Main_screen.dart';
 import 'package:pizzahut/pages/Location.dart';
 import 'package:pizzahut/pages/Payment.dart';
 import 'package:pizzahut/pages/OrderSummery.dart';
+import 'package:pizzahut/pages/Tracking.dart';
 
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pizzahut/redux/reducers.dart';
 import 'package:redux/redux.dart';
 
 import 'model/Product.dart';
 
-void main() {
+void main() async{
   final store = new Store<List<CartItem>>(cartItemsReducer,
       initialState: new List.empty());
-  runApp(new MyApp(store: store));
+      WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+      await FlutterConfig.loadEnvVariables();
+      runApp(new MyApp(store: store));
 }
 
 class MyApp extends StatelessWidget {
@@ -35,29 +39,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
-      store: store,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-          '/': (context) => SplashScreen(),
-          '/home': (context) => MainScreen(),
-          '/login': (context) => Login(),
-          '/product': (context) => Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: ''),),
-          '/welcome': (context) => Welcome(),
-          '/register': (context) => Register(),
-          '/profile': (context) => Profile(),
-          '/edit_profile': (context) => EditProfile(),
-          '/feedback': (context) => CustomerFeedback(),
-          '/cart': (context) => Cart(),
-          '/location': (context) => Location(),
-          '/payment': (context) => Payment(),
-          '/promotions': (context) => Promotions(),
-          '/search': (context) => Search(),
-          '/summary': (context) => Summary(),
-        },
-      ),
+    return MaterialApp(
+
+      initialRoute: '/location',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/home': (context) => MainScreen(),
+        '/login': (context) => Login(),
+        '/product': (context) => Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: ''),),
+        '/welcome': (context) => Welcome(),
+        '/register': (context) => Register(),
+        '/profile': (context) => Profile(),
+        '/edit_profile': (context) => EditProfile(),
+        '/feedback': (context) => CustomerFeedback(),
+        '/cart': (context) => Cart(),
+        '/location':(context) => Location(),
+        '/payment':(context) => Payment(),
+        '/promotions': (context) => Promotions(),
+        '/search': (context) => Search(),
+        '/summary': (context) => Summary(),
+        '/tracking': (context) => Tracking(),
+      },
     );
   }
 }
