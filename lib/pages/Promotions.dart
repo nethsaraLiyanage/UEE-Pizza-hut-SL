@@ -15,53 +15,55 @@ class _PromotionsState extends State<Promotions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 40.0, 20.0, 30.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      child: Image.asset(
-                        'assets/images/backButton.png',
-                        width: 1,
-                      ),
-                      onTap: () => {Navigator.pushNamed(context, '/home')},
-                    ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      child: Text(''),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                child: Center(
-                  child: Text('Promotions',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30.0, fontWeight: FontWeight.bold)),
-                ),
-              ),
-              SizedBox(height: 5),
-              Divider(color: Colors.black38),
-              SizedBox(height: 20.0),
-              promotion('assets/images/banner01.jpg'),
-              promotion('assets/images/banner01.jpg'),
-              promotion('assets/images/banner01.jpg'),
-              promotion('assets/images/banner01.jpg'),
-              promotion('assets/images/banner01.jpg'),
 
-            ],
-          ),
-        ),
-      ),
+      
+      // body: Padding(
+      //   padding: const EdgeInsets.fromLTRB(10.0, 40.0, 20.0, 30.0),
+      //   child: SingleChildScrollView(
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       children: [
+      //         Row(
+      //           children: [
+      //             Expanded(
+      //               flex: 1,
+      //               child: GestureDetector(
+      //                 child: Image.asset(
+      //                   'assets/images/backButton.png',
+      //                   width: 1,
+      //                 ),
+      //                 onTap: () => {Navigator.pushNamed(context, '/home')},
+      //               ),
+      //             ),
+      //             Expanded(
+      //               flex: 5,
+      //               child: Container(
+      //                 child: Text(''),
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //         Container(
+      //           child: Center(
+      //             child: Text('Promotions',
+      //                 textAlign: TextAlign.center,
+      //                 style: TextStyle(
+      //                     fontSize: 30.0, fontWeight: FontWeight.bold)),
+      //           ),
+      //         ),
+      //         SizedBox(height: 5),
+      //         Divider(color: Colors.black38),
+      //         SizedBox(height: 20.0),
+      //         promotion('assets/images/banner01.jpg'),
+      //         promotion('assets/images/banner01.jpg'),
+      //         promotion('assets/images/banner01.jpg'),
+      //         promotion('assets/images/banner01.jpg'),
+      //         promotion('assets/images/banner01.jpg'),
+
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

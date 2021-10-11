@@ -10,6 +10,7 @@ const product = require('./routes/product')
 const addon = require('./routes/addons')
 const user = require('./routes/userRoute')
 const payment = require('./routes/paymentRoutes')
+const promotion = require('./routes/promotionRoutes')
 
 
 //other consts
@@ -26,6 +27,7 @@ app.use('/product',product)
 app.use('/addon',addon)
 app.use('/user', user)
 app.use('/payment', payment)
+app.use('/promo', promotion)
 
 
 mongoose.connect(
