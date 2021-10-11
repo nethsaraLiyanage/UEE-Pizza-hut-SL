@@ -305,15 +305,12 @@ class _ProfileState extends State<Profile> {
                                                       fontWeight:
                                                           FontWeight.bold)),
                                             ]),
+                                            for(var item in Auth.user.orders)
+                                        
                                             TableRow(children: [
-                                              Text('1 Pizza'),
-                                              Text('22/08/2021'),
-                                              Text('Rs 1500.00'),
-                                            ]),
-                                            TableRow(children: [
-                                              Text('1 Pizza'),
-                                              Text('22/08/2021'),
-                                              Text('Rs 1500.00'),
+                                              Text(item['status'].toString()),
+                                              Text(item['totalAmmount'].toString()),
+                                              Text('Rs '+item['totalAmmount'].toString()),
                                             ]),
                                           ],
                                         ),

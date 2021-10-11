@@ -82,6 +82,16 @@ class _EditProfileState extends State<EditProfile> {
           textColor: Colors.white,
           fontSize: 16.0);
       Navigator.pushNamed(context, '/profile');
+    } 
+      else if (result['status'] == 401) {
+      Fluttertoast.showToast(
+          msg: "Password mismatch",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     } else
       Fluttertoast.showToast(
           msg: "Something went wrong",

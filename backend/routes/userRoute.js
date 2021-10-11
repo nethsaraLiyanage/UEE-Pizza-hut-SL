@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const User = require("../modals/user");
 const Feedback = require("../modals/feedback");
+const Order = require("../modals/Order");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -78,7 +79,8 @@ router.get("/:id", async (req, res) => {
     const user = await User.findOne({ _id: userID });
 
     if (user) {
-        res.json({ status: 200, user: user});
+      const orders = await Order.find({"user": "6162ab7904e39f6e99bd92f2"});
+        res.json({ status: 200, user: user, orders: orders});
     } else {
       res.json({ status: 404, message: "user does not exist." });
     }
@@ -156,7 +158,6 @@ catch(e){
 
 router.post("/feedback/:id", async (req, res) => {
 
-  
     const feedback = await new Feedback({
 
       orderId : req.params.id,

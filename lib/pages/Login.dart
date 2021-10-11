@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
 
     Future login() async {
 
-    var res = await http.post(Uri.parse("http://192.168.8.183:8000/user/login"),
+    var res = await http.post(Uri.parse(Connection.baseUrl+"/user/login"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
     return user_id;
   }
   
-    User user = User('', '', '', '', '');
+    User user = User('', '', '', '', '', []);
 
   Widget build(BuildContext context) {
     return Scaffold(
