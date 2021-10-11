@@ -13,7 +13,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  int currentIndex = 1;
+  int currentIndex = 2;
   final storage = new FlutterSecureStorage();
 
 
@@ -433,7 +433,7 @@ class _ProfileState extends State<Profile> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: Colors.redAccent,
+                     color: Colors.black38,
                   ),
 
                   title: Text(
@@ -447,7 +447,7 @@ class _ProfileState extends State<Profile> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.people,
-                    color: Colors.black38,
+                     color: Colors.redAccent,
                   ),
                   title: Text(
                     "Profile",
