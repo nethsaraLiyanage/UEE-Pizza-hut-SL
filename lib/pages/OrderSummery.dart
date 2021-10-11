@@ -384,7 +384,7 @@ class _SummaryState extends State<Summary> {
                                       )
                                   ),
                                   Text(
-                                      'Rs 100.00',
+                                      'Rs 00.00',
                                       style: TextStyle(
                                         fontSize: 18.0, fontWeight: FontWeight.bold,
                                         color: Colors.grey[800],
@@ -414,7 +414,7 @@ class _SummaryState extends State<Summary> {
                                       )
                                   ),
                                   Text(
-                                      'Rs 400.00',
+                                      "Rs "+(snapshot.data!.totalPrice + 150).toString()+ ".00",
                                       style: TextStyle(
                                         fontSize: 20.0, fontWeight: FontWeight.bold,
                                         color: Colors.grey[800],
@@ -439,7 +439,7 @@ class _SummaryState extends State<Summary> {
                       Expanded(
                           flex: 1,
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                            padding: EdgeInsets.fromLTRB(40, 0, 50, 0),
                             child: FlatButton(
                               color: Colors.red,
                               padding: const EdgeInsets.all(10.0),
