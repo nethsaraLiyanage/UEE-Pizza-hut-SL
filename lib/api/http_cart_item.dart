@@ -24,7 +24,7 @@ class HttpServiceCartItem {
 
     debugPrint(user_id);
     http.Response res = await http.post(
-      Uri.parse("http://192.168.1.4:8000/product/cart-item"),
+      Uri.parse("http://"+FlutterConfig.get('IP')+":8000/product/cart-item"),
       headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       body: jsonEncode(<String, dynamic>{
         'size': item.size,

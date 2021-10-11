@@ -34,6 +34,7 @@ void main() async{
       WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
       await FlutterConfig.loadEnvVariables();
       loginState =  await Auth.isLoggedIn();
+      print(loginState);
       runApp(new MyApp(store: store));
 }
 

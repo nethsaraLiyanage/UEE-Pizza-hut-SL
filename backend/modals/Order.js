@@ -40,7 +40,12 @@ const Order = new Schema({
         type : Schema.Types.ObjectId , 
         ref : 'feedback',
         required: false
-    }
+    },
+    items:[{
+        type : Schema.Types.ObjectId , 
+        ref : 'cart_item',
+        required: false
+    }]
 })
 
 const OrderObj = mongoose.model("Order", Order);

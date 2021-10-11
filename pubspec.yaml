@@ -44,6 +44,7 @@ dependencies:
   fluttertoast: ^8.0.8
   geocoder: ^0.2.1
   email_auth: ^1.0.0
+  top_snackbar_flutter: ^1.0.1
 
 dev_dependencies:
   flutter_config: ^2.0.0

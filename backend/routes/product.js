@@ -1,6 +1,7 @@
 const express = require('express');
 const Item = require('../modals/item');
 const Cart_Item = require('../modals/cart_item')
+const Cart = require('../modals/cart')
 const app = express()
 
 const router = express.Router({});
@@ -55,6 +56,20 @@ router.post('/cart-item', async (req, res, _next) => {
     })
 
     res.status(200).send(data)
+});
+
+
+//get cart items from the cart fro logged in user
+router.get('/get-cart-items/:id',async (req,res) =>{
+    
+    try {
+        const items = await Cart.findOne({user_id : req.params.id}).populate('items')
+
+        res.status(200).send(items['items'])
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
 });
 
 // export router with all routes included
