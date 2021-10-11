@@ -17,6 +17,26 @@ class Tracking extends StatefulWidget {
 class _TrackingState extends State<Tracking> {
 
   int _currentStep = 0;
+
+  void _timer() {
+    Future.delayed(Duration(seconds: 10)).then((_) {
+      setState(() {
+        _currentStep++;
+        if(_currentStep >= 3){
+          return;
+        }
+      });
+      _timer();
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _timer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +110,7 @@ class _TrackingState extends State<Tracking> {
                   flex: 5,
                   child: Container(
                       child:Center(
-                        child: Text('10:00 - 12:00',
+                        child: Text('03:30 pm - 03:45 pm',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 25.0, fontWeight: FontWeight.bold)
@@ -102,55 +122,68 @@ class _TrackingState extends State<Tracking> {
             ),
             Container(
 
-              child: Theme(
-                data: ThemeData(
+
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
+                child: Theme(
+                  data: ThemeData(
                     accentColor: Colors.red,
                     primarySwatch: Colors.red,
                     colorScheme: ColorScheme.light(
                         primary: Colors.red
                     ),
-                  iconTheme: IconThemeData(
-                    size: 40.0,
+                    iconTheme: IconThemeData(
+                      size: 4.0,
+                    ),
+                  ),
+
+                  child: Stepper(
+                    controlsBuilder: (context, {onStepContinue, onStepCancel}) {
+                      return Row();
+                    },
+                    type: StepperType.vertical,
+                    physics: ScrollPhysics(),
+                    steps: <Step>[
+                      Step(
+                        title: new Text('Order Accepted',
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        content: LimitedBox(
+                        ),
+                        isActive: _currentStep >= 0,
+                        state: _currentStep > 0 ? StepState.complete : StepState.disabled,
+                      ),
+                      Step(
+                        title: new Text('Order Dispatched',
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        content: Column(),
+                        isActive: _currentStep >= 1,
+                        state: _currentStep > 1 ? StepState.complete : StepState.disabled,
+                      ),
+                      Step(
+                        title: new Text('Delivering...',
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        content: Column(),
+                        isActive:_currentStep >= 2,
+                        state: _currentStep > 2 ? StepState.complete : StepState.disabled,
+                      ),
+                      Step(
+                        title: new Text(
+                            'Confirmation',
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold)
+                        ),
+                        content: Column(),
+                        isActive:_currentStep >= 3,
+                        state: _currentStep > 3 ?
+                        StepState.complete : StepState.disabled,
+                      ),
+                    ],
                   ),
                 ),
-
-                child: Stepper(
-                  type: StepperType.vertical,
-                  physics: ScrollPhysics(),
-                  currentStep: _currentStep,
-                  steps: <Step>[
-                    Step(
-                      title: new Text('Order Accepted'),
-                      content: LimitedBox(
-                      ),
-                      isActive: _currentStep >= 0,
-                      state: _currentStep >= 0 ?
-                      StepState.complete : StepState.disabled,
-                    ),
-                    Step(
-                      title: new Text('Order Dispatched'),
-                      content: Column(),
-                      isActive: _currentStep >= 0,
-                      state: _currentStep >= 1 ?
-                      StepState.complete : StepState.disabled,
-                    ),
-                    Step(
-                      title: new Text('Delivering...'),
-                      content: Column(),
-                      isActive:_currentStep >= 0,
-                      state: _currentStep >= 2 ?
-                      StepState.complete : StepState.disabled,
-                    ),
-                    Step(
-                      title: new Text('Confirmation'),
-                      content: Column(),
-                      isActive:_currentStep >= 0,
-                      state: _currentStep >= 2 ?
-                      StepState.complete : StepState.disabled,
-                    ),
-                  ],
-                ),
-              ),
+              )
             ),
             SizedBox(height: 10.0),
             Row(
