@@ -8,6 +8,7 @@ import 'package:pizzahut/pages/Promotions.dart';
 import 'package:pizzahut/pages/Profile.dart';
 import 'package:pizzahut/pages/Register.dart';
 import 'package:pizzahut/pages/Search.dart';
+import 'package:pizzahut/pages/SelectCoupon.dart';
 import 'package:pizzahut/pages/VerifyEmail.dart';
 import 'package:pizzahut/pages/product_page.dart';
 import 'package:pizzahut/pages/splash_page.dart';
@@ -28,46 +29,52 @@ import 'model/Product.dart';
 
 bool loginState = true;
 
-void main() async{
+void main() async {
   final store = new Store<List<CartItem>>(cartItemsReducer,
       initialState: new List.empty());
-      WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
-      await FlutterConfig.loadEnvVariables();
-      loginState =  await Auth.isLoggedIn();
-      print(loginState);
-      runApp(new MyApp(store: store));
+  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+  await FlutterConfig.loadEnvVariables();
+  loginState = await Auth.isLoggedIn();
+  print(loginState);
+  runApp(new MyApp(store: store));
 }
 
 class MyApp extends StatelessWidget {
   final Store<List<CartItem>> store;
-  
+
   const MyApp({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: loginState ? '/home': '/login',
-
+      initialRoute: loginState ? '/' : '/login',
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
         '/login': (context) => Login(),
-        '/product': (context) => Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: ''),),
+        '/product': (context) => Home(
+              product_passed: new Product(
+                  itemTitle: '',
+                  description: '',
+                  price: 0,
+                  imageUrl: '',
+                  additions: [],
+                  mini_desc: ''),
+            ),
         '/welcome': (context) => Welcome(),
         '/register': (context) => Register(),
         '/profile': (context) => Profile(),
         '/edit_profile': (context) => EditProfile(),
         '/feedback': (context) => CustomerFeedback(),
         '/cart': (context) => Cart(),
-        '/location':(context) => Location(),
-        '/payment':(context) => Payment(),
+        '/location': (context) => Location(),
+        '/payment': (context) => Payment(),
         '/promotions': (context) => Promotions(),
         '/search': (context) => Search(),
         '/summary': (context) => Summary(),
         '/tracking': (context) => Tracking(),
+        '/coupon': (context) => SelectCoupon(),
         '/verify': (context) => VerifyEmail(),
       },
     );
