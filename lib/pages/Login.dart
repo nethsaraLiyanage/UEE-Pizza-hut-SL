@@ -32,10 +32,11 @@ class _LoginState extends State<Login> {
           'password': user.password
         }));
     var result = await jsonDecode(res.body);
-    print(result);
     if (result['status'] == 200) {
        var userID = result['user']['_id'];
+       print(result['user']['deliveryAddress']);
      await Auth.rememberUser(userID);
+      await storage.write(key: "address", value: result['user']['deliveryAddress']);
 showTopSnackBar(
     context,
     CustomSnackBar.success(
