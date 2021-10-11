@@ -8,6 +8,7 @@ import 'package:pizzahut/pages/Promotions.dart';
 import 'package:pizzahut/pages/Profile.dart';
 import 'package:pizzahut/pages/Register.dart';
 import 'package:pizzahut/pages/Search.dart';
+import 'package:pizzahut/pages/SelectCoupon.dart';
 import 'package:pizzahut/pages/product_page.dart';
 import 'package:pizzahut/pages/splash_page.dart';
 import 'package:pizzahut/pages/welcome.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: loginState ? '/home': '/login',
+      // initialRoute: '/coupon',
 
       routes: {
         '/': (context) => SplashScreen(),
@@ -66,6 +68,7 @@ class MyApp extends StatelessWidget {
         '/search': (context) => Search(),
         '/summary': (context) => Summary(),
         '/tracking': (context) => Tracking(),
+        '/coupon': (context) => SelectCoupon()
       },
     );
   }
