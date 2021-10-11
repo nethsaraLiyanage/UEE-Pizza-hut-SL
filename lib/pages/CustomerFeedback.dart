@@ -26,10 +26,10 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
   double delivery_rating = 1;
 
   Future sendFeedback() async {
-     var order_id = await storage.read(key: "order_id");
+     var order_id = await storage.read(key: "order_id").toString();
 
     var res = await http.post(
-        Uri.parse(Connection.baseUrl + "/user/feedback/1"),
+        Uri.parse(Connection.baseUrl + "/user/feedback/"+order_id),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },

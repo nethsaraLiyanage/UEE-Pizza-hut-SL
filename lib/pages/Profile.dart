@@ -297,7 +297,8 @@ class _ProfileState extends State<Profile> {
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    Container(
+                                    SingleChildScrollView(
+                                     child: Container(
                                       height: height * 0.20,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -357,7 +358,7 @@ class _ProfileState extends State<Profile> {
                                             for(var item in Auth.user.orders)
                                         
                                             TableRow(children: [
-                                              Text(item['status'].toString()),
+                                              Text(item['items'][0]['productName'].toString()),
                                               Text(item['totalAmmount'].toString()),
                                               Text('Rs '+item['totalAmmount'].toString()),
                                             ]),
@@ -365,6 +366,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       )),
                                     ),
+                                    )
                                     // SizedBox(
                                     //   height: 10,
                                     // ),
