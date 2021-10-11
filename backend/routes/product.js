@@ -39,8 +39,10 @@ router.post('/cart-item', async (req, res, _next) => {
 
     totPrice = totPrice + JSON.parse(req.body.pizzaPrice)
 
-    console.log(totPrice);
-    console.log(req.body.userId);
+    // console.log(totPrice);
+    // console.log(req.body.userId);
+
+    console.log(req.body.count);
 
 
     const data = await Cart_Item.create({
@@ -55,6 +57,10 @@ router.post('/cart-item', async (req, res, _next) => {
         productName : req.body.productName
     })
 
+    console.log(data);
+
+    const updateCart = await Cart.findOneAndUpdate({user_id : req.body.userId}, {$push : {items : data._id}})
+
     res.status(200).send(data)
 });
 
@@ -64,6 +70,7 @@ router.get('/get-cart-items/:id',async (req,res) =>{
     
     try {
         const items = await Cart.findOne({user_id : req.params.id}).populate('items')
+        console.log(items);
 
         res.status(200).send(items['items'])
     } catch (error) {
@@ -71,6 +78,41 @@ router.get('/get-cart-items/:id',async (req,res) =>{
     }
 
 });
+
+router.post('/cart-item/:id', async (req, res, _next) => {
+    console.log(req.body.isSelcted);
+    try {
+        await Cart_Item.findOneAndUpdate({_id : req.params.id}, {isSelected : req.body.isSelcted})
+    } catch (error) {
+        
+    }
+    
+});
+
+//get cart items from the cart fro logged in user
+router.get('/get-selected/:id',async (req,res) =>{
+    
+    try {
+        var totSel = 0;
+        var totMoney = 0;
+        const items = await Cart.findOne({user_id : req.params.id}).populate('items')
+        console.log(items);
+
+        for(i = 0; i < items['items'].length; i++){
+            console.log(items['items'][i].isSelected);
+            if(items['items'][i].isSelected){
+                totSel = totSel + 1;
+                totMoney = totMoney + items['items'][i].totPrice;
+            }
+        }
+
+        res.status(200).json({"sel" : totSel, "price" : totMoney})
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
+});
+
 
 // export router with all routes included
 module.exports = router;

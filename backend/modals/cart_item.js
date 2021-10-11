@@ -35,6 +35,10 @@ const cart_item = new Schema({
         type : String,
         required : false
     },
+    count : {
+        type : Number,
+        required : true
+    },
 })
 
 const cart_itemObj = mongoose.model("cart_item", cart_item);
