@@ -76,7 +76,7 @@ class _SelectCouponState extends State<SelectCoupon> {
                     padding: const EdgeInsets.all(15.0),
                     hoverColor: Colors.red,
                     onPressed: () =>
-                      {Navigator.pushNamed(context, '/cart')},
+                      {Navigator.pushNamed(context, '')},
                     child: Text('Apply Promos',
                       style: TextStyle(color: Colors.white)),
                       focusColor: Colors.red,
