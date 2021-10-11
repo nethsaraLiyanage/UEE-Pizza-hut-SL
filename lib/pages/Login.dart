@@ -6,7 +6,9 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pizzahut/auth/Auth.dart';
 import 'package:pizzahut/utils/connection.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _LoginState extends State<Login> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final storage = new FlutterSecureStorage();
+   int currentIndex = 1;
 
     Future login() async {
 
@@ -30,30 +33,25 @@ class _LoginState extends State<Login> {
         }));
     var result = await jsonDecode(res.body);
     print(result);
-    var userID = result['user']['_id'];
     if (result['status'] == 200) {
        var userID = result['user']['_id'];
      await Auth.rememberUser(userID);
- Fluttertoast.showToast(
-        msg: "Sucessfully Logged In",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+showTopSnackBar(
+    context,
+    CustomSnackBar.success(
+      message:
+          "Successfilly Logged In",
+    ),
+);
       Navigator.pushNamed(context, '/home');
-    } else {
-      Fluttertoast.showToast(
-        msg: "Login failed",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+    context,
+    CustomSnackBar.error(
+      message:
+          "Something went wrong. Please check your credentials and try again",
+    ),
+);
     }
   }
 
@@ -66,7 +64,7 @@ class _LoginState extends State<Login> {
     return user_id;
   }
   
-    User user = User('', '', '', '', '');
+    User user = User('', '', '', '', '', []);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,8 +132,11 @@ class _LoginState extends State<Login> {
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
                                           return 'Email is Required';
-                                        } else if (1 == 1) {
+                                        } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
                                           return null;
+                                        }
+                                        else{
+                                          return 'Enter a valid email';
                                         }
                                       },
                                         decoration: InputDecoration(
@@ -202,7 +203,10 @@ class _LoginState extends State<Login> {
                       height: 50.0,
                       hoverColor: Colors.red,
                       onPressed: () {
-                       login();
+                        if(_formKey.currentState!.validate()){
+                            login();
+                        }
+                       
                       },
                       child:
                       Text('Login', style: TextStyle(color: Colors.white)),

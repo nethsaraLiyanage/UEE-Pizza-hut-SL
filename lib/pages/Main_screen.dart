@@ -18,6 +18,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreen extends State<MainScreen> {
   final HttpServiceProduct _httpServiceProduct = new HttpServiceProduct();
   int currentIndex = 1;
+  int selectedCategory = 1;
+  String type = 'pizza';
+
   final screens = [
     MainScreen(),
     Cart(),
@@ -60,17 +63,28 @@ class _MainScreen extends State<MainScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: FlatButton(
-                                    color: Colors.red,
+                                    // color: Colors.red,
                                     hoverColor: Colors.red,
-                                    onPressed: null,
+                                    onPressed: () => {
+                                      this.setState(() {
+                                        selectedCategory = 1;
+                                        type = 'Pizza';
+                                      })
+                                    },
+                                    focusColor:
+                                      selectedCategory == 1 ? Colors.red : Colors.white,
+                                    color: selectedCategory == 1 ? Colors.red : Colors.white,
                                     child: Text('Pizza',
                                         style: TextStyle(
-                                            color: Colors.red,
+                                            color: selectedCategory == 1
+                                              ? Colors.white
+                                              : Colors.black,
                                             fontWeight: FontWeight.bold)),
-                                    focusColor: Colors.red,
                                     shape: RoundedRectangleBorder(
                                         side: BorderSide(
-                                            color: Colors.red,
+                                            color: selectedCategory == 1
+                                              ? Colors.red
+                                              : Colors.black,
                                             width: 1,
                                             style: BorderStyle.solid),
                                         borderRadius:
@@ -81,30 +95,60 @@ class _MainScreen extends State<MainScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: FlatButton(
-                                    onPressed: null,
-                                    child: Text('Appetizers',
-                                        style: TextStyle(color: Colors.black)),
-                                    shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                            color: Colors.black,
-                                            width: 1,
-                                            style: BorderStyle.solid),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                  ),
-                                ),
-                                SizedBox(width: 10.0),
-                                Expanded(
-                                  flex: 1,
-                                  child: FlatButton(
-                                    color: Colors.black,
+                                    // color: Colors.white,
                                     hoverColor: Colors.black,
-                                    onPressed: null,
-                                    child: Text('Others',
-                                        style: TextStyle(color: Colors.black)),
+                                    onPressed: () => {
+                                      this.setState(() {
+                                        selectedCategory = 2;
+                                        type = 'Appetizers';
+                                      })
+                                    },
+                                    focusColor:
+                                      selectedCategory == 2 ? Colors.red : Colors.white,
+                                    color: selectedCategory == 2 ? Colors.red : Colors.white,
+                                    child: Text('Appetizers',
+                                        style: TextStyle(
+                                            color: selectedCategory == 2
+                                              ? Colors.white
+                                              : Colors.black,
+                                          )),
                                     shape: RoundedRectangleBorder(
                                         side: BorderSide(
-                                            color: Colors.black,
+                                            color: selectedCategory == 2
+                                              ? Colors.red
+                                              : Colors.black,
+                                            width: 1,
+                                            style: BorderStyle.solid),
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ),
+                                ),
+                                SizedBox(width: 10.0),
+                                Expanded(
+                                  flex: 1,
+                                  child: FlatButton(
+                                    // color: Colors.white,
+                                    hoverColor: Colors.black,
+                                    onPressed: () => {
+                                      this.setState(() {
+                                        selectedCategory = 3;
+                                        type = 'Others';
+                                      })
+                                    },
+                                    focusColor:
+                                      selectedCategory == 3 ? Colors.red : Colors.white,
+                                    color: selectedCategory == 3 ? Colors.red : Colors.white,
+                                    child: Text('Others',
+                                        style: TextStyle(
+                                          color: selectedCategory == 3
+                                              ? Colors.white
+                                              : Colors.black,
+                                        )),
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            color: selectedCategory == 3
+                                              ? Colors.red
+                                              : Colors.black,
                                             width: 1,
                                             style: BorderStyle.solid),
                                         borderRadius:
@@ -123,14 +167,16 @@ class _MainScreen extends State<MainScreen> {
                                   // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: products!
                                       .map(
-                                        (Product product) => Column(
-                                          children: [GestureDetector(
+                                        (Product product) => Column(children: [
+                                          GestureDetector(
                                             onTap: () => {
                                               // Navigator.pushNamed(context, '/product')
                                               Navigator.push(
                                                   context,
                                                   PageBouceAnimation(
-                                                      widget: Home(product_passed : product)))
+                                                      widget: Home(
+                                                          product_passed:
+                                                              product)))
                                             },
                                             child: Row(
                                               children: [
@@ -139,13 +185,11 @@ class _MainScreen extends State<MainScreen> {
                                                     product.mini_desc,
                                                     product.imageUrl,
                                                     product.price.toDouble()),
-                                                
                                               ],
                                             ),
                                           ),
                                           SizedBox(height: 15.0),
-                                          ]
-                                        ),
+                                        ]),
                                       )
                                       .toList())),
                         ],
@@ -255,7 +299,10 @@ Widget productCard(
                   maxHeight: 120.0,
                   child: Row(
                     children: [
-                      Image.network(imagePath, width: 115,),
+                      Image.network(
+                        imagePath,
+                        width: 115,
+                      ),
                     ],
                   ),
                 ),
@@ -293,10 +340,10 @@ Widget productCard(
                 Container(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    color: Colors.redAccent,
+                    color: Colors.white,
                     child: Text(
-                      price.toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 15),
+                      ' Rs. ' + price.toString() + "0 ",
+                      style: TextStyle(color: Colors.redAccent, fontSize: 15),
                     ),
                   ),
                 )
