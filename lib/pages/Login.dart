@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pizzahut/auth/Auth.dart';
 import 'package:pizzahut/utils/connection.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';

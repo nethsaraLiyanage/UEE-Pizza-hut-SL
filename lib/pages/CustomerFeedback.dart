@@ -5,6 +5,9 @@ import 'dart:convert';
 import 'package:pizzahut/utils/connection.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class CustomerFeedback extends StatefulWidget {
   @override
@@ -39,24 +42,22 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
     var result = jsonDecode(res.body);
     print(result['status']);
     if (result['status'] == 201) {
-      Fluttertoast.showToast(
-          msg: "Thanks for your feedback",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
+    showTopSnackBar(
+    context,
+    CustomSnackBar.info(
+      message:
+          "Thanks for your feedback!",
+    ),
+);
       Navigator.pushNamed(context, '/home');
     } else {
-      Fluttertoast.showToast(
-          msg: "Something went wrong",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+     showTopSnackBar(
+    context,
+    CustomSnackBar.error(
+      message:
+          "Something went wrong!",
+    ),
+);
     }
   }
 
