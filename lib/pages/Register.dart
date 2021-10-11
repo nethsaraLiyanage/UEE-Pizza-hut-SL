@@ -9,6 +9,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:pizzahut/auth/Auth.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -19,9 +22,8 @@ class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final storage = new FlutterSecureStorage();
 
-
   Future save() async {
-    var res = await http.post(Uri.parse(Connection.baseUrl+"/user/register"),
+    var res = await http.post(Uri.parse(Connection.baseUrl + "/user/register"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
@@ -35,28 +37,29 @@ class _RegisterState extends State<Register> {
     var result = jsonDecode(res.body);
     print(result['status']);
     if (result['status'] == 201) {
-       await storage.write(key: "email", value: user.email);
-       Fluttertoast.showToast(
-        msg: "Sucessfully Registered",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+      await storage.write(key: "email", value: user.email);
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "Successfilly Registered!",
+        ),
+      );
       Navigator.pushNamed(context, '/verify');
-       Auth.sendOTp();
-    } else if(result['status'] == 401) {
-         Fluttertoast.showToast(
-        msg: "User already exist",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+      Auth.sendOTp();
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "User Already exist!",
+        ),
+      );
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went rong!",
+        ),
+      );
     }
   }
 
@@ -129,13 +132,14 @@ class _RegisterState extends State<Register> {
                                       onChanged: (value) {
                                         user.email = value;
                                       },
-                                     validator: (String? value) {
+                                      validator: (String? value) {
                                         if (value!.isEmpty && value == null) {
                                           return 'Email is Required';
-                                        } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
+                                        } else if (RegExp(
+                                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                            .hasMatch(value)) {
                                           return null;
-                                        }
-                                        else{
+                                        } else {
                                           return 'Enter a valid email';
                                         }
                                       },
@@ -197,7 +201,7 @@ class _RegisterState extends State<Register> {
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
                                           return 'Mobile Number is Required';
-                                        } else{
+                                        } else {
                                           return null;
                                         }
                                       },
@@ -291,9 +295,9 @@ class _RegisterState extends State<Register> {
                     minWidth: 200.0,
                     hoverColor: Colors.red,
                     onPressed: () {
-                       if(_formKey.currentState!.validate()){
-                      save();
-                       }
+                      if (_formKey.currentState!.validate()) {
+                        save();
+                      }
                     },
                     child:
                         Text('Sign Up', style: TextStyle(color: Colors.white)),

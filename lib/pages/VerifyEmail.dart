@@ -3,6 +3,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:pizzahut/auth/Auth.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class VerifyEmail extends StatefulWidget {
   @override
@@ -23,26 +26,22 @@ bool res = Auth.verifyOtp(otp);
 print(res);
 
     if (res == true) {
- Fluttertoast.showToast(
-        msg: "Sucessfully Verified",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+ showTopSnackBar(
+    context,
+    CustomSnackBar.success(
+      message:
+          "Account verified successfully",
+    ),
+);
       Navigator.pushNamed(context, '/login');
     } else {
-      Fluttertoast.showToast(
-        msg: "Verification failed",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+          showTopSnackBar(
+    context,
+    CustomSnackBar.error(
+      message:
+          "Invalid OTP!",
+    ),
+);
     }
   }
 
@@ -104,7 +103,7 @@ print(res);
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Email is Required';
+                                          return 'OTP is Required';
                                         } 
                                         else{
                                           return null;
@@ -113,7 +112,7 @@ print(res);
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           prefixIcon: Icon(
-                                            Icons.email,
+                                            Icons.lock,
                                             color: Colors.redAccent,
                                           ),
                                           contentPadding: EdgeInsets.only(top: 15),

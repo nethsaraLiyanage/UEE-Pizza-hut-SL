@@ -266,7 +266,7 @@ class _ProfileState extends State<Profile> {
                                       height: 10,
                                     ),
                                     Container(
-                                      height: height * 0.15,
+                                      height: height * 0.20,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         border: Border.all(color: Colors.black),
@@ -305,6 +305,23 @@ class _ProfileState extends State<Profile> {
                                                       fontWeight:
                                                           FontWeight.bold)),
                                             ]),
+                                               TableRow(children: [
+                                              Text(' ',
+                                                  style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Text(' ',
+                                                  style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Text(' ',
+                                                  style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ]),
                                             for(var item in Auth.user.orders)
                                         
                                             TableRow(children: [
@@ -316,39 +333,39 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       )),
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Track my orders',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontFamily: 'Nunito',
-                                      ),
-                                    ),
-                                    Divider(
-                                      thickness: 2.5,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      height: height * 0.15,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(color: Colors.black),
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 10,
-                                            offset: Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    // SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    // Text(
+                                    //   'Track my orders',
+                                    //   style: TextStyle(
+                                    //     color: Colors.black,
+                                    //     fontSize: 20,
+                                    //     fontFamily: 'Nunito',
+                                    //   ),
+                                    // ),
+                                    // Divider(
+                                    //   thickness: 2.5,
+                                    // ),
+                                    // SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    // Container(
+                                    //   height: height * 0.15,
+                                    //   decoration: BoxDecoration(
+                                    //     color: Colors.white,
+                                    //     border: Border.all(color: Colors.black),
+                                    //     borderRadius: BorderRadius.circular(10),
+                                    //     boxShadow: [
+                                    //       BoxShadow(
+                                    //         color: Colors.grey.withOpacity(0.5),
+                                    //         spreadRadius: 5,
+                                    //         blurRadius: 10,
+                                    //         offset: Offset(0, 2),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
