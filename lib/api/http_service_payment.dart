@@ -79,7 +79,6 @@ class HttpServicePayment {
 
     print(result['status']);
     if (result['status'] == 201) {
-      print( result['orderId']);
       await storage.write(key: "order_id", value: result['orderId']);
       Fluttertoast.showToast(
           msg: "Successfully Made the payment",

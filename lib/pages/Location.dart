@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pizzahut/api/http_service_location.dart';
 import 'package:slidable_button/slidable_button.dart';
@@ -16,17 +17,19 @@ class Location extends StatefulWidget {
 }
 
 class _LocationState extends State<Location> {
+  final storage = new FlutterSecureStorage();
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
   Completer<GoogleMapController> _controller = Completer();
   bool checkBox = false;
   int pizVal = 1;
   var result = "As Soon As Possible";
   TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
-  TimeOfDay? _selectedTime = null;
-  String? _address = null;
+  TimeOfDay? _selectedTime;
+  String? _address;
 
   final HttpServiceLocation _httpServiceLocation = new HttpServiceLocation();
 
+  
   void _selectTime() async {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
@@ -52,9 +55,29 @@ class _LocationState extends State<Location> {
 
   static final LatLng _kMapCenter =
   LatLng(6.9271, 79.8612);
-
   static final CameraPosition _kInitialPosition =
-  CameraPosition(target: _kMapCenter, zoom: 15.0, tilt: 0, bearing: 0);
+  CameraPosition(
+      target: _kMapCenter,
+      zoom: 15.0,
+      tilt: 0,
+      bearing: 0,
+  );
+
+  getUserAddress() async{
+    await storage.read(key: "address").then((value) {
+      setState(() {
+        _address = value.toString();
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserAddress();
+  }
+
 
   @override
   Widget build(BuildContext context) {
