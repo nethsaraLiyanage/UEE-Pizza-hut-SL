@@ -8,6 +8,7 @@ import 'package:pizzahut/pages/Promotions.dart';
 import 'package:pizzahut/pages/Profile.dart';
 import 'package:pizzahut/pages/Register.dart';
 import 'package:pizzahut/pages/Search.dart';
+import 'package:pizzahut/pages/VerifyEmail.dart';
 import 'package:pizzahut/pages/product_page.dart';
 import 'package:pizzahut/pages/splash_page.dart';
 import 'package:pizzahut/pages/welcome.dart';
@@ -21,15 +22,19 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pizzahut/redux/reducers.dart';
 import 'package:redux/redux.dart';
+import 'package:pizzahut/auth/Auth.dart';
 
 import 'model/Product.dart';
 
-void main() async {
+bool loginState = true;
+
+void main() async{
   final store = new Store<List<CartItem>>(cartItemsReducer,
       initialState: new List.empty());
-  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
-  await FlutterConfig.loadEnvVariables();
-  runApp(new MyApp(store: store));
+      WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+      await FlutterConfig.loadEnvVariables();
+      loginState =  await Auth.isLoggedIn();
+      runApp(new MyApp(store: store));
 }
 
 class MyApp extends StatelessWidget {
@@ -39,9 +44,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
 
-      initialRoute: '/login',
+  
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: loginState ? '/home': '/login',
+
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),
@@ -67,6 +75,7 @@ class MyApp extends StatelessWidget {
         '/search': (context) => Search(),
         '/summary': (context) => Summary(),
         '/tracking': (context) => Tracking(),
+        '/verify': (context) => VerifyEmail(),
       },
     );
   }

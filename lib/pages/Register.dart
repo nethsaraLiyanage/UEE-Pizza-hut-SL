@@ -6,6 +6,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:pizzahut/utils/connection.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:email_auth/email_auth.dart';
+import 'package:pizzahut/auth/Auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -14,6 +17,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  static final storage = new FlutterSecureStorage();
+
+
   Future save() async {
     var res = await http.post(Uri.parse(Connection.baseUrl+"/user/register"),
         headers: <String, String>{
@@ -29,6 +35,7 @@ class _RegisterState extends State<Register> {
     var result = jsonDecode(res.body);
     print(result['status']);
     if (result['status'] == 201) {
+       await storage.write(key: "email", value: user.email);
        Fluttertoast.showToast(
         msg: "Sucessfully Registered",
         toastLength: Toast.LENGTH_SHORT,
@@ -38,7 +45,8 @@ class _RegisterState extends State<Register> {
         textColor: Colors.white,
         fontSize: 16.0
     );
-      Navigator.pushNamed(context, '/login');
+      Navigator.pushNamed(context, '/verify');
+       Auth.sendOTp();
     } else if(result['status'] == 401) {
          Fluttertoast.showToast(
         msg: "User already exist",
@@ -52,7 +60,7 @@ class _RegisterState extends State<Register> {
     }
   }
 
-  User user = User('', '', '', '', '');
+  User user = User('', '', '', '', '', []);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,11 +129,14 @@ class _RegisterState extends State<Register> {
                                       onChanged: (value) {
                                         user.email = value;
                                       },
-                                      validator: (String? value) {
-                                        if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                     validator: (String? value) {
+                                        if (value!.isEmpty && value == null) {
+                                          return 'Email is Required';
+                                        } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
                                           return null;
+                                        }
+                                        else{
+                                          return 'Enter a valid email';
                                         }
                                       },
                                       decoration: InputDecoration(
@@ -154,8 +165,8 @@ class _RegisterState extends State<Register> {
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                          return 'Address is Required';
+                                        } else {
                                           return null;
                                         }
                                       },
@@ -185,8 +196,8 @@ class _RegisterState extends State<Register> {
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                          return 'Mobile Number is Required';
+                                        } else{
                                           return null;
                                         }
                                       },
@@ -217,7 +228,7 @@ class _RegisterState extends State<Register> {
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
                                           return 'Name is Required';
-                                        } else if (1 == 1) {
+                                        } else {
                                           return null;
                                         }
                                       },
@@ -248,8 +259,8 @@ class _RegisterState extends State<Register> {
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Name is Required';
-                                        } else if (1 == 1) {
+                                          return 'Password is Required';
+                                        } else {
                                           return null;
                                         }
                                       },
@@ -280,7 +291,9 @@ class _RegisterState extends State<Register> {
                     minWidth: 200.0,
                     hoverColor: Colors.red,
                     onPressed: () {
+                       if(_formKey.currentState!.validate()){
                       save();
+                       }
                     },
                     child:
                         Text('Sign Up', style: TextStyle(color: Colors.white)),

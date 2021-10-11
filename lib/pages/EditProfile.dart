@@ -82,6 +82,16 @@ class _EditProfileState extends State<EditProfile> {
           textColor: Colors.white,
           fontSize: 16.0);
       Navigator.pushNamed(context, '/profile');
+    } 
+      else if (result['status'] == 401) {
+      Fluttertoast.showToast(
+          msg: "Password mismatch",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     } else
       Fluttertoast.showToast(
           msg: "Something went wrong",
@@ -187,6 +197,8 @@ class _EditProfileState extends State<EditProfile> {
                                             right: 0,
                                             top: 180,
                                             child: Container(
+                                               child: Form(
+                            key: _formKey,
                                               child: Column(
                                                 children: [
                                                   Padding(
@@ -200,19 +212,20 @@ class _EditProfileState extends State<EditProfile> {
                                                       child: TextFormField(
                                                         controller:
                                                             TextEditingController(
-                                                                text:
-                                                                    email),
+                                                                text:email),
                                                         onChanged: (value) {
                                                          email = value;
                                                         },
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Email is Required';
-                                                          } else if (1 == 1) {
-                                                            return null;
-                                                          }
-                                                        },
+                                                        validator: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Email is Required';
+                                        } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
+                                          return null;
+                                        }
+                                        else{
+                                          return 'Enter a valid email';
+                                        }
+                                      },
                                                         decoration:
                                                             InputDecoration(
                                                                 border:
@@ -251,7 +264,7 @@ class _EditProfileState extends State<EditProfile> {
                                                         validator:
                                                             (String? value) {
                                                           if (value!.isEmpty) {
-                                                            return 'Name is Required';
+                                                            return 'Address is Required';
                                                           } else if (1 == 1) {
                                                             return null;
                                                           }
@@ -292,8 +305,8 @@ class _EditProfileState extends State<EditProfile> {
                                                         validator:
                                                             (String? value) {
                                                           if (value!.isEmpty) {
-                                                            return 'Name is Required';
-                                                          } else if (1 == 1) {
+                                                            return 'Mobile number is Required';
+                                                          } else {
                                                             return null;
                                                           }
                                                         },
@@ -366,7 +379,9 @@ class _EditProfileState extends State<EditProfile> {
                                                       minWidth: 200.0,
                                                       hoverColor: Colors.red,
                                                       onPressed: () {
+                                                         if(_formKey.currentState!.validate()){
                                                         update();
+                                                         }
                                                       },
                                                       child: Text('Update',
                                                           style: TextStyle(
@@ -413,14 +428,7 @@ class _EditProfileState extends State<EditProfile> {
                                                         onChanged: (value) {
                                                           old_password = value;
                                                         },
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Name is Required';
-                                                          } else if (1 == 1) {
-                                                            return null;
-                                                          }
-                                                        },
+                                                    
                                                         decoration:
                                                             InputDecoration(
                                                           border:
@@ -454,14 +462,7 @@ class _EditProfileState extends State<EditProfile> {
                                                         onChanged: (value) {
                                                           new_password = value;
                                                         },
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Name is Required';
-                                                          } else if (1 == 1) {
-                                                            return null;
-                                                          }
-                                                        },
+                                                    
                                                         decoration:
                                                             InputDecoration(
                                                           border:
@@ -513,6 +514,7 @@ class _EditProfileState extends State<EditProfile> {
                                                   )
                                                 ],
                                               ),
+                                               ),
                                             ),
                                           ),
                                         ],

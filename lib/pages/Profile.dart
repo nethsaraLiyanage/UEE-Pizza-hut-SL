@@ -15,24 +15,7 @@ class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int currentIndex = 1;
   final storage = new FlutterSecureStorage();
-  // User user = User('', '', '', '', '');
 
-  // Future<User> view() async {
-  //   var id = await Auth.getUserId();
-  //   print("User ID:" + id);
-  //   var res = await http.get(
-  //       Uri.parse(Connection.baseUrl + "/user/" + id),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json;charSet=UTF-8'
-  //       });
-  //   var result = await jsonDecode(res.body);
-  //   user.full_name = await result['user']['fullName'];
-  //   user.email = await result['user']['email'];
-  //   user.mobile_number = await result['user']['mobileNumber'];
-  //   user.delivery_address = await result['user']['deliveryAddress'];
-
-  //   return user;
-  // }
 
   void logout() async{
   await storage.delete(key: "user_id");
@@ -47,7 +30,6 @@ class _ProfileState extends State<Profile> {
         body: FutureBuilder(
           future: Auth.view(),
           builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-            print(snapshot);
             if (snapshot.hasData) {
               return Container(
                 child: Stack(
@@ -244,7 +226,7 @@ class _ProfileState extends State<Profile> {
                                               child: FloatingActionButton(
                                                 onPressed: () => {
                                                   Navigator.pushNamed(
-                                                      context, '/feedback')
+                                                      context, '/edit_profile')
                                                 },
                                                 backgroundColor: Colors.red,
                                                 tooltip: 'Increment',
@@ -323,15 +305,12 @@ class _ProfileState extends State<Profile> {
                                                       fontWeight:
                                                           FontWeight.bold)),
                                             ]),
+                                            for(var item in Auth.user.orders)
+                                        
                                             TableRow(children: [
-                                              Text('1 Pizza'),
-                                              Text('22/08/2021'),
-                                              Text('Rs 1500.00'),
-                                            ]),
-                                            TableRow(children: [
-                                              Text('1 Pizza'),
-                                              Text('22/08/2021'),
-                                              Text('Rs 1500.00'),
+                                              Text(item['status'].toString()),
+                                              Text(item['totalAmmount'].toString()),
+                                              Text('Rs '+item['totalAmmount'].toString()),
                                             ]),
                                           ],
                                         ),
