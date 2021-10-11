@@ -60,7 +60,6 @@ router.post("/addCard", async (req, res) => {
             if(data.items != null){
                 data.items.map((item)=>{
                     if(item.isSelected){
-                        console.log(item);
                         itemCount++;
                         totalPrice = totalPrice + item.totPrice;
                         selectedItems.push(item);
@@ -116,9 +115,24 @@ router.post("/addCard", async (req, res) => {
             status: 1,
             paymentDateTime: new Date(),
         }).then(async (order) => {
-            res.json({ status: 201, message: "ok" })
+            await Cart.findOne({ user_id: user})
+            .populate('items')
+            .then(async (cart) =>{
+                if(cart.items != null){
+                    cart.items.map(async(item)=>{
+                        if(item.isSelected){
+                            await Order.updateOne({_id : order._id},{$push : {items : item._id}})
+                        }
+    
+                    })
+                }
+                res.json({ status: 201, message: "ok" , orderId: order._id })
+            }).catch((err) => {
+                console.log("Error in saving items")
+                res.json({ status: 400, message: err })
+            })
         }).catch((err) => {
-            console.log("Error in creating card")
+            console.log("Error in creating order")
             res.json({ status: 400, message: err })
         })
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_config/flutter_config.dart';
@@ -8,6 +9,7 @@ import 'package:http/http.dart';
 import 'package:pizzahut/model/PaymentDetails.dart';
 
 class HttpServicePayment {
+  final storage = new FlutterSecureStorage();
   final String addCardUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/addCard";
   final String makePaymentUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/makePayment";
 
@@ -60,10 +62,12 @@ class HttpServicePayment {
   }
 
   Future makePayment(String cardNumber , String deliveryCost ,String discount ,String totalCost ,String userId) async {
+    List<String> strlist = [];
     var res = await http.post(Uri.parse(makePaymentUrl),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
+
         body: jsonEncode(<String, String>{
           'PaymentCard': cardNumber,
           'deliveryCost': deliveryCost,
@@ -72,8 +76,10 @@ class HttpServicePayment {
           'user': userId
         }));
     var result = jsonDecode(res.body);
+
     print(result['status']);
     if (result['status'] == 201) {
+      await storage.write(key: "user_id", value: result['orderId']);
       Fluttertoast.showToast(
           msg: "Successfully Made the payment",
           toastLength: Toast.LENGTH_SHORT,
