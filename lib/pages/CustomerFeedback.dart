@@ -8,6 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:pizzahut/auth/Auth.dart';
 
 class CustomerFeedback extends StatefulWidget {
   @override
@@ -26,8 +27,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
   double delivery_rating = 1;
 
   Future sendFeedback() async {
-     var order_id = await storage.read(key: "order_id").toString();
-
+     var order_id = await Auth.getOrderId();
     var res = await http.post(
         Uri.parse(Connection.baseUrl + "/user/feedback/"+order_id),
         headers: <String, String>{
