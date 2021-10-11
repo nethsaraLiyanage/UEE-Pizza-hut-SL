@@ -104,7 +104,7 @@ print(res);
                                       },
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return 'Email is Required';
+                                          return 'OTP is Required';
                                         } 
                                         else{
                                           return null;
@@ -113,7 +113,7 @@ print(res);
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           prefixIcon: Icon(
-                                            Icons.email,
+                                            Icons.lock,
                                             color: Colors.redAccent,
                                           ),
                                           contentPadding: EdgeInsets.only(top: 15),

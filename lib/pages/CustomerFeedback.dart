@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:pizzahut/utils/connection.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class CustomerFeedback extends StatefulWidget {
   @override
@@ -11,18 +12,21 @@ class CustomerFeedback extends StatefulWidget {
 }
 
 class _CustomerFeedbackState extends State<CustomerFeedback> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   int currentIndex = 1;
+  int currentIndex = 1;
+   static final storage = new FlutterSecureStorage();
 
-   String order_id = "1";
-   String food_feedback = '';
-   String delivery_feedback = '';
-   double food_rating = 1;
-   double delivery_rating = 1;
+  String order_id = "1";
+  String food_feedback = '';
+  String delivery_feedback = '';
+  double food_rating = 1;
+  double delivery_rating = 1;
 
-     Future sendFeedback() async {
-    var res = await http.post(Uri.parse(Connection.baseUrl+"/user/feedback/1"),
+  Future sendFeedback() async {
+     var order_id = await storage.read(key: "order_id");
+
+    var res = await http.post(
+        Uri.parse(Connection.baseUrl + "/user/feedback/1"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
@@ -31,38 +35,35 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
           'delivery_rating': delivery_rating.toString(),
           'food_feedback': food_feedback,
           'delivery_feedback': delivery_feedback
-         
         }));
     var result = jsonDecode(res.body);
     print(result['status']);
     if (result['status'] == 201) {
-       Fluttertoast.showToast(
-        msg: "Thanks for your feedback",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+      Fluttertoast.showToast(
+          msg: "Thanks for your feedback",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
       Navigator.pushNamed(context, '/home');
     } else {
-         Fluttertoast.showToast(
-        msg: "Something went wrong",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+      Fluttertoast.showToast(
+          msg: "Something went wrong",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+      body: Container(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -96,7 +97,13 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
               Container(
                 margin: EdgeInsets.only(top: 50),
                 child: Center(
-                  child: Text("Feedback", style: TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold),),
+                  child: Text(
+                    "Feedback",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               Padding(
@@ -132,7 +139,8 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                       direction: Axis.horizontal,
                                       allowHalfRating: true,
                                       itemCount: 5,
-                                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 4.0),
                                       itemBuilder: (context, _) => Icon(
                                         Icons.star,
                                         color: Colors.amber,
@@ -144,35 +152,35 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                   ),
                                   SizedBox(height: 20),
                                   Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Material(
-                                    elevation: 5.0,
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: TextField(
-                                          controller: TextEditingController(),
-                                      onChanged: (value) {
-                                        delivery_feedback = value;
-                                      },
-                                  
-                                      keyboardType: TextInputType.multiline,
-                                      minLines: 4,
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Padding(
-                                          padding: const EdgeInsets.only(bottom: 35),
-                                          child:    Icon(
-                                          Icons.insert_comment,
-                                          color: Colors.redAccent,
+                                    padding: const EdgeInsets.all(5),
+                                    child: Material(
+                                      elevation: 5.0,
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: TextField(
+                                        controller: TextEditingController(),
+                                        onChanged: (value) {
+                                          delivery_feedback = value;
+                                        },
+                                        keyboardType: TextInputType.multiline,
+                                        minLines: 4,
+                                        maxLines: 5,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          prefixIcon: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 35),
+                                            child: Icon(
+                                              Icons.insert_comment,
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
+                                          contentPadding:
+                                              EdgeInsets.only(top: 15),
+                                          hintText: 'Your feedback',
                                         ),
-                                        ),
-                                        contentPadding:
-                                            EdgeInsets.only(top: 15),
-                                        hintText: 'Your feedback',
                                       ),
                                     ),
                                   ),
-                                ),
                                   SizedBox(height: 20),
                                   Container(
                                     child: Text(
@@ -193,7 +201,8 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                       direction: Axis.horizontal,
                                       allowHalfRating: true,
                                       itemCount: 5,
-                                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 4.0),
                                       itemBuilder: (context, _) => Icon(
                                         Icons.star,
                                         color: Colors.amber,
@@ -203,32 +212,33 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                                       },
                                     ),
                                   ),
-                                 Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Material(
-                                    elevation: 5.0,
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: TextField(
-                                       controller: TextEditingController(),
-                                      onChanged: (value) {
-                                        food_feedback = value;
-                                      },
-                                      keyboardType: TextInputType.multiline,
-                                      minLines: 4,
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon:Padding(
-                                          padding: const EdgeInsets.only(bottom: 35),
-                                          child:    Icon(
-                                          Icons.insert_comment,
-                                          color: Colors.redAccent,
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Material(
+                                      elevation: 5.0,
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: TextField(
+                                        controller: TextEditingController(),
+                                        onChanged: (value) {
+                                          food_feedback = value;
+                                        },
+                                        keyboardType: TextInputType.multiline,
+                                        minLines: 4,
+                                        maxLines: 5,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          prefixIcon: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 35),
+                                            child: Icon(
+                                              Icons.insert_comment,
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
+                                          contentPadding:
+                                              EdgeInsets.only(top: 15),
+                                          hintText: 'Your feedback',
                                         ),
-                                        ),
-                                        contentPadding:
-                                            EdgeInsets.only(top: 15),
-                                        hintText: 'Your feedback',
-                                      ),
                                       ),
                                     ),
                                   ),
@@ -240,16 +250,16 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                       ),
                     ),
                     SizedBox(height: 20),
-                     FlatButton(
+                    FlatButton(
                       color: Colors.red,
                       padding: const EdgeInsets.all(20.0),
                       minWidth: 200.0,
                       hoverColor: Colors.red,
                       onPressed: () {
                         sendFeedback();
-                        },
+                      },
                       child:
-                      Text('Submit', style: TextStyle(color: Colors.white)),
+                          Text('Submit', style: TextStyle(color: Colors.white)),
                       focusColor: Colors.red,
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
@@ -264,81 +274,81 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
             ],
           ),
         ),
-        ),
-           bottomNavigationBar: Container(
-                          child: Material(
-                            elevation: 15,
-                            child: BottomNavigationBar(
-                              currentIndex: currentIndex,
-                              showSelectedLabels: false,
-                              onTap: (currentIndex) => {
-                                if (currentIndex == 0)
-                                  {Navigator.pushNamed(context, '/home')}
-                                else if (currentIndex == 1)
-                                  {Navigator.pushNamed(context, '/profile')}
-                                else if (currentIndex == 2)
-                                  {Navigator.pushNamed(context, '/search')}
-                                else if (currentIndex == 3)
-                                  {Navigator.pushNamed(context, '/cart')}
-                              },
-                              items: [
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Icons.home,
-                                    color: Colors.redAccent,
-                                  ),
+      ),
+      bottomNavigationBar: Container(
+        child: Material(
+          elevation: 15,
+          child: BottomNavigationBar(
+            currentIndex: currentIndex,
+            showSelectedLabels: false,
+            onTap: (currentIndex) => {
+              if (currentIndex == 0)
+                {Navigator.pushNamed(context, '/home')}
+              else if (currentIndex == 1)
+                {Navigator.pushNamed(context, '/profile')}
+              else if (currentIndex == 2)
+                {Navigator.pushNamed(context, '/search')}
+              else if (currentIndex == 3)
+                {Navigator.pushNamed(context, '/cart')}
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.redAccent,
+                ),
 
-                                  title: Text(
-                                    "Home",
-                                    style: TextStyle(
-                                      color: Colors.redAccent,
-                                    ),
-                                  ),
-                                  // backgroundColor: Colors.redAccent
-                                ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Icons.people,
-                                    color: Colors.black38,
-                                  ),
-                                  title: Text(
-                                    "Profile",
-                                    style: TextStyle(
-                                      color: Colors.redAccent,
-                                    ),
-                                  ),
-                                  // backgroundColor: Colors.redAccent
-                                ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Icons.search,
-                                    color: Colors.black38,
-                                  ),
-                                  title: Text(
-                                    "Search",
-                                    style: TextStyle(
-                                      color: Colors.redAccent,
-                                    ),
-                                  ),
-                                  // backgroundColor: Colors.redAccent
-                                ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Icons.shopping_cart,
-                                    color: Colors.black38,
-                                  ),
-                                  title: Text(
-                                    "Cart",
-                                    style: TextStyle(
-                                      color: Colors.redAccent,
-                                    ),
-                                  ),
-                                  // backgroundColor: Colors.redAccent
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                title: Text(
+                  "Home",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                ),
+                // backgroundColor: Colors.redAccent
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.people,
+                  color: Colors.black38,
+                ),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                ),
+                // backgroundColor: Colors.redAccent
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.black38,
+                ),
+                title: Text(
+                  "Search",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                ),
+                // backgroundColor: Colors.redAccent
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.black38,
+                ),
+                title: Text(
+                  "Cart",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                ),
+                // backgroundColor: Colors.redAccent
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
