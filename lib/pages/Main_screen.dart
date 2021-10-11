@@ -295,7 +295,7 @@ Widget productCard(
                   child: Container(
                     color: Colors.redAccent,
                     child: Text(
-                      price.toString(),
+                      'Rs. '+price.toString()+"0",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                   ),
