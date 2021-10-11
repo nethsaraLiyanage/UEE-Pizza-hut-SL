@@ -236,7 +236,11 @@ class _ProfileState extends State<Profile> {
                                                 onPressed: () {
                                                  logout();
                                                 },
-                                                child: Text("Logout"),
+                                                child: Text("Logout",  style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
                                                 shape: CircleBorder(
                                                     side: BorderSide(
                                                         color: Colors
