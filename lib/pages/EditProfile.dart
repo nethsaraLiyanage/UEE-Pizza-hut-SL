@@ -544,7 +544,7 @@ class _EditProfileState extends State<EditProfile> {
                                 BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.home,
-                                    color: Colors.redAccent,
+                                     color: Colors.black38,
                                   ),
 
                                   title: Text(
@@ -558,7 +558,7 @@ class _EditProfileState extends State<EditProfile> {
                                 BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.people,
-                                    color: Colors.black38,
+                                         color: Colors.redAccent,
                                   ),
                                   title: Text(
                                     "Profile",
