@@ -6,6 +6,9 @@ import 'package:pizzahut/model/User.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pizzahut/auth/Auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -40,24 +43,22 @@ class _EditProfileState extends State<EditProfile> {
         }));
     var result = jsonDecode(res.body);
     if (result['status'] == 200) {
-      Fluttertoast.showToast(
-          msg: "Sucessfully Updated",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
+     showTopSnackBar(
+    context,
+    CustomSnackBar.success(
+      message:
+          "{Profile Updated}",
+    ),
+);
       Navigator.pushNamed(context, '/profile');
     } else
-      Fluttertoast.showToast(
-          msg: "Something went wrong",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+          showTopSnackBar(
+    context,
+    CustomSnackBar.error(
+      message:
+          "Something went wrong!",
+    ),
+);
   }
 
   Future updatePassword() async {
@@ -73,24 +74,31 @@ class _EditProfileState extends State<EditProfile> {
         }));
     var result = jsonDecode(res.body);
     if (result['status'] == 200) {
-      Fluttertoast.showToast(
-          msg: "Password changed",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
+          showTopSnackBar(
+    context,
+    CustomSnackBar.success(
+      message:
+          "{Password Changed successfully}",
+    ),
+);
       Navigator.pushNamed(context, '/profile');
+    } 
+      else if (result['status'] == 401) {
+           showTopSnackBar(
+    context,
+    CustomSnackBar.error(
+      message:
+          "Password Mismatched!",
+    ),
+);
     } else
-      Fluttertoast.showToast(
-          msg: "Something went wrong",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+           showTopSnackBar(
+    context,
+    CustomSnackBar.error(
+      message:
+          "Something went wrong!",
+    ),
+);
   }
 
   @override
@@ -536,7 +544,7 @@ class _EditProfileState extends State<EditProfile> {
                                 BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.home,
-                                    color: Colors.redAccent,
+                                     color: Colors.black38,
                                   ),
 
                                   title: Text(
@@ -550,7 +558,7 @@ class _EditProfileState extends State<EditProfile> {
                                 BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.people,
-                                    color: Colors.black38,
+                                         color: Colors.redAccent,
                                   ),
                                   title: Text(
                                     "Profile",

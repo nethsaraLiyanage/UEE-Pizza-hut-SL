@@ -38,7 +38,6 @@ class _PaymentState extends State<Payment> {
     await storage.read(key: "user_id").then((value) {
       setState(() {
         _userId = value.toString();
-        debugPrint("User Id Is : "+ _userId!);
       });
     });
   }
