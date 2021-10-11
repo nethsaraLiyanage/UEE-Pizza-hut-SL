@@ -1,10 +1,18 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:pizzahut/api/http_cart_item.dart';
 import 'package:pizzahut/api/http_service_addon.dart';
 import 'package:pizzahut/model/Addons.dart';
+import 'package:pizzahut/model/Cart_Addon.dart';
 import 'package:pizzahut/model/Product.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:pizzahut/model/cart_item.dart';
 
 class Home extends StatefulWidget {
   Product product_passed;
@@ -22,6 +30,7 @@ class _HomeState extends State<Home> {
   //callin the rest api
 
   final HttpServiceAddon _httpServiceAddon = new HttpServiceAddon();
+  final HttpServiceCartItem _httpServiceCartItem = new HttpServiceCartItem();
 
   //sate variables
 
@@ -34,6 +43,9 @@ class _HomeState extends State<Home> {
   bool _stuffedCrust = false;
   bool _saussageCrust = false;
   String _selCrust = '';
+
+  List _additions = [];
+  late CartItem item;
 
   Widget horList(List<Addons>? addonList) {
     return Container(
@@ -51,33 +63,39 @@ class _HomeState extends State<Home> {
                 child: Expanded(
                   flex: 1,
                   child: FlatButton(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: Text(
-                            "Do you want to add ${e.name} to the pizza? This will add Rs.${e.price} to the final bill. Do you wish to proceed?"),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => {
-
-                              Navigator.of(context, rootNavigator: true)
-                                  .pop('dialog')
+                    onPressed: () => Dialogs.materialDialog(
+                        context: context,
+                        msg:
+                            'Do you want to add ${e.name} to the pizza? This will add Rs.${e.price.toDouble()} 4to the final bill.',
+                        title: 'Addition!',
+                        lottieBuilder: Lottie.network(
+                            'https://assets3.lottiefiles.com/packages/lf20_1ybf5iqh.json',
+                            fit: BoxFit.contain),
+                        actions: [
+                          IconsOutlineButton(
+                            onPressed: () {
+                              Navigator.pop(context);
                             },
-                            child: const Text(
-                              'Yes, add it!',
-                              style: TextStyle(color: Colors.red),
-                            ),
+                            text: 'Cancel',
+                            iconData: Icons.cancel_outlined,
+                            textStyle: TextStyle(color: Colors.grey),
+                            iconColor: Colors.grey,
                           ),
-                        ],
-                      ),
-                    ),
+                          IconsButton(
+                            onPressed: () => {
+                              _additions.add(jsonEncode({
+                                "name" : e.name,
+                                "price" : e.price
+                              })),
+                              Navigator.pop(context)
+                            },
+                            text: 'Yes, add it!',
+                            iconData: Icons.add_sharp,
+                            color: Colors.red,
+                            textStyle: TextStyle(color: Colors.white),
+                            iconColor: Colors.white,
+                          ),
+                        ]),
                     child: Column(
                       children: [
                         Image.network(e.imageUrl),
@@ -430,8 +448,24 @@ class _HomeState extends State<Home> {
                               color: Colors.red,
                               padding: const EdgeInsets.all(15.0),
                               hoverColor: Colors.red,
-                              onPressed: () =>
-                                  {Navigator.pushNamed(context, '/cart')},
+                              onPressed: () {
+                                item = new CartItem(
+                                    productName:
+                                        widget.product_passed.itemTitle,
+                                    imageUri: widget.product_passed.imageUrl,
+                                    checked: false,
+                                    crust: this._selCrust,
+                                    size: this._selSize,
+                                    additions: this._additions,
+                                    pizzaPrize:
+                                        widget.product_passed.price.toDouble());
+
+                                _httpServiceCartItem
+                                    .createCartItem(item);
+
+
+                                //Navigator.pushNamed(context, '/cart')
+                              },
                               child: Text('Add to Cart',
                                   style: TextStyle(color: Colors.white)),
                               focusColor: Colors.red,

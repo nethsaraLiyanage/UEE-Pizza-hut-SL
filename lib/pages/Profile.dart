@@ -13,13 +13,12 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  int currentIndex = 1;
+  int currentIndex = 2;
   final storage = new FlutterSecureStorage();
 
-
-  void logout() async{
-  await storage.delete(key: "user_id");
-  Navigator.pushNamed(context, '/login');
+  void logout() async {
+    await storage.delete(key: "user_id");
+    Navigator.pushNamed(context, '/login');
   }
 
   @override
@@ -153,8 +152,8 @@ class _ProfileState extends State<Profile> {
                                                                     FontWeight
                                                                         .bold)),
                                                       ]),
-                                                         TableRow(children: [
-                                                       Text(" ",
+                                                      TableRow(children: [
+                                                        Text(" ",
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
@@ -171,15 +170,17 @@ class _ProfileState extends State<Profile> {
                                                         Icon(Icons.phone_iphone,
                                                             size: 25,
                                                             color: Colors.red),
-                                                        Text(Auth.user.mobile_number,
+                                                        Text(
+                                                            Auth.user
+                                                                .mobile_number,
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold)),
                                                       ]),
-                                                             TableRow(children: [
-                                                       Text(" ",
+                                                      TableRow(children: [
+                                                        Text(" ",
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
@@ -197,7 +198,8 @@ class _ProfileState extends State<Profile> {
                                                             size: 25,
                                                             color: Colors.red),
                                                         Text(
-                                                            Auth.user.delivery_address,
+                                                            Auth.user
+                                                                .delivery_address,
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
@@ -234,13 +236,13 @@ class _ProfileState extends State<Profile> {
                                               child: FlatButton(
                                                 textColor: Colors.red,
                                                 onPressed: () {
-                                                 logout();
+                                                  logout();
                                                 },
-                                                child: Text("Logout",  style: TextStyle(
-                                                                fontSize: 18.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
+                                                child: Text("Logout",
+                                                    style: TextStyle(
+                                                        fontSize: 18.0,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
                                                 shape: CircleBorder(
                                                     side: BorderSide(
                                                         color: Colors
@@ -297,107 +299,83 @@ class _ProfileState extends State<Profile> {
                                     SizedBox(
                                       height: 10,
                                     ),
+
                                     Container(
-                                      height: height * 0.20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(color: Colors.black),
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 10,
-                                            offset: Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: (Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            30.0, 20.0, 32.0, 0.0),
-                                        child: Table(
-                                          columnWidths: {
-                                            0: FlexColumnWidth(0.75)
-                                          },
-                                          children: [
-                                            TableRow(children: [
-                                              Text('Order',
-                                                  style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text('date',
-                                                  style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text('Total',
-                                                  style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ]),
-                                               TableRow(children: [
-                                              Text(' ',
-                                                  style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text(' ',
-                                                  style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text(' ',
-                                                  style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ]),
-                                            for(var item in Auth.user.orders)
-                                        
-                                            TableRow(children: [
-                                              Text(item['status'].toString()),
-                                              Text(item['totalAmmount'].toString()),
-                                              Text('Rs '+item['totalAmmount'].toString()),
-                                            ]),
+                                        height: height * 0.25,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border:
+                                              Border.all(color: Colors.black),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 10,
+                                              offset: Offset(0, 2),
+                                            ),
                                           ],
                                         ),
-                                      )),
-                                    ),
-                                    // SizedBox(
-                                    //   height: 10,
-                                    // ),
-                                    // Text(
-                                    //   'Track my orders',
-                                    //   style: TextStyle(
-                                    //     color: Colors.black,
-                                    //     fontSize: 20,
-                                    //     fontFamily: 'Nunito',
-                                    //   ),
-                                    // ),
-                                    // Divider(
-                                    //   thickness: 2.5,
-                                    // ),
-                                    // SizedBox(
-                                    //   height: 10,
-                                    // ),
-                                    // Container(
-                                    //   height: height * 0.15,
-                                    //   decoration: BoxDecoration(
-                                    //     color: Colors.white,
-                                    //     border: Border.all(color: Colors.black),
-                                    //     borderRadius: BorderRadius.circular(10),
-                                    //     boxShadow: [
-                                    //       BoxShadow(
-                                    //         color: Colors.grey.withOpacity(0.5),
-                                    //         spreadRadius: 5,
-                                    //         blurRadius: 10,
-                                    //         offset: Offset(0, 2),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
+                                        child: SingleChildScrollView(
+                                          child: (Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                30.0, 20.0, 30.0, 0.0),
+                                            child: Table(
+                                              columnWidths: {
+                                                0: FlexColumnWidth(0.90)
+                                              },
+                                              children: [
+                                                TableRow(children: [
+                                                  Text('Order',
+                                                      style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text('Total',
+                                                      style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text('Date',
+                                                      style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ]),
+                                                TableRow(children: [
+                                                  Text(' ',
+                                                      style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(' ',
+                                                      style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(' ',
+                                                      style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ]),
+                                                for (var item
+                                                    in Auth.user.orders)
+                                                  TableRow(children: [
+                                                    Text(item['items'][0]
+                                                            ['productName']
+                                                        .toString()),
+                                                    Text('Rs ' +
+                                                        item['totalAmmount']
+                                                            .toString()),
+                                                    Text(item['paymentDateTime'].toString().substring(0,10)),
+                                                  ]),
+                                              ],
+                                            ),
+                                          )),
+                                        )),
                                   ],
                                 ),
                               ),
@@ -433,7 +411,7 @@ class _ProfileState extends State<Profile> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: Colors.redAccent,
+                    color: Colors.black38,
                   ),
 
                   title: Text(
@@ -447,7 +425,7 @@ class _ProfileState extends State<Profile> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.people,
-                    color: Colors.black38,
+                    color: Colors.redAccent,
                   ),
                   title: Text(
                     "Profile",
@@ -486,7 +464,6 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-        )
-        );
+        ));
   }
 }

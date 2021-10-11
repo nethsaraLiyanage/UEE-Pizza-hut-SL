@@ -3,16 +3,12 @@ const  Schema = mongoose.Schema;
 
 const cart_item = new Schema({
 
-    item_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'item'
-    },
     size:{
         type:String,
         required: true
     },
     crust:{
-        type: Number, 
+        type: String, 
         required: true, 
     },
     additions: {
@@ -38,6 +34,10 @@ const cart_item = new Schema({
     productName : {
         type : String,
         required : false
+    },
+    count : {
+        type : Number,
+        required : true
     },
 })
 

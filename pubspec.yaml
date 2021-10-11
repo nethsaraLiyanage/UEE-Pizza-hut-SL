@@ -38,6 +38,8 @@ dependencies:
   redux: ^5.0.0
   flutter_redux: ^0.8.2
   http: ^0.13.3
+  material_dialogs: ^1.1.1
+  lottie: ^1.1.0
   flutter_secure_storage: ^4.2.1
   fluttertoast: ^8.0.8
   geocoder: ^0.2.1

@@ -98,6 +98,9 @@ router.post("/addCard", async (req, res) => {
 
   router.post("/makePayment", async (req, res) => {
 
+    const today = new Date();
+    const paymentTimeStamp = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
     const {
         totalAmmount,
         deliveryCost,
@@ -113,7 +116,7 @@ router.post("/addCard", async (req, res) => {
             PaymentCard: PaymentCard,
             user: user,
             status: 1,
-            paymentDateTime: new Date(),
+            paymentDateTime: paymentTimeStamp,
         }).then(async (order) => {
             await Cart.findOne({ user_id: user})
             .populate('items')

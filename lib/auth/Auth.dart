@@ -67,4 +67,10 @@ class Auth {
       return false;
     }
   }
+
+  //Get the current user id
+  static Future<String> getOrderId() async {
+    var orderId = await storage.read(key: "order_id");
+    return orderId.toString();
+  }
 }
