@@ -190,6 +190,7 @@ class _HomeState extends State<Home> {
                       child: Text(
                         widget.product_passed.description,
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: Colors.black54),
                       ),
                     ),
                     Container(
