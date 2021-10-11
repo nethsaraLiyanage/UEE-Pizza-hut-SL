@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> {
                                 height: 22,
                               ),
                               Container(
-                                height: height * 0.43,
+                                height: height * 0.53,
                                 child: LayoutBuilder(
                                   builder: (context, constraints) {
                                     double innerHeight = constraints.maxHeight;
@@ -153,11 +153,39 @@ class _ProfileState extends State<Profile> {
                                                                     FontWeight
                                                                         .bold)),
                                                       ]),
+                                                         TableRow(children: [
+                                                       Text(" ",
+                                                            style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                        Text(" ",
+                                                            style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                      ]),
                                                       TableRow(children: [
                                                         Icon(Icons.phone_iphone,
                                                             size: 25,
                                                             color: Colors.red),
                                                         Text(Auth.user.mobile_number,
+                                                            style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                      ]),
+                                                             TableRow(children: [
+                                                       Text(" ",
+                                                            style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                        Text(" ",
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
@@ -208,7 +236,11 @@ class _ProfileState extends State<Profile> {
                                                 onPressed: () {
                                                  logout();
                                                 },
-                                                child: Text("Logout"),
+                                                child: Text("Logout",  style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
                                                 shape: CircleBorder(
                                                     side: BorderSide(
                                                         color: Colors
@@ -218,7 +250,7 @@ class _ProfileState extends State<Profile> {
                                           ),
                                         ),
                                         Positioned(
-                                          top: 250,
+                                          top: 320,
                                           left: 260,
                                           right: 0,
                                           child: Center(
