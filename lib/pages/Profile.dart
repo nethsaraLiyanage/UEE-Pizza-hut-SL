@@ -14,37 +14,22 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int currentIndex = 1;
-   final storage = new FlutterSecureStorage();
+  final storage = new FlutterSecureStorage();
 
-  User user = User('', '', '', '', '');
 
-  Future<User> view() async {
-    var id = await Auth.getUserId();
-    print("User ID:" + id);
-    var res = await http.get(
-        Uri.parse(Connection.baseUrl + "/user/" + id),
-        headers: <String, String>{
-          'Content-Type': 'application/json;charSet=UTF-8'
-        });
-    var result = await jsonDecode(res.body);
-    user.full_name = await result['user']['fullName'];
-    user.email = await result['user']['email'];
-    user.mobile_number = await result['user']['mobileNumber'];
-    user.delivery_address = await result['user']['deliveryAddress'];
-
-    return user;
+  void logout() async{
+  await storage.delete(key: "user_id");
+  Navigator.pushNamed(context, '/login');
   }
 
   @override
   Widget build(BuildContext context) {
-    view();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: FutureBuilder(
-          future: view(),
+          future: Auth.view(),
           builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-            print(snapshot);
             if (snapshot.hasData) {
               return Container(
                 child: Stack(
@@ -139,7 +124,7 @@ class _ProfileState extends State<Profile> {
                                                   height: 80,
                                                 ),
                                                 Text(
-                                                  user.full_name,
+                                                  Auth.user.full_name,
                                                   style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 37,
@@ -161,7 +146,7 @@ class _ProfileState extends State<Profile> {
                                                         Icon(Icons.email,
                                                             size: 25,
                                                             color: Colors.red),
-                                                        Text(user.email,
+                                                        Text(Auth.user.email,
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
@@ -172,7 +157,7 @@ class _ProfileState extends State<Profile> {
                                                         Icon(Icons.phone_iphone,
                                                             size: 25,
                                                             color: Colors.red),
-                                                        Text(user.mobile_number,
+                                                        Text(Auth.user.mobile_number,
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
@@ -184,8 +169,7 @@ class _ProfileState extends State<Profile> {
                                                             size: 25,
                                                             color: Colors.red),
                                                         Text(
-                                                            user
-                                                                .delivery_address,
+                                                            Auth.user.delivery_address,
                                                             style: TextStyle(
                                                                 fontSize: 18.0,
                                                                 fontWeight:
@@ -222,8 +206,7 @@ class _ProfileState extends State<Profile> {
                                               child: FlatButton(
                                                 textColor: Colors.red,
                                                 onPressed: () {
-                                                  Navigator.pushNamed(
-                                                      context, '/login');
+                                                 logout();
                                                 },
                                                 child: Text("Logout"),
                                                 shape: CircleBorder(
@@ -457,6 +440,7 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-        ));
+        )
+        );
   }
 }

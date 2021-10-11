@@ -21,14 +21,18 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pizzahut/redux/reducers.dart';
 import 'package:redux/redux.dart';
+import 'package:pizzahut/auth/Auth.dart';
 
 import 'model/Product.dart';
+
+bool loginState = true;
 
 void main() async{
   final store = new Store<List<CartItem>>(cartItemsReducer,
       initialState: new List.empty());
       WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
       await FlutterConfig.loadEnvVariables();
+      loginState =  await Auth.isLoggedIn();
       runApp(new MyApp(store: store));
 }
 
@@ -39,9 +43,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/home',
+      initialRoute: loginState ? '/home': '/login',
+
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => MainScreen(),

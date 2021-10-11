@@ -19,11 +19,27 @@ const cart_item = new Schema({
         type: Array,
         required: true
     },
-    count : {
+    totPrice : {
         type : Number,
-        required : true
-    }
+        required : false
+    },
+    isSelected : {
+        type : Boolean,
+        required : false
+    },
+    pizzaPrice : {
+        type : Number,
+        required : false
+    },
+    image : {
+        type : String,
+        required : false
+    },
+    productName : {
+        type : String,
+        required : false
+    },
 })
 
-const cart_item = mongoose.model("cart_item", cart_item);
-module.exports = cart_item;
+const cart_itemObj = mongoose.model("cart_item", cart_item);
+module.exports = cart_itemObj;

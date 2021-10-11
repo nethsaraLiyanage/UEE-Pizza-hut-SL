@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const product = require('./routes/product')
 const addon = require('./routes/addons')
 const user = require('./routes/userRoute')
+const payment = require('./routes/paymentRoutes')
 
 
 //other consts
@@ -24,6 +25,7 @@ app.use(cors())
 app.use('/product',product)
 app.use('/addon',addon)
 app.use('/user', user)
+app.use('/payment', payment)
 
 
 mongoose.connect(
