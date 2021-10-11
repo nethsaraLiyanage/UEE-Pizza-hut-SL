@@ -76,10 +76,10 @@ router.get("/:id", async (req, res) => {
   try {
     
     let userID = req.params.id;
-    const user = await User.findOne({ _id: userID });
+    const user = await User.findOne({ _id:userID });
 
     if (user) {
-      const orders = await Order.find({"user": "6162ab7904e39f6e99bd92f2"});
+      const orders = await Order.find({"user": userID}).populate('items');
         res.json({ status: 200, user: user, orders: orders});
     } else {
       res.json({ status: 404, message: "user does not exist." });

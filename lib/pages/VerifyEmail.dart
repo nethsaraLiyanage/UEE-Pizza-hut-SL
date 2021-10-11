@@ -75,7 +75,7 @@ print(res);
               Container(
                 margin: EdgeInsets.only(top: 50),
                 child: Center(
-                  child: Text("Login", style: TextStyle(color: Colors.red, fontSize: 40, fontWeight: FontWeight.bold),),
+                  child: Text("Verify your account", style: TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold),),
                 ),
               ),
               Padding(
