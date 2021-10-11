@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:flutter_config/flutter_config.dart';
 
 
-class HttpServiceProduct {
+class HttpServicePromotion {
   final String getUrl = "http://"+FlutterConfig.get('IP')+":8000/promo";
 
   Future<List<Promotion>> getPromotion() async {

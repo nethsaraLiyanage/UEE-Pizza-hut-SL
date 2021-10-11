@@ -9,7 +9,7 @@ class Promotion {
 
   Promotion(
       {required this.promotionTitle,
-      required this.description,
+      // required this.description,
       required this.discount,
       required this.imageUrl,
       required this.promoCode});
@@ -17,7 +17,7 @@ class Promotion {
   factory Promotion.fromJson(Map<String, dynamic> json) {
     return Promotion(
         promotionTitle: json['promotionTitle'],
-        description: json['description'],
+        // description: json['description'],
         discount: json['discount'],
         imageUrl: json['imageUrl'],
         promoCode: json['promoCode']);
