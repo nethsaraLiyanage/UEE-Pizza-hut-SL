@@ -9,7 +9,7 @@ class HttpServiceProduct {
   final String getUrl = "http://"+FlutterConfig.get('IP')+":8000/product";
 
   Future<List<Product>> getProduct(String type) async {
-    Response res = await get(Uri.parse("http://"+FlutterConfig.get('IP')+":8000/product"+type));
+    Response res = await get(Uri.parse("http://"+FlutterConfig.get('IP')+":8000/product/"+type));
     if (res.statusCode == 200) {
       log(res.body);
       List<dynamic> body = jsonDecode(res.body);
