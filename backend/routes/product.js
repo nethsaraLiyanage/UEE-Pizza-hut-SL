@@ -6,6 +6,19 @@ const app = express()
 
 const router = express.Router({});
 
+router.get('/', async (_req, res, _next) => {
+    const data = await Item.find({})
+
+    res.send(data)
+});
+
+
+router.get('/search/:txt', async (_req, res, _next) => {
+    // const index = Item.createIndex( { itemTitle: "text", description: "text" } )
+    const data = await Item.find({$text:{$search: _req.params.txt}})
+
+    res.send(data)
+});
 
 router.get('/:type', async (_req, res, _next) => {
     const data = await Item.find({type : _req.params.type})
@@ -22,7 +35,8 @@ router.post('/', async (req, res, _next) => {
         size : req.body.size,
         crust : req.body.crust,
         additions : req.body.additions,
-        mini_desc : req.body.mini_desc
+        mini_desc : req.body.mini_desc,
+        type : req.body.type
     })
 
     res.send(data)

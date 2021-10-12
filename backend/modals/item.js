@@ -5,11 +5,13 @@ const itemSchema = new Schema({
 
     itemTitle: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     description:{
         type:String,
-        required: true
+        required: true,
+        index: true
     },
     price:{
         type: Number, 
@@ -31,7 +33,14 @@ const itemSchema = new Schema({
         type: String,
         required: true
     }
-})
+}).index({ itemTitle: 'text', description: 'text'});
+
+// adSchema.index({ itemTitle: 'text', description: 'text'});
+// const Ad = Local.model('Ad', adSchema);
+// Ad.createIndexes();
+
+// Ad.createIndexes();
 
 const Item = mongoose.model("item", itemSchema);
+Item.createIndexes();
 module.exports = Item;
