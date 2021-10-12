@@ -30,7 +30,7 @@ class _MainScreen extends State<MainScreen> {
     //  print(Auth.isLoggedIn());
     return Scaffold(
         body: FutureBuilder(
-            future: _httpServiceProduct.getProduct(),
+            future: _httpServiceProduct.getProduct(type),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
               if (snapshot.hasData) {
@@ -68,7 +68,7 @@ class _MainScreen extends State<MainScreen> {
                                     onPressed: () => {
                                       this.setState(() {
                                         selectedCategory = 1;
-                                        type = 'Pizza';
+                                        type = 'pizza';
                                       })
                                     },
                                     focusColor:
@@ -100,7 +100,7 @@ class _MainScreen extends State<MainScreen> {
                                     onPressed: () => {
                                       this.setState(() {
                                         selectedCategory = 2;
-                                        type = 'Appetizers';
+                                        type = 'appetizers';
                                       })
                                     },
                                     focusColor:
@@ -132,7 +132,7 @@ class _MainScreen extends State<MainScreen> {
                                     onPressed: () => {
                                       this.setState(() {
                                         selectedCategory = 3;
-                                        type = 'Others';
+                                        type = 'others';
                                       })
                                     },
                                     focusColor:

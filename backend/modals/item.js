@@ -26,6 +26,10 @@ const itemSchema = new Schema({
     mini_desc: {
         type: String,
         required: true
+    },
+    type: {
+        type: String,
+        required: true
     }
 })
 

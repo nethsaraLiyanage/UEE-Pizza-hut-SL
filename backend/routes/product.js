@@ -7,8 +7,8 @@ const app = express()
 const router = express.Router({});
 
 
-router.get('/', async (_req, res, _next) => {
-    const data = await Item.find()
+router.get('/:type', async (_req, res, _next) => {
+    const data = await Item.find({type : _req.params.type})
 
     res.send(data)
 });

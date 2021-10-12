@@ -87,7 +87,7 @@ class _SearchState extends State<Search> {
                         onTap: () => {
                               // Navigator.pushNamed(context, '/product')
                               Navigator.push(
-                                  context, PageBouceAnimation( widget: Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: ''),))
+                                  context, PageBouceAnimation( widget: Home(product_passed: new Product(itemTitle: '', description: '', price: 0, imageUrl: '', additions: [], mini_desc: '', type:''),))
                               )
                             },
                         child: Row(
