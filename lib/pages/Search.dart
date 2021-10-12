@@ -113,7 +113,17 @@ class _SearchState extends State<Search> {
                         // ),
                         SizedBox(height: 20.0),
                         Divider(color: Colors.black38),
-                        SizedBox(height: 10),
+                        SizedBox(height: 20.0),
+                        Container(
+                          child: Center(
+                            child: Text('Results for : '+_searchString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 20.0,)),
+                          ),
+                        ),
+                        SizedBox(height: 15),
                         SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Column(
