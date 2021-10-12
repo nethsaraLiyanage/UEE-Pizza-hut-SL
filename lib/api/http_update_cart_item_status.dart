@@ -13,25 +13,16 @@ import 'package:flutter_config/flutter_config.dart';
 
 import 'package:pizzahut/model/cart_item.dart';
 
-class HttpServiceCartItem {
+class HttpUpdateCartItem {
   final String getUrl = "";
 
-  Future<String> createCartItem(CartItem item) async {
+  Future<String> update(bool status, String id) async {
 
     http.Response res = await http.post(
-      Uri.parse("http://"+FlutterConfig.get('IP')+":8000/product/cart-item"),
+      Uri.parse("http://"+FlutterConfig.get('IP')+":8000/product/cart-item/" + id),
       headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       body: jsonEncode(<String, dynamic>{
-        'size': item.size,
-        'crust': item.crust,
-        "additions": item.additions,
-        "count": 1,
-        "totPrice": 0,
-        "isSelcted": false,
-        "pizzaPrice": item.pizzaPrize,
-        "image": item.imageUri,
-        "productName": item.productName,
-        "userId": item.userId
+        "isSelcted": status,
       }),
     );
 

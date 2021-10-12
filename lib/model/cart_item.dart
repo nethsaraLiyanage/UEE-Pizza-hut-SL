@@ -9,6 +9,7 @@ class CartItem {
   String crust = '';
   double pizzaPrize;
   List additions = [];
+  String userId;
 
   CartItem(
       {required this.productName,
@@ -17,7 +18,8 @@ class CartItem {
       required this.pizzaPrize,
       required this.crust,
       required this.size,
-      required this.additions});
+      required this.additions,
+      required this.userId});
 
   @override
   String toString() {

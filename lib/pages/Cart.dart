@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pizzahut/api/http_get_cart_items.dart';
+import 'package:pizzahut/api/http_update_cart_item_status.dart';
 import 'package:pizzahut/model/Cart.dart';
 
 class Cart extends StatefulWidget {
@@ -19,8 +20,10 @@ class _CartState extends State<Cart> {
   bool checkBox = false;
   int pizVal = 1;
   String? _userId;
+  Map<String, dynamic>? totSel;
 
   HttpGetCart _httpGetCart = new HttpGetCart();
+  HttpUpdateCartItem _httpUpdateCartItem = new HttpUpdateCartItem();
 
   getUserId() async {
     await storage.read(key: "user_id").then((value) {
@@ -31,11 +34,17 @@ class _CartState extends State<Cart> {
     });
   }
 
+  getAddDet() async {
+    totSel = await _httpGetCart.getAddDet(getUserId());
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getUserId();
+    getAddDet();
+    //totSel = _httpGetCart.getAddDet(_userId) as Map<String, dynamic>?;
   }
 
   @override
@@ -46,8 +55,10 @@ class _CartState extends State<Cart> {
           builder:
               (BuildContext context, AsyncSnapshot<List<CartModel>> snapshot) {
             if (snapshot.hasData) {
-              log(snapshot.data.toString());
               List<CartModel>? dataList = snapshot.data;
+              
+              //int totSel = 0;
+
               return (Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
                 child: Column(children: [
@@ -87,7 +98,7 @@ class _CartState extends State<Cart> {
                         ),
                         SizedBox(height: 30.0),
                         Container(
-                          height: 280,
+                          height: 420,
                           child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,12 +109,13 @@ class _CartState extends State<Cart> {
                                             children: [
                                               Expanded(
                                                 child: Checkbox(
-                                                  value: this.checkBox,
-                                                  onChanged: (value) => {
-                                                    setState(() {
-                                                      this.checkBox =
-                                                          !this.checkBox;
-                                                    })
+                                                  value: e.isSelected,
+                                                  onChanged: (value) {
+                                                    _httpUpdateCartItem.update(
+                                                        !e.isSelected, e.id);
+                                                    this.setState(() {
+                                                      checkBox = !checkBox;
+                                                    });
                                                   },
                                                   checkColor: Colors.green,
                                                   activeColor: Colors.white,
@@ -263,82 +275,7 @@ class _CartState extends State<Cart> {
                           color: Colors.grey[200],
                           thickness: 5,
                         ),
-                        SizedBox(height: 10.0),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Text(''),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                'Items',
-                                style: TextStyle(color: Colors.black87),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(''),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Center(
-                                child: Text(
-                                  '1',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(''),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10.0),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Text(''),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                'Total',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(''),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Center(
-                                child: Text(
-                                  'Rs.2500.00',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(''),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 30.0),
-                        Center(
-                          child: Text('1 Item Selected'),
-                        ),
-                        SizedBox(height: 10.0),
+
                         Row(
                           children: [
                             Expanded(
