@@ -12,7 +12,7 @@ class HttpServiceAddon {
   Future<List<Addons>> getAddons() async {
     Response res = await get(Uri.parse(getUrl));
     if (res.statusCode == 200) {
-      log(res.body);
+      //log(res.body);
       List<dynamic> body = jsonDecode(res.body);
 
       List<Addons> addons =

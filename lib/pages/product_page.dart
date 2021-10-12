@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:pizzahut/api/http_cart_item.dart';
@@ -29,8 +30,27 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //callin the rest api
 
+  final storage = new FlutterSecureStorage();
+
   final HttpServiceAddon _httpServiceAddon = new HttpServiceAddon();
   final HttpServiceCartItem _httpServiceCartItem = new HttpServiceCartItem();
+  String? _userId;
+
+  getUserId() async {
+    await storage.read(key: "user_id").then((value) {
+      setState(() {
+        _userId = value.toString();
+        debugPrint("User Id Is : " + _userId!);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserId();
+  }
 
   //sate variables
 
@@ -83,10 +103,8 @@ class _HomeState extends State<Home> {
                           ),
                           IconsButton(
                             onPressed: () => {
-                              _additions.add(jsonEncode({
-                                "name" : e.name,
-                                "price" : e.price
-                              })),
+                              _additions.add(jsonEncode(
+                                  {"name": e.name, "price": e.price})),
                               Navigator.pop(context)
                             },
                             text: 'Yes, add it!',
@@ -455,14 +473,14 @@ class _HomeState extends State<Home> {
                                     imageUri: widget.product_passed.imageUrl,
                                     checked: false,
                                     crust: this._selCrust,
+                                    userId: _userId.toString(),
                                     size: this._selSize,
                                     additions: this._additions,
+                                    
                                     pizzaPrize:
                                         widget.product_passed.price.toDouble());
 
-                                _httpServiceCartItem
-                                    .createCartItem(item);
-
+                                _httpServiceCartItem.createCartItem(item);
 
                                 //Navigator.pushNamed(context, '/cart')
                               },
