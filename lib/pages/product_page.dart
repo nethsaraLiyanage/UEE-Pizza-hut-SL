@@ -83,10 +83,8 @@ class _HomeState extends State<Home> {
                           ),
                           IconsButton(
                             onPressed: () => {
-                              _additions.add(jsonEncode({
-                                "name" : e.name,
-                                "price" : e.price
-                              })),
+                              _additions.add(jsonEncode(
+                                  {"name": e.name, "price": e.price})),
                               Navigator.pop(context)
                             },
                             text: 'Yes, add it!',
@@ -460,9 +458,7 @@ class _HomeState extends State<Home> {
                                     pizzaPrize:
                                         widget.product_passed.price.toDouble());
 
-                                _httpServiceCartItem
-                                    .createCartItem(item);
-
+                                _httpServiceCartItem.createCartItem(item);
 
                                 //Navigator.pushNamed(context, '/cart')
                               },

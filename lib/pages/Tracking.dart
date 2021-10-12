@@ -137,9 +137,9 @@ class _TrackingState extends State<Tracking> {
                   ),
 
                   child: Stepper(
-                    controlsBuilder: (context, {onStepContinue, onStepCancel}) {
-                      return Row();
-                    },
+                    // controlsBuilder: (context, {onStepContinue, onStepCancel}) {
+                    //   return Row();
+                    // },
                     type: StepperType.vertical,
                     physics: ScrollPhysics(),
                     steps: <Step>[
