@@ -7,6 +7,7 @@ class Product {
   late final String imageUrl;
   late final List additions;
   late final String mini_desc;
+  late final String type;
 
   Product(
       {required this.itemTitle,
@@ -14,7 +15,8 @@ class Product {
       required this.price,
       required this.imageUrl,
       required this.additions,
-      required this.mini_desc,});
+      required this.mini_desc,
+      required this.type,});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
@@ -23,6 +25,7 @@ class Product {
         description: json['description'],
         price: json['price'],
         imageUrl: json['imageUrl'],
+        type: json['type'],
         additions: ['additions'] as List);
   }
 }
