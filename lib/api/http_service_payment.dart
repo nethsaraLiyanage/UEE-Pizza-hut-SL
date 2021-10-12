@@ -13,7 +13,7 @@ class HttpServicePayment {
   final String addCardUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/addCard";
   final String makePaymentUrl = "http://"+FlutterConfig.get('IP')+":8000/payment/makePayment";
 
-  Future addCard(String cardNumber , String expiryDate ,String cardHolderName ,String cvvCode ,String cardHolder) async {
+  Future<bool> addCard(String cardNumber , String expiryDate ,String cardHolderName ,String cvvCode ,String cardHolder) async {
     var res = await http.post(Uri.parse(addCardUrl),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
@@ -37,9 +37,10 @@ class HttpServicePayment {
           textColor: Colors.white,
           fontSize: 16.0
       );
-      //Navigator.pushNamed(context, '/login');
+      return true;
     } else {
       throw Exception('Failed');
+      return false;
     }
   }
 
@@ -80,15 +81,15 @@ class HttpServicePayment {
     print(result['status']);
     if (result['status'] == 201) {
       await storage.write(key: "order_id", value: result['orderId']);
-      Fluttertoast.showToast(
-          msg: "Successfully Made the payment",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP_RIGHT,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
+      // Fluttertoast.showToast(
+      //     msg: "Successfully Made the payment",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.TOP_RIGHT,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.green,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0
+      // );
       //Navigator.pushNamed(context, '/login');
     } else {
       throw Exception('Failed');

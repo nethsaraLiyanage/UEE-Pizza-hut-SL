@@ -10,6 +10,8 @@ import 'package:pizzahut/api/http_service_payment.dart';
 import 'package:pizzahut/api/user_services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pizzahut/model/PaymentDetails.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 
 class Payment extends StatefulWidget {
@@ -445,9 +447,13 @@ class _PaymentState extends State<Payment> {
                                                                         RoundedRectangleBorder(
                                                                             borderRadius: BorderRadius.circular(30.0),
                                                                             side: BorderSide(color: Colors.red)))),
-                                                                onPressed: () => {
-                                                                  servicePayment.addCard(_cardNumberController.text, _expiryDateController.text , _cardHolderNameController.text, _cvcCodeController.text, _userId!),
-                                                                  Navigator.of(context, rootNavigator: true).pop()
+                                                                onPressed: () async => {
+                                                                  await servicePayment.addCard(_cardNumberController.text, _expiryDateController.text , _cardHolderNameController.text, _cvcCodeController.text, _userId!)
+                                                                      .then((value) => {
+                                                                    //Navigator.of(context, rootNavigator: true).pop();
+                                                                    Navigator.pushNamed(context, '/payment')
+                                                                  }),
+
                                                                 },
                                                               ),
                                                             ),
@@ -695,8 +701,17 @@ class _PaymentState extends State<Payment> {
                               padding: const EdgeInsets.all(10.0),
                               hoverColor: Colors.red,
                               onPressed: () => {
-                                servicePayment.makePayment(_selectedCardId.toString(), "150.00", "0.00", (snapshot.data!.totalPrice + 150).toString(), _userId.toString()),
-                                Navigator.pushNamed(context, '/summary')
+                                servicePayment.makePayment(_selectedCardId.toString(), "150.00", "0.00", (snapshot.data!.totalPrice + 150).toString(), _userId.toString())
+                                    .then((value) => {
+                                showTopSnackBar(
+                                context,
+                                CustomSnackBar.success(
+                                message: "Payment Successful",
+                                ),
+                                ),
+                                  Navigator.pushNamed(context, '/summary')
+                                }),
+
                               },
                               child: Text('Pay Now',
                                   style: TextStyle(

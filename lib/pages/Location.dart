@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as map;
+import 'package:lottie/lottie.dart';
 import 'package:pizzahut/api/http_service_location.dart';
 import 'package:slidable_button/slidable_button.dart';
 
@@ -19,7 +20,7 @@ class Location extends StatefulWidget {
 class _LocationState extends State<Location> {
   final storage = new FlutterSecureStorage();
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
-  Completer<GoogleMapController> _controller = Completer();
+  Completer<map.GoogleMapController> _controller = Completer();
   bool checkBox = false;
   int pizVal = 1;
   var result = "As Soon As Possible";
@@ -42,21 +43,28 @@ class _LocationState extends State<Location> {
       });
     }
   }
-
-  void _mapTapped(LatLng location) {
+  List<map.Marker> myMarker =[];
+  void _mapTapped(map.LatLng location) {
     var timer = Timer(Duration(seconds: 2), () => print('done'));
     timer.cancel();
     _httpServiceLocation.getAddress(location).then((value) {
       setState(() {
         _address = value;
+        myMarker=[];
+        myMarker.add(map.Marker(
+              markerId: map.MarkerId(location.toString()),
+              position: location,
+
+          ));
       });
     });
   }
 
-  static final LatLng _kMapCenter =
-  LatLng(6.9271, 79.8612);
-  static final CameraPosition _kInitialPosition =
-  CameraPosition(
+
+  static final map.LatLng _kMapCenter =
+  map.LatLng(6.9271, 79.8612);
+  static final map.CameraPosition _kInitialPosition =
+  map.CameraPosition(
       target: _kMapCenter,
       zoom: 15.0,
       tilt: 0,
@@ -151,8 +159,9 @@ class _LocationState extends State<Location> {
                     Expanded(
                         child: Container(
                           height: 350,
-                          child: GoogleMap(
+                          child: map.GoogleMap(
                             onTap: _mapTapped,
+                            markers: Set.from(myMarker),
                             initialCameraPosition: _kInitialPosition,
                             gestureRecognizers: Set()..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
                           ),
