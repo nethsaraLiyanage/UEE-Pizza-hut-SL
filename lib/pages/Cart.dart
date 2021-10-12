@@ -61,248 +61,241 @@ class _CartState extends State<Cart> {
 
               return (Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
-                child: Column(children: [
-                  SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: GestureDetector(
-                                child: Image.asset(
-                                  'assets/images/backButton.png',
-                                  width: 1,
-                                ),
-                                onTap: () =>
-                                    {Navigator.pushNamed(context, '/product')},
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              child: Image.asset(
+                                'assets/images/backButton.png',
+                                width: 1,
                               ),
+                              onTap: () =>
+                                  {Navigator.pushNamed(context, '/product')},
                             ),
-                            Expanded(
-                              flex: 5,
-                              child: Container(
-                                child: Text(''),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          child: Center(
-                            child: Text('Shopping Cart',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.bold)),
                           ),
+                          Expanded(
+                            flex: 5,
+                            child: Container(
+                              child: Text(''),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        child: Center(
+                          child: Text('Shopping Cart',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold)),
                         ),
-                        SizedBox(height: 30.0),
-                        Container(
-                          height: 420,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: dataList!
-                                  .map((CartModel e) => Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: Checkbox(
-                                                  value: e.isSelected,
-                                                  onChanged: (value) {
-                                                    _httpUpdateCartItem.update(
-                                                        !e.isSelected, e.id);
-                                                    this.setState(() {
-                                                      checkBox = !checkBox;
-                                                    });
-                                                  },
-                                                  checkColor: Colors.green,
-                                                  activeColor: Colors.white,
-                                                ),
-                                                flex: 1,
-                                              ),
-                                              Expanded(
-                                                flex: 6,
-                                                child: FlatButton(
-                                                  onPressed: null,
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  child: Row(
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Align(
-                                                          alignment:
-                                                              const Alignment(
-                                                                  0.4, 1),
-                                                          child: SizedBox(
-                                                            width: 10,
-                                                            height: 10,
-                                                            child: OverflowBox(
-                                                              minWidth: 0.0,
-                                                              maxWidth: 150.0,
-                                                              minHeight: 0.0,
-                                                              maxHeight: 150.0,
-                                                              child: Row(
-                                                                children: [
-                                                                  Image.network(
-                                                                    e.image,
-                                                                    width: 150,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        flex: 2,
-                                                        child: Column(
+                      ),
+                      SizedBox(height: 30.0),
+                      Column(
+                        
+                        children: dataList!
+                            .map((CartModel e) => Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Checkbox(
+                                            value: e.isSelected,
+                                            onChanged: (value) {
+                                              _httpUpdateCartItem.update(
+                                                  !e.isSelected, e.id);
+                                              this.setState(() {
+                                                checkBox = !checkBox;
+                                              });
+                                            },
+                                            checkColor: Colors.green,
+                                            activeColor: Colors.white,
+                                          ),
+                                          flex: 1,
+                                        ),
+                                        Expanded(
+                                          flex: 6,
+                                          child: FlatButton(
+                                            onPressed: null,
+                                            padding:
+                                                const EdgeInsets.all(15),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Align(
+                                                    alignment:
+                                                        const Alignment(
+                                                            0.4, 1),
+                                                    child: SizedBox(
+                                                      width: 10,
+                                                      height: 10,
+                                                      child: OverflowBox(
+                                                        minWidth: 0.0,
+                                                        maxWidth: 150.0,
+                                                        minHeight: 0.0,
+                                                        maxHeight: 150.0,
+                                                        child: Row(
                                                           children: [
-                                                            Text(
-                                                              e.productName,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black),
+                                                            Image.network(
+                                                              e.image,
+                                                              width: 150,
                                                             ),
-                                                            SizedBox(
-                                                                height: 6.0),
-                                                            Text(
-                                                              "RS. " +
-                                                                  e.totPrice
-                                                                      .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 10),
-                                                            ),
-                                                            SizedBox(
-                                                                height: 5.0),
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  flex: 1,
-                                                                  child:
-                                                                      Text(''),
-                                                                ),
-                                                                Expanded(
-                                                                  flex: 1,
-                                                                  child:
-                                                                      FlatButton(
-                                                                    onPressed:
-                                                                        () => {
-                                                                      this.setState(
-                                                                          () {
-                                                                        this.pizVal =
-                                                                            this.pizVal -
-                                                                                1;
-                                                                      }),
-                                                                    },
-                                                                    child: Image
-                                                                        .asset(
-                                                                            'assets/images/minus.png'),
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  flex: 1,
-                                                                  child:
-                                                                      FlatButton(
-                                                                    onPressed:
-                                                                        null,
-                                                                    child: Text(this
-                                                                        .pizVal
-                                                                        .toString()),
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  flex: 1,
-                                                                  child:
-                                                                      FlatButton(
-                                                                    onPressed:
-                                                                        () => {
-                                                                      this.setState(
-                                                                          () {
-                                                                        this.pizVal =
-                                                                            this.pizVal +
-                                                                                1;
-                                                                      }),
-                                                                    },
-                                                                    child: Image
-                                                                        .asset(
-                                                                            'assets/images/plus.png'),
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            )
                                                           ],
                                                         ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        e.productName,
+                                                        textAlign:
+                                                            TextAlign
+                                                                .left,
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .black),
+                                                      ),
+                                                      SizedBox(
+                                                          height: 6.0),
+                                                      Text(
+                                                        "RS. " +
+                                                            e.totPrice
+                                                                .toString(),
+                                                        textAlign:
+                                                            TextAlign
+                                                                .left,
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .grey,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold,
+                                                            fontSize: 10),
+                                                      ),
+                                                      SizedBox(
+                                                          height: 5.0),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child:
+                                                                Text(''),
+                                                          ),
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child:
+                                                                FlatButton(
+                                                              onPressed:
+                                                                  () => {
+                                                                this.setState(
+                                                                    () {
+                                                                  this.pizVal =
+                                                                      this.pizVal -
+                                                                          1;
+                                                                }),
+                                                              },
+                                                              child: Image
+                                                                  .asset(
+                                                                      'assets/images/minus.png'),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child:
+                                                                FlatButton(
+                                                              onPressed:
+                                                                  null,
+                                                              child: Text(this
+                                                                  .pizVal
+                                                                  .toString()),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child:
+                                                                FlatButton(
+                                                              onPressed:
+                                                                  () => {
+                                                                this.setState(
+                                                                    () {
+                                                                  this.pizVal =
+                                                                      this.pizVal +
+                                                                          1;
+                                                                }),
+                                                              },
+                                                              child: Image
+                                                                  .asset(
+                                                                      'assets/images/plus.png'),
+                                                            ),
+                                                          )
+                                                        ],
                                                       )
                                                     ],
                                                   ),
-                                                  shape: RoundedRectangleBorder(
-                                                      side: BorderSide(
-                                                          color: Colors.black
-                                                              .withOpacity(1),
-                                                          width: 0.3,
-                                                          style: BorderStyle
-                                                              .solid),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                ),
-                                              ),
-                                            ],
+                                                )
+                                              ],
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    color: Colors.black
+                                                        .withOpacity(1),
+                                                    width: 0.3,
+                                                    style: BorderStyle
+                                                        .solid),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        20)),
                                           ),
-                                          SizedBox(height: 40.0),
-                                        ],
-                                      ))
-                                  .toList(),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 40.0),
-                        Divider(
-                          color: Colors.grey[200],
-                          thickness: 5,
-                        ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 40.0),
+                                  ],
+                                ))
+                            .toList(),
+                      ),
+                      SizedBox(height: 40.0),
+                      Divider(
+                        color: Colors.grey[200],
+                        thickness: 5,
+                      ),
 
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: FlatButton(
-                                color: Colors.red,
-                                padding: const EdgeInsets.all(15.0),
-                                hoverColor: Colors.red,
-                                onPressed: () =>
-                                    {Navigator.pushNamed(context, '/location')},
-                                child: Text('Checkout',
-                                    style: TextStyle(color: Colors.white)),
-                                focusColor: Colors.red,
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                        color: Colors.red,
-                                        width: 1,
-                                        style: BorderStyle.solid),
-                                    borderRadius: BorderRadius.circular(50)),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FlatButton(
+                              color: Colors.red,
+                              padding: const EdgeInsets.all(15.0),
+                              hoverColor: Colors.red,
+                              onPressed: () =>
+                                  {Navigator.pushNamed(context, '/location')},
+                              child: Text('Checkout',
+                                  style: TextStyle(color: Colors.white)),
+                              focusColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Colors.red,
+                                      width: 1,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(50)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
-                ]),
+                ),
               ));
             }
 
